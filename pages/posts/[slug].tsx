@@ -1,5 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Link from 'next/link'
+import { useEffect, useRef } from 'react'
 import Layout from '../../components/Layout'
 import { getAllPostSlugs, getPostData, getSortedPostsData } from '../../lib/posts'
 import { format } from 'date-fns'
@@ -16,11 +17,54 @@ interface PostProps {
   }
   prevPost: { slug: string; title: string } | null
   nextPost: { slug: string; title: string } | null
+  allPosts: { slug: string; title: string; date: string; tags?: string[] }[]
 }
 
-export default function Post({ postData, prevPost, nextPost }: PostProps) {
+// Giscus 评论组件
+function GiscusComments() {
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!ref.current) return
+    // 清空旧实例（路由跳转时）
+    ref.current.innerHTML = ''
+
+    const script = document.createElement('script')
+    script.src = 'https://giscus.app/client.js'
+    // ⚠️  主人需要去 https://giscus.app 配置后填入以下参数
+    script.setAttribute('data-repo', 'web1286/inimf-blog')
+    script.setAttribute('data-repo-id', 'FILL_YOUR_REPO_ID')          // 从 giscus.app 获取
+    script.setAttribute('data-category', 'General')
+    script.setAttribute('data-category-id', 'FILL_YOUR_CATEGORY_ID')  // 从 giscus.app 获取
+    script.setAttribute('data-mapping', 'pathname')
+    script.setAttribute('data-strict', '0')
+    script.setAttribute('data-reactions-enabled', '1')
+    script.setAttribute('data-emit-metadata', '0')
+    script.setAttribute('data-input-position', 'top')
+    script.setAttribute('data-theme', 'light')
+    script.setAttribute('data-lang', 'zh-CN')
+    script.setAttribute('data-loading', 'lazy')
+    script.setAttribute('crossorigin', 'anonymous')
+    script.async = true
+
+    ref.current.appendChild(script)
+  }, [])
+
   return (
-    <Layout title={postData.title} description={postData.summary}>
+    <div className="giscus-wrap">
+      <div className="giscus-title">评论 / COMMENTS</div>
+      <div ref={ref} />
+    </div>
+  )
+}
+
+export default function Post({ postData, prevPost, nextPost, allPosts }: PostProps) {
+  return (
+    <Layout
+      title={postData.title}
+      description={postData.summary}
+      posts={allPosts}
+    >
       <article className="article-page">
         <header className="article-header">
           <h1 className="article-title">{postData.title}</h1>
@@ -29,7 +73,7 @@ export default function Post({ postData, prevPost, nextPost }: PostProps) {
               {format(new Date(postData.date), 'yyyy年 M月 d日', { locale: zhCN })}
             </time>
             {postData.tags && postData.tags.length > 0 && (
-              <div className="post-tags">
+              <div className="post-card-footer">
                 {postData.tags.map((tag) => (
                   <span key={tag} className="post-tag">
                     {tag}
@@ -45,6 +89,7 @@ export default function Post({ postData, prevPost, nextPost }: PostProps) {
           dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
         />
 
+        {/* 上一篇 / 下一篇 */}
         <nav className="post-navigation">
           <div className="nav-prev">
             {nextPost && (
@@ -67,6 +112,9 @@ export default function Post({ postData, prevPost, nextPost }: PostProps) {
             )}
           </div>
         </nav>
+
+        {/* Giscus 评论区 */}
+        <GiscusComments />
       </article>
     </Layout>
   )
@@ -87,6 +135,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       postData,
+      allPosts: allPosts.map(p => ({
+        slug: p.slug,
+        title: p.title,
+        date: p.date,
+        tags: p.tags || [],
+      })),
       prevPost: prevPost ? { slug: prevPost.slug, title: prevPost.title } : null,
       nextPost: nextPost ? { slug: nextPost.slug, title: nextPost.title } : null,
     },
