@@ -64,6 +64,7 @@ export default function Post({ postData, prevPost, nextPost, allPosts }: PostPro
       title={postData.title}
       description={postData.summary}
       posts={allPosts}
+      hideSidebar={true}
     >
       <article className="article-page">
         <header className="article-header">
