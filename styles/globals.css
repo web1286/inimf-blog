@@ -12,6 +12,7 @@
     'Microsoft YaHei', 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
 
+  /* 深色科技配色 */
   --color-bg: #0d1117;
   --color-surface: #161b22;
   --color-surface-2: #21262d;
@@ -22,6 +23,7 @@
   --color-accent: #58a6ff;
   --color-accent-hover: #79c0ff;
   --color-accent-green: #3fb950;
+  --color-accent-orange: #d29922;
   --color-tag-bg: #21262d;
   --color-tag-text: #58a6ff;
 
@@ -48,11 +50,15 @@ a {
   text-decoration: none;
 }
 
+/* ==================== 布局 ==================== */
+
 .page-wrapper {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 var(--spacing-page);
 }
+
+/* ==================== 顶部导航 ==================== */
 
 .site-header {
   padding: 1.25rem 0;
@@ -62,6 +68,7 @@ a {
   top: 0;
   background: rgba(13, 17, 23, 0.92);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   z-index: 100;
 }
 
@@ -78,12 +85,15 @@ a {
   font-weight: 700;
   color: var(--color-accent);
   letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .site-title::before {
   content: '>';
   color: var(--color-accent-green);
-  margin-right: 0.4rem;
+  font-weight: 400;
 }
 
 .site-title:hover {
@@ -110,6 +120,8 @@ a {
   background: var(--color-surface-2);
 }
 
+/* ==================== 文章列表 ==================== */
+
 .post-list {
   list-style: none;
 }
@@ -120,11 +132,12 @@ a {
   border: 1px solid var(--color-border);
   border-radius: 8px;
   background: var(--color-surface);
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, transform 0.15s;
 }
 
 .post-item:hover {
   border-color: var(--color-accent);
+  transform: translateY(-1px);
 }
 
 .post-meta {
@@ -138,6 +151,7 @@ a {
   font-size: 0.78rem;
   color: var(--color-text-light);
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
 }
 
 .post-tags {
@@ -161,6 +175,7 @@ a {
   font-weight: 600;
   line-height: 1.45;
   margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
 }
 
 .post-title a {
@@ -182,6 +197,8 @@ a {
   overflow: hidden;
 }
 
+/* ==================== 文章详情页 ==================== */
+
 .article-header {
   margin-bottom: 2.5rem;
   padding-bottom: 1.5rem;
@@ -192,7 +209,9 @@ a {
   font-size: 1.75rem;
   font-weight: 700;
   line-height: 1.3;
+  letter-spacing: -0.02em;
   margin-bottom: 1rem;
+  color: var(--color-text);
 }
 
 .article-meta {
@@ -208,26 +227,34 @@ a {
   font-family: var(--font-mono);
 }
 
+/* ==================== Markdown 内容样式 ==================== */
+
 .article-content {
   font-size: 1rem;
   line-height: 1.85;
+  color: var(--color-text);
 }
 
-.article-content h2 {
-  font-size: 1.25rem;
-  color: var(--color-accent);
-  border-bottom: 1px solid var(--color-border);
-  padding-bottom: 0.4rem;
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4 {
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
   margin-top: 2.5rem;
   margin-bottom: 1rem;
+  color: var(--color-text);
 }
 
-.article-content h3 {
-  font-size: 1.05rem;
-  color: var(--color-accent-green);
-  margin-top: 2rem;
-  margin-bottom: 0.75rem;
+.article-content h1 { font-size: 1.6rem; }
+.article-content h2 {
+  font-size: 1.25rem;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.4rem;
+  color: var(--color-accent);
 }
+.article-content h3 { font-size: 1.05rem; color: var(--color-accent-green); }
 
 .article-content p {
   margin-bottom: 1.5rem;
@@ -236,11 +263,34 @@ a {
 .article-content a {
   color: var(--color-accent);
   text-decoration: underline;
+  text-decoration-color: rgba(88, 166, 255, 0.3);
   text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s;
 }
 
 .article-content a:hover {
   color: var(--color-accent-hover);
+  text-decoration-color: var(--color-accent);
+}
+
+.article-content strong {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.article-content em {
+  font-style: italic;
+  color: var(--color-text-muted);
+}
+
+.article-content blockquote {
+  border-left: 3px solid var(--color-accent);
+  padding: 0.75rem 1.25rem;
+  margin: 1.5rem 0;
+  background: var(--color-surface);
+  border-radius: 0 6px 6px 0;
+  color: var(--color-text-muted);
+  font-style: italic;
 }
 
 .article-content code {
@@ -249,7 +299,7 @@ a {
   background: var(--color-surface-2);
   padding: 0.15em 0.45em;
   border-radius: 4px;
-  color: #d29922;
+  color: var(--color-accent-orange);
   border: 1px solid var(--color-border);
 }
 
@@ -265,26 +315,61 @@ a {
 .article-content pre code {
   background: none;
   color: #e6edf3;
+  font-size: 0.875rem;
   padding: 0;
   border: none;
 }
 
-.article-content blockquote {
-  border-left: 3px solid var(--color-accent);
-  padding: 0.75rem 1.25rem;
-  margin: 1.5rem 0;
-  background: var(--color-surface);
-  border-radius: 0 6px 6px 0;
-  color: var(--color-text-muted);
-  font-style: italic;
+.article-content ul,
+.article-content ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.article-content li {
+  margin-bottom: 0.4rem;
+  color: var(--color-text);
 }
 
 .article-content img {
   max-width: 100%;
+  height: auto;
   border-radius: 8px;
   margin: 1.5rem 0;
   border: 1px solid var(--color-border);
 }
+
+.article-content hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 2.5rem 0;
+}
+
+.article-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+.article-content th,
+.article-content td {
+  border: 1px solid var(--color-border);
+  padding: 0.6rem 1rem;
+  text-align: left;
+}
+
+.article-content th {
+  background: var(--color-surface-2);
+  font-weight: 600;
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ==================== 文章导航 ==================== */
 
 .post-navigation {
   display: flex;
@@ -295,22 +380,89 @@ a {
   border-top: 1px solid var(--color-border);
 }
 
+.nav-prev, .nav-next {
+  flex: 1;
+}
+
+.nav-next {
+  text-align: right;
+}
+
 .nav-label {
+  display: block;
   font-size: 0.72rem;
   color: var(--color-text-light);
+  margin-bottom: 0.25rem;
   text-transform: uppercase;
+  letter-spacing: 0.08em;
   font-family: var(--font-mono);
-  letter-spacing: 0.05em;
 }
 
 .nav-title {
   font-size: 0.9rem;
   color: var(--color-text-muted);
+  transition: color 0.15s;
 }
 
 .nav-title:hover {
   color: var(--color-accent);
 }
+
+/* ==================== 归档页 ==================== */
+
+.archive-year {
+  margin-bottom: 2rem;
+}
+
+.archive-year-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+}
+
+.archive-list {
+  list-style: none;
+}
+
+.archive-item {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(48, 54, 61, 0.5);
+}
+
+.archive-date {
+  font-size: 0.78rem;
+  color: var(--color-text-light);
+  min-width: 5.5rem;
+  font-variant-numeric: tabular-nums;
+  font-family: var(--font-mono);
+}
+
+.archive-title {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  transition: color 0.15s;
+}
+
+.archive-title:hover {
+  color: var(--color-accent);
+}
+
+/* ==================== 关于页 ==================== */
+
+.about-page h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  letter-spacing: -0.02em;
+}
+
+/* ==================== 页脚 ==================== */
 
 .site-footer {
   padding: 2rem 0;
@@ -325,8 +477,22 @@ a {
   font-family: var(--font-mono);
 }
 
+/* ==================== 空状态 ==================== */
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 0;
+  color: var(--color-text-muted);
+}
+
+/* ==================== 响应式 ==================== */
+
 @media (max-width: 640px) {
   html { font-size: 15px; }
   :root { --spacing-page: 1.25rem; }
+  .site-header { margin-bottom: 1.5rem; }
+  .article-title { font-size: 1.4rem; }
+  .post-navigation { flex-direction: column; }
+  .nav-next { text-align: left; }
   .post-item { padding: 1.25rem; }
 }
