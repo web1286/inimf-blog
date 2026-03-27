@@ -33,9 +33,9 @@ function GiscusComments() {
     script.src = 'https://giscus.app/client.js'
     // ⚠️  主人需要去 https://giscus.app 配置后填入以下参数
     script.setAttribute('data-repo', 'web1286/inimf-blog')
-    script.setAttribute('data-repo-id', 'FILL_YOUR_REPO_ID')          // 从 giscus.app 获取
+    script.setAttribute('data-repo-id', 'R_kgDORyMqNQ')
     script.setAttribute('data-category', 'General')
-    script.setAttribute('data-category-id', 'FILL_YOUR_CATEGORY_ID')  // 从 giscus.app 获取
+    script.setAttribute('data-category-id', 'DIC_kwDORyMqNc4C5aGn')
     script.setAttribute('data-mapping', 'pathname')
     script.setAttribute('data-strict', '0')
     script.setAttribute('data-reactions-enabled', '1')
