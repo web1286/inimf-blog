@@ -9,6 +9,7 @@ interface Post {
   slug: string
   title: string
   date: string
+  tags?: string[]
 }
 
 interface ArchiveProps {
@@ -27,7 +28,8 @@ export default function Archive({ posts }: ArchiveProps) {
   const years = Object.keys(grouped).sort((a, b) => Number(b) - Number(a))
 
   return (
-    <Layout title="归档">
+    <Layout title="归档" posts={posts}>
+      <div className="archive-page">
       {years.map((year) => (
         <div key={year} className="archive-year">
           <h2 className="archive-year-title">{year}</h2>
@@ -45,11 +47,12 @@ export default function Archive({ posts }: ArchiveProps) {
           </ul>
         </div>
       ))}
-      {years.length === 0 && (
-        <div className="empty-state">
-          <p>还没有文章</p>
-        </div>
-      )}
+        {years.length === 0 && (
+          <div className="empty-state">
+            <p>还没有文章</p>
+          </div>
+        )}
+      </div>
     </Layout>
   )
 }
