@@ -26,24 +26,23 @@ export default function Layout({ children, title, description }: LayoutProps) {
         <link rel="alternate" type="application/rss+xml" title={config.title} href="/feed.xml" />
       </Head>
 
+      <header className="site-header">
+        <div className="header-inner">
+          <Link href="/" className="site-title">
+            {config.title}
+          </Link>
+          <nav className="site-nav">
+            {config.nav.map((item: { label: string; href: string }) => (
+              <Link key={item.href} href={item.href}>
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
+      </header>
+
       <div className="page-wrapper">
-        <header className="site-header">
-          <div className="header-inner">
-            <Link href="/" className="site-title">
-              {config.title}
-            </Link>
-            <nav className="site-nav">
-              {config.nav.map((item: { label: string; href: string }) => (
-                <Link key={item.href} href={item.href}>
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
-        </header>
-
         <main>{children}</main>
-
         <footer className="site-footer">
           <p>{config.footer}</p>
         </footer>
