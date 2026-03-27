@@ -13,7 +13,7 @@ const config = {
   // 导航菜单
   nav: [
     { label: '首页', href: '/' },
-    { label: '归档', href: '/archive' },
+    { label: '目录', href: '/archive' },
     { label: '关于', href: '/about' },
   ],
   // 页脚文字
