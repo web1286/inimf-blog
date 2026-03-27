@@ -21,7 +21,7 @@ interface PostProps {
 export default function Post({ postData, prevPost, nextPost }: PostProps) {
   return (
     <Layout title={postData.title} description={postData.summary}>
-      <article>
+      <article className="article-page">
         <header className="article-header">
           <h1 className="article-title">{postData.title}</h1>
           <div className="article-meta">
