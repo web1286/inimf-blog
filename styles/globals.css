@@ -1,0 +1,436 @@
+/* 全局样式 - 极简阅读风格 */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --font-serif: 'Georgia', 'Noto Serif SC', 'Source Han Serif SC', serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+
+  --color-bg: #fafaf9;
+  --color-surface: #ffffff;
+  --color-text: #1a1a1a;
+  --color-text-muted: #6b7280;
+  --color-text-light: #9ca3af;
+  --color-border: #e5e7eb;
+  --color-accent: #1a1a1a;
+  --color-accent-hover: #374151;
+  --color-tag-bg: #f3f4f6;
+
+  --max-width: 720px;
+  --spacing-page: 2rem;
+}
+
+html {
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.75;
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ==================== 布局 ==================== */
+
+.page-wrapper {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-page);
+}
+
+/* ==================== 顶部导航 ==================== */
+
+.site-header {
+  padding: 2rem 0 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 3rem;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.site-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+.site-title:hover {
+  color: var(--color-accent-hover);
+}
+
+.site-nav {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.site-nav a {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  transition: color 0.15s;
+}
+
+.site-nav a:hover {
+  color: var(--color-text);
+}
+
+/* ==================== 文章列表 ==================== */
+
+.post-list {
+  list-style: none;
+}
+
+.post-item {
+  padding: 1.75rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.post-item:first-child {
+  padding-top: 0;
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.post-date {
+  font-size: 0.82rem;
+  color: var(--color-text-light);
+  font-variant-numeric: tabular-nums;
+}
+
+.post-tags {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.post-tag {
+  font-size: 0.75rem;
+  padding: 0.1rem 0.5rem;
+  background: var(--color-tag-bg);
+  color: var(--color-text-muted);
+  border-radius: 3px;
+}
+
+.post-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.post-title a {
+  color: var(--color-text);
+  transition: color 0.15s;
+}
+
+.post-title a:hover {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+  text-decoration-color: var(--color-border);
+  text-underline-offset: 3px;
+}
+
+.post-summary {
+  font-size: 0.92rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ==================== 文章详情页 ==================== */
+
+.article-header {
+  margin-bottom: 2.5rem;
+}
+
+.article-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.article-date {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+}
+
+/* ==================== Markdown 内容样式 ==================== */
+
+.article-content {
+  font-size: 1rem;
+  line-height: 1.85;
+  color: var(--color-text);
+}
+
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4 {
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.article-content h1 { font-size: 1.6rem; }
+.article-content h2 { font-size: 1.3rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.4rem; }
+.article-content h3 { font-size: 1.1rem; }
+
+.article-content p {
+  margin-bottom: 1.5rem;
+}
+
+.article-content a {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-color: var(--color-border);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s;
+}
+
+.article-content a:hover {
+  text-decoration-color: var(--color-text);
+}
+
+.article-content strong {
+  font-weight: 600;
+}
+
+.article-content em {
+  font-style: italic;
+}
+
+.article-content blockquote {
+  border-left: 3px solid var(--color-border);
+  padding-left: 1.25rem;
+  margin: 1.5rem 0;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.article-content code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--color-tag-bg);
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+  color: #c7254e;
+}
+
+.article-content pre {
+  background: #1e1e1e;
+  border-radius: 8px;
+  padding: 1.25rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.article-content pre code {
+  background: none;
+  color: #d4d4d4;
+  font-size: 0.875rem;
+  padding: 0;
+}
+
+.article-content ul,
+.article-content ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.article-content li {
+  margin-bottom: 0.4rem;
+}
+
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin: 1.5rem 0;
+}
+
+.article-content hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 2.5rem 0;
+}
+
+.article-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+.article-content th,
+.article-content td {
+  border: 1px solid var(--color-border);
+  padding: 0.6rem 1rem;
+  text-align: left;
+}
+
+.article-content th {
+  background: var(--color-tag-bg);
+  font-weight: 600;
+}
+
+/* ==================== 文章导航 ==================== */
+
+.post-navigation {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.nav-prev, .nav-next {
+  flex: 1;
+}
+
+.nav-next {
+  text-align: right;
+}
+
+.nav-label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.nav-title {
+  font-size: 0.92rem;
+  color: var(--color-text-muted);
+  transition: color 0.15s;
+}
+
+.nav-title:hover {
+  color: var(--color-text);
+}
+
+/* ==================== 归档页 ==================== */
+
+.archive-year {
+  margin-bottom: 2rem;
+}
+
+.archive-year-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.archive-list {
+  list-style: none;
+}
+
+.archive-item {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.4rem 0;
+}
+
+.archive-date {
+  font-size: 0.82rem;
+  color: var(--color-text-light);
+  min-width: 5rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.archive-title {
+  font-size: 0.95rem;
+  color: var(--color-text);
+  transition: color 0.15s;
+}
+
+.archive-title:hover {
+  color: var(--color-accent-hover);
+}
+
+/* ==================== 关于页 ==================== */
+
+.about-page h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  letter-spacing: -0.02em;
+}
+
+/* ==================== 页脚 ==================== */
+
+.site-footer {
+  padding: 2.5rem 0;
+  margin-top: 4rem;
+  border-top: 1px solid var(--color-border);
+  text-align: center;
+}
+
+.site-footer p {
+  font-size: 0.82rem;
+  color: var(--color-text-light);
+}
+
+/* ==================== 空状态 ==================== */
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 0;
+  color: var(--color-text-muted);
+}
+
+/* ==================== 响应式 ==================== */
+
+@media (max-width: 640px) {
+  html { font-size: 16px; }
+  :root { --spacing-page: 1.25rem; }
+  .site-header { margin-bottom: 2rem; }
+  .article-title { font-size: 1.4rem; }
+  .post-navigation { flex-direction: column; }
+  .nav-next { text-align: left; }
+}
