@@ -47,7 +47,6 @@ export default function Layout({ children, title, description, posts = [], hideS
         <meta property="og:description" content={pageDesc} />
         <meta property="og:site_name" content={config.title} />
         <link rel="icon" href="/favicon.ico" />
-        <link rel="alternate" type="application/rss+xml" title={config.title} href="/feed.xml" />
       </Head>
 
       {/* 顶部导航：深灰 xiaohu.ai 风格 */}
@@ -64,16 +63,11 @@ export default function Layout({ children, title, description, posts = [], hideS
               </Link>
             ))}
           </nav>
-          <div className="header-right">
-            <a href="/feed.xml" className="header-rss" title="RSS 订阅">
-              RSS
-            </a>
-          </div>
         </div>
       </header>
 
       {/* 双栏布局 */}
-      <div className="site-body">
+      <div className={`site-body${hideSidebar ? ' no-sidebar' : ''}`}>
         {/* 左侧边栏 */}
         {!hideSidebar && (
           <aside className="site-sidebar">
