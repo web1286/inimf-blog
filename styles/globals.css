@@ -490,6 +490,8 @@ a {
   font-size: 1.05rem;
   line-height: 2.0;
   color: #333333;
+  text-align: justify;
+  word-break: break-word;
   font-family: var(--font-sans);
   word-break: break-word;
 }
@@ -856,7 +858,7 @@ a {
 
   .article-page { padding: 1.25rem 1rem 2rem; border-radius: 8px; }
   .article-title { font-size: 1.4rem; }
-  .article-content { font-size: 1rem; line-height: 1.95; }
+  .article-content { font-size: 1rem; line-height: 1.95; text-align: justify; }
   .article-content h2 { font-size: 1rem; padding: 0.48rem 0.8rem; }
   .post-navigation { flex-direction: column; }
   .nav-next { text-align: left; }
