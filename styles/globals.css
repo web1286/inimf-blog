@@ -405,7 +405,7 @@ a {
 }
 
 .post-card {
-  background: var(--color-surface);
+  background: var(--color-surface-gray);
   border-radius: 8px;
   border: 1px solid var(--color-border);
   overflow: hidden;
@@ -516,11 +516,7 @@ a {
 
 /* Feed 区块容器 */
 .feed-section {
-  background: var(--color-surface-gray);
-  border-radius: 10px;
-  border: 1px solid var(--color-border);
-  padding: 1.25rem 1.25rem 1rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1.25rem;
 }
 
 /* 两个 Feed 之间的分隔线 */
@@ -1381,4 +1377,405 @@ a {
 .feed-more-link:hover {
   background: var(--color-accent);
   color: #fff;
+}
+
+/* ==================== 左侧 sidebar 更多链接 ==================== */
+.sidebar-more-link {
+  font-size: 0.72rem;
+  color: var(--color-accent);
+  font-weight: 500;
+  text-decoration: none;
+  padding: 0.1rem 0.5rem;
+  border-radius: 10px;
+  transition: background 0.15s;
+}
+.sidebar-more-link:hover {
+  background: var(--color-accent-light);
+}
+
+/* ==================== 独立目录页通用结构 ==================== */
+.archive-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 0 4rem;
+}
+
+.archive-header {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.archive-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.archive-desc {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+/* ==================== 记录轨迹目录页 ==================== */
+.tracks-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.tracks-date-group {}
+
+.tracks-date-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.75rem;
+  padding: 0.2rem 0.6rem;
+  background: var(--color-surface-gray);
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.tracks-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.tracks-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: var(--color-surface-gray);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
+}
+
+.tracks-type-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+  flex-shrink: 0;
+  margin-top: 0.05rem;
+}
+
+.tracks-item-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.tracks-item-content {
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+  margin-bottom: 0.3rem;
+}
+
+.tracks-item-time {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+}
+
+/* ==================== 备注信息目录页 ==================== */
+.notes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.notes-item {
+  background: var(--color-surface-gray);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1.1rem 1.25rem;
+}
+
+.notes-item-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.notes-tag-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.1rem 0.5rem;
+  border-radius: 4px;
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+}
+
+.notes-date {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+}
+
+.notes-item-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  text-decoration: none;
+  line-height: 1.45;
+  display: block;
+  margin-bottom: 0.35rem;
+  transition: color 0.15s;
+}
+.notes-item-title:hover {
+  color: var(--color-accent);
+}
+
+.notes-item-summary {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ==================== 待办事项目录页 ==================== */
+.todos-section {
+  margin-bottom: 2rem;
+}
+
+.todos-section-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.todos-full-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.todos-full-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: var(--color-surface-gray);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+}
+
+.todos-full-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.todos-high .todos-full-dot {
+  background: #ef4444;
+}
+
+.todos-priority-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #ef4444;
+  background: #fef2f2;
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  margin-left: auto;
+}
+
+.todos-full-text {
+  font-size: 0.88rem;
+  color: var(--color-text);
+}
+
+.todos-full-done .todos-full-text {
+  text-decoration: line-through;
+  color: var(--color-text-muted);
+}
+
+.todos-dot-done {
+  background: #22c55e !important;
+}
+
+/* ==================== 全部动态目录页 ==================== */
+.updates-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.updates-month-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  margin-bottom: 0.75rem;
+  padding: 0.2rem 0.6rem;
+  background: var(--color-surface-gray);
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.updates-items {
+  display: flex;
+  flex-direction: column;
+}
+
+.updates-item {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+.updates-item:last-child {
+  border-bottom: none;
+}
+
+.updates-item-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.updates-avatar-sm {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.updates-vline {
+  width: 1px;
+  flex: 1;
+  background: var(--color-border);
+  margin: 4px 0;
+}
+
+.updates-item-right {
+  flex: 1;
+  min-width: 0;
+  padding-bottom: 0.25rem;
+}
+
+.updates-item-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.updates-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.08rem 0.45rem;
+  border-radius: 4px;
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+}
+
+.updates-time {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+}
+
+.updates-text {
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+/* ==================== 全部文章目录页 ==================== */
+.posts-archive-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.posts-year-label {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-text);
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.posts-year-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.posts-archive-item {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+.posts-archive-item:last-child {
+  border-bottom: none;
+}
+
+.posts-archive-date {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  padding-top: 0.2rem;
+  min-width: 55px;
+}
+
+.posts-archive-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.posts-archive-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  text-decoration: none;
+  line-height: 1.4;
+  transition: color 0.15s;
+}
+.posts-archive-title:hover {
+  color: var(--color-accent);
+}
+
+.posts-archive-summary {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
