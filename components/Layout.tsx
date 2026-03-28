@@ -106,17 +106,17 @@ export default function Layout({ children, title, description, posts = [], hideS
             <div className="sidebar-card">
               <div className="sidebar-card-header">
                 <span className="sidebar-card-title">待办事项</span>
-                <span className="sidebar-badge">{pendingTodos.length} 项</span>
+                <Link href="/todos" className="sidebar-more-link">更多</Link>
               </div>
               <div className="sidebar-card-body todo-body">
                 <ul className="todo-list">
-                  {pendingTodos.map(item => (
+                  {pendingTodos.slice(0, 4).map(item => (
                     <li key={item.id} className={`todo-item${item.priority === 'high' ? ' todo-high' : ''}`}>
                       <span className="todo-dot" />
                       <span className="todo-text">{item.text}</span>
                     </li>
                   ))}
-                  {doneTodos.map(item => (
+                  {doneTodos.slice(0, 2).map(item => (
                     <li key={item.id} className="todo-item todo-done">
                       <span className="todo-dot todo-dot-done" />
                       <span className="todo-text">{item.text}</span>
@@ -143,6 +143,7 @@ export default function Layout({ children, title, description, posts = [], hideS
               <div className="rail-card-header">
                 <span className="rail-card-icon">🗓</span>
                 <span className="rail-card-title">记录轨迹</span>
+                <Link href="/tracks" className="rail-more-link" style={{marginLeft:'auto'}}>更多</Link>
                 <span className="rail-live-dot" />
               </div>
               <div className="rail-card-body rail-timeline-body">
@@ -176,6 +177,7 @@ export default function Layout({ children, title, description, posts = [], hideS
               <div className="rail-card-header">
                 <span className="rail-card-icon">📌</span>
                 <span className="rail-card-title">备注信息</span>
+                <Link href="/notes" className="rail-more-link" style={{marginLeft:'auto'}}>更多</Link>
               </div>
               <div className="rail-card-body rail-timeline-body">
                 <ul className="tl-list">
