@@ -1,16 +1,12 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { ReactNode } from 'react'
-import { getSortedPostsData } from '../lib/posts'
 import { format } from 'date-fns'
 import { zhCN } from 'date-fns/locale'
 import { TRACKS } from '../data/tracks'
 import { NOTES } from '../data/notes'
 import { TODO_ITEMS } from '../data/todos'
 const config = require('../blog.config')
-
-// 消除 getSortedPostsData 的 unused import 警告（留着备用）
-void getSortedPostsData
 
 interface Post {
   slug: string
