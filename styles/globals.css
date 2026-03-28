@@ -553,6 +553,55 @@ a {
   border-radius: 20px;
 }
 
+/* 条数 + 更多 内联组合 */
+.feed-count-with-more {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.feed-count-num {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  background: var(--color-bg);
+  padding: 0.15rem 0.55rem;
+  border-radius: 20px;
+}
+
+.feed-inline-more {
+  font-size: 0.72rem;
+  color: var(--color-accent);
+  opacity: 0.75;
+  transition: opacity 0.15s;
+}
+
+.feed-inline-more:hover {
+  opacity: 1;
+}
+
+/* 右侧栏：条数 + 更多 内联组合 */
+.rail-count-with-more {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.rail-count-num {
+  font-size: 0.68rem;
+  color: var(--color-text-muted);
+}
+
+.rail-inline-more {
+  font-size: 0.68rem;
+  color: var(--color-accent);
+  opacity: 0.7;
+  transition: opacity 0.15s;
+}
+
+.rail-inline-more:hover {
+  opacity: 1;
+}
+
 /* ==================== 文章详情页 ==================== */
 
 .article-wrap {
@@ -1779,3 +1828,184 @@ a {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* ==================== 总目录页 ==================== */
+.toc-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 0 4rem;
+}
+
+.toc-page-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.toc-page-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.4rem;
+}
+
+.toc-page-desc {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+/* 模块容器 */
+.toc-module {
+  margin-bottom: 2rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* 模块标题行 */
+.toc-module-header {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.85rem 1.25rem;
+  background: var(--color-surface-gray);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.toc-module-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.toc-module-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+
+.toc-module-count {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  background: var(--color-bg);
+  padding: 0.1rem 0.5rem;
+  border-radius: 20px;
+}
+
+.toc-module-more {
+  margin-left: auto;
+  font-size: 0.72rem;
+  color: var(--color-accent);
+  opacity: 0.8;
+  transition: opacity 0.15s;
+}
+
+.toc-module-more:hover {
+  opacity: 1;
+}
+
+/* 模块列表 */
+.toc-list {
+  list-style: none;
+  padding: 0.5rem 1.25rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.toc-item {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--color-border-light);
+  min-width: 0;
+}
+
+.toc-item:last-child {
+  border-bottom: none;
+}
+
+.toc-item-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.toc-item-dot-note {
+  background: #a855f7;
+}
+
+.toc-item-dot-high {
+  background: #ef4444;
+}
+
+.toc-item-dot-done {
+  background: #cccccc !important;
+}
+
+.toc-item-date {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.toc-item-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.08rem 0.45rem;
+  border-radius: 20px;
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.toc-tag-high {
+  background: #fee2e2;
+  color: #ef4444;
+}
+
+.toc-item-text {
+  font-size: 0.83rem;
+  color: var(--color-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+}
+
+.toc-item-link {
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+  transition: color 0.15s;
+}
+
+.toc-item-link:hover {
+  color: var(--color-accent);
+}
+
+.toc-item-done .toc-item-text {
+  color: #bbbbbb;
+  text-decoration: line-through;
+}
+
+.toc-empty {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  padding: 1rem 1.25rem;
+}
+
