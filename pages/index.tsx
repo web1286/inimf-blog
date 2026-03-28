@@ -21,8 +21,8 @@ interface HomeProps {
 }
 
 export default function Home({ posts }: HomeProps) {
-  const displayUpdates = UPDATES.slice(0, 5)
-  const displayPosts = posts.slice(0, 5)
+  const displayUpdates = UPDATES.slice(0, 3)
+  const displayPosts = posts.slice(0, 3)
 
   return (
     <Layout posts={posts}>
@@ -31,7 +31,12 @@ export default function Home({ posts }: HomeProps) {
       <div className="feed-section">
         <div className="feed-header">
           <span className="feed-title">最新动态</span>
-          <span className="feed-count">{UPDATES.length} 条</span>
+          <span className="feed-count-with-more">
+            <span className="feed-count-num">{UPDATES.length} 条</span>
+            {UPDATES.length > 3 && (
+              <Link href="/updates" className="feed-inline-more">更多</Link>
+            )}
+          </span>
         </div>
 
         {/* 微博/X 时间线 */}
@@ -62,16 +67,6 @@ export default function Home({ posts }: HomeProps) {
             )
           })}
         </div>
-
-        {UPDATES.length > 5 ? (
-          <div className="feed-more">
-            <Link href="/updates" className="feed-more-link">查看全部动态 →</Link>
-          </div>
-        ) : (
-          <div className="feed-more">
-            <Link href="/updates" className="feed-more-link">查看全部动态 →</Link>
-          </div>
-        )}
       </div>
 
       {/* ========== 分隔线 ========== */}
@@ -81,7 +76,12 @@ export default function Home({ posts }: HomeProps) {
       <div className="feed-section">
         <div className="feed-header">
           <span className="feed-title">最新文章</span>
-          <span className="feed-count">{posts.length} 篇</span>
+          <span className="feed-count-with-more">
+            <span className="feed-count-num">{posts.length} 篇</span>
+            {posts.length > 3 && (
+              <Link href="/posts" className="feed-inline-more">更多</Link>
+            )}
+          </span>
         </div>
 
         {posts.length === 0 ? (
@@ -89,58 +89,52 @@ export default function Home({ posts }: HomeProps) {
             <p>还没有文章，快去写第一篇吧 ✍️</p>
           </div>
         ) : (
-          <>
-            <div className="post-feed">
-              {displayPosts.map((post) => (
-                <article key={post.slug} className="post-card">
-                  <div className="post-card-inner">
-                    <div className="post-card-content">
-                      <div className="post-card-meta">
-                        {post.tags && post.tags.length > 0 && (
-                          <>
-                            <span className="post-category-badge">{post.tags[0]}</span>
-                            <span className="post-meta-sep">·</span>
-                          </>
-                        )}
-                        <time className="post-date" dateTime={post.date}>
-                          {format(new Date(post.date), 'yyyy年M月d日', { locale: zhCN })}
-                        </time>
-                      </div>
-
-                      <h2 className="post-card-title">
-                        <Link href={`/posts/${post.slug}`}>{post.title}</Link>
-                      </h2>
-
-                      {post.summary && (
-                        <p className="post-card-summary">{post.summary}</p>
+          <div className="post-feed">
+            {displayPosts.map((post) => (
+              <article key={post.slug} className="post-card">
+                <div className="post-card-inner">
+                  <div className="post-card-content">
+                    <div className="post-card-meta">
+                      {post.tags && post.tags.length > 0 && (
+                        <>
+                          <span className="post-category-badge">{post.tags[0]}</span>
+                          <span className="post-meta-sep">·</span>
+                        </>
                       )}
-
-                      {post.tags && post.tags.length > 1 && (
-                        <div className="post-card-footer">
-                          {post.tags.slice(1).map((tag) => (
-                            <span key={tag} className="post-tag">{tag}</span>
-                          ))}
-                        </div>
-                      )}
+                      <time className="post-date" dateTime={post.date}>
+                        {format(new Date(post.date), 'yyyy年M月d日', { locale: zhCN })}
+                      </time>
                     </div>
 
-                    {post.cover && (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={post.cover}
-                        alt={post.title}
-                        className="post-card-cover"
-                      />
+                    <h2 className="post-card-title">
+                      <Link href={`/posts/${post.slug}`}>{post.title}</Link>
+                    </h2>
+
+                    {post.summary && (
+                      <p className="post-card-summary">{post.summary}</p>
+                    )}
+
+                    {post.tags && post.tags.length > 1 && (
+                      <div className="post-card-footer">
+                        {post.tags.slice(1).map((tag) => (
+                          <span key={tag} className="post-tag">{tag}</span>
+                        ))}
+                      </div>
                     )}
                   </div>
-                </article>
-              ))}
-            </div>
 
-            <div className="feed-more">
-              <Link href="/posts" className="feed-more-link">查看全部文章 →</Link>
-            </div>
-          </>
+                  {post.cover && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={post.cover}
+                      alt={post.title}
+                      className="post-card-cover"
+                    />
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
         )}
       </div>
 
