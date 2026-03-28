@@ -63,9 +63,13 @@ export default function Home({ posts }: HomeProps) {
           })}
         </div>
 
-        {UPDATES.length > 5 && (
+        {UPDATES.length > 5 ? (
           <div className="feed-more">
-            <Link href="/archive" className="feed-more-link">查看全部动态 →</Link>
+            <Link href="/updates" className="feed-more-link">查看全部动态 →</Link>
+          </div>
+        ) : (
+          <div className="feed-more">
+            <Link href="/updates" className="feed-more-link">查看全部动态 →</Link>
           </div>
         )}
       </div>
@@ -133,11 +137,9 @@ export default function Home({ posts }: HomeProps) {
               ))}
             </div>
 
-            {posts.length > 5 && (
-              <div className="feed-more">
-                <Link href="/archive" className="feed-more-link">查看全部文章 →</Link>
-              </div>
-            )}
+            <div className="feed-more">
+              <Link href="/posts" className="feed-more-link">查看全部文章 →</Link>
+            </div>
           </>
         )}
       </div>
