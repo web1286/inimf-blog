@@ -11,6 +11,7 @@ interface Post {
   date: string
   summary?: string
   tags?: string[]
+  cover?: string
 }
 
 interface HomeProps {
@@ -19,53 +20,64 @@ interface HomeProps {
 
 export default function Home({ posts }: HomeProps) {
   return (
-    <Layout isHome>
-      {/* Dawn 风格 Hero 区块 */}
-      <div className="home-hero">
-        <h1 className="home-hero-title">记录生活，<br />留存思考。</h1>
-        <p className="home-hero-desc">
-          这里是 inimf 的个人空间，写一些关于生活、城市与观察的文字。
-        </p>
+    <Layout posts={posts}>
+      <div className="feed-header">
+        <span className="feed-title">最新动态</span>
+        <span className="feed-count">{posts.length} 篇文章</span>
       </div>
 
-      {/* 文章列表 */}
-      <div className="post-feed-wrap">
-        <div className="feed-header">
-          <span className="feed-title">文章</span>
-          <span className="feed-count">{posts.length} 篇</span>
+      {posts.length === 0 ? (
+        <div className="empty-state">
+          <p>还没有文章，快去写第一篇吧 ✍️</p>
         </div>
-
-        {posts.length === 0 ? (
-          <div className="empty-state">
-            <p>还没有文章，快去写第一篇吧 ✍️</p>
-          </div>
-        ) : (
-          <div className="post-feed">
-            {posts.map((post) => (
-              <Link
-                key={post.slug}
-                href={`/posts/${post.slug}`}
-                className="post-card"
-              >
-                <time className="post-date" dateTime={post.date}>
-                  {format(new Date(post.date), 'MM/dd', { locale: zhCN })}
-                </time>
+      ) : (
+        <div className="post-feed">
+          {posts.map((post) => (
+            <article key={post.slug} className="post-card">
+              <div className="post-card-inner">
                 <div className="post-card-content">
-                  <div className="post-card-title">
-                    {post.title}
+                  <div className="post-card-meta">
                     {post.tags && post.tags.length > 0 && (
-                      <span className="post-tag">{post.tags[0]}</span>
+                      <>
+                        <span className="post-category-badge">{post.tags[0]}</span>
+                        <span className="post-meta-sep">·</span>
+                      </>
                     )}
+                    <time className="post-date" dateTime={post.date}>
+                      {format(new Date(post.date), 'yyyy年M月d日', { locale: zhCN })}
+                    </time>
                   </div>
+
+                  <h2 className="post-card-title">
+                    <Link href={`/posts/${post.slug}`}>{post.title}</Link>
+                  </h2>
+
                   {post.summary && (
                     <p className="post-card-summary">{post.summary}</p>
                   )}
+
+                  {post.tags && post.tags.length > 1 && (
+                    <div className="post-card-footer">
+                      {post.tags.slice(1).map((tag) => (
+                        <span key={tag} className="post-tag">{tag}</span>
+                      ))}
+                    </div>
+                  )}
                 </div>
-              </Link>
-            ))}
-          </div>
-        )}
-      </div>
+
+                {post.cover && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={post.cover}
+                    alt={post.title}
+                    className="post-card-cover"
+                  />
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
     </Layout>
   )
 }
