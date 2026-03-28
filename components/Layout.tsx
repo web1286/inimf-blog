@@ -39,7 +39,7 @@ export default function Layout({ children, title, description, posts = [], hideS
     new Set(posts.flatMap(p => p.tags || []))
   )
 
-  const displayTracks = TRACKS.slice(0, 5)
+  const displayTracks = TRACKS.slice(0, 3)
 
   return (
     <>
@@ -143,7 +143,12 @@ export default function Layout({ children, title, description, posts = [], hideS
               <div className="rail-card-header">
                 <span className="rail-card-icon">🗓</span>
                 <span className="rail-card-title">记录轨迹</span>
-                <Link href="/tracks" className="rail-more-link" style={{marginLeft:'auto'}}>更多</Link>
+                <span className="rail-count-with-more" style={{marginLeft:'auto'}}>
+                  <span className="rail-count-num">{TRACKS.length} 条</span>
+                  {TRACKS.length > 3 && (
+                    <Link href="/tracks" className="rail-inline-more">更多</Link>
+                  )}
+                </span>
                 <span className="rail-live-dot" />
               </div>
               <div className="rail-card-body rail-timeline-body">
@@ -164,11 +169,6 @@ export default function Layout({ children, title, description, posts = [], hideS
                     </li>
                   ))}
                 </ul>
-                {TRACKS.length > 5 && (
-                  <div className="rail-more">
-                    <Link href="/archive" className="rail-more-link">查看更多 →</Link>
-                  </div>
-                )}
               </div>
             </div>
 
@@ -177,7 +177,12 @@ export default function Layout({ children, title, description, posts = [], hideS
               <div className="rail-card-header">
                 <span className="rail-card-icon">📌</span>
                 <span className="rail-card-title">备注信息</span>
-                <Link href="/notes" className="rail-more-link" style={{marginLeft:'auto'}}>更多</Link>
+                <span className="rail-count-with-more" style={{marginLeft:'auto'}}>
+                  <span className="rail-count-num">{NOTES.length} 条</span>
+                  {NOTES.length > 3 && (
+                    <Link href="/notes" className="rail-inline-more">更多</Link>
+                  )}
+                </span>
               </div>
               <div className="rail-card-body rail-timeline-body">
                 <ul className="tl-list">
