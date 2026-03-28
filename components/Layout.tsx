@@ -21,20 +21,13 @@ interface LayoutProps {
   hideSidebar?: boolean
 }
 
-// 待办事项数据（可手动维护，以后可以接 API）
+// 待办事项（可手动维护）
 const TODO_ITEMS = [
   { id: 1, text: '完成每周商业分析复盘', done: false, priority: 'high' },
   { id: 2, text: '整理 AI 趋势观测笔记', done: false, priority: 'high' },
   { id: 3, text: '更新博客关于页内容', done: false, priority: 'normal' },
   { id: 4, text: '阅读《置身事内》第三章', done: true, priority: 'normal' },
   { id: 5, text: '写一篇具身智能观察文章', done: false, priority: 'normal' },
-]
-
-// 最新动态（简讯，短思考，可手动维护）
-const UPDATES = [
-  { date: '03-28', text: '关注到 Manus 在 Agent 工作流编排上的新进展，值得深入研究。' },
-  { date: '03-27', text: '字节旗下豆包大模型视觉理解能力提升明显，尤其是复杂图表解析。' },
-  { date: '03-26', text: 'OpenAI o3 正式发布，推理能力有实质性跃升，成本仍是门槛。' },
 ]
 
 // 记录轨迹（今日看了什么，可手动维护）
@@ -48,10 +41,14 @@ const TRACKS = [
 export default function Layout({ children, title, description, posts = [], hideSidebar }: LayoutProps) {
   const pageTitle = title ? `${title} - ${config.title}` : config.title
   const pageDesc = description || config.description
-  const recentPosts = posts.slice(0, 5)
   const avatarLetter = (config.author || 'I').charAt(0).toUpperCase()
   const pendingTodos = TODO_ITEMS.filter(t => !t.done)
   const doneTodos = TODO_ITEMS.filter(t => t.done)
+
+  // 收集所有标签（去重）
+  const allTags = Array.from(
+    new Set(posts.flatMap(p => p.tags || []))
+  )
 
   return (
     <>
@@ -88,6 +85,7 @@ export default function Layout({ children, title, description, posts = [], hideS
         {/* ===== 左侧边栏 ===== */}
         {!hideSidebar && (
           <aside className="site-sidebar">
+
             {/* 作者卡片 */}
             <div className="sidebar-card">
               <div className="author-card">
@@ -96,6 +94,22 @@ export default function Layout({ children, title, description, posts = [], hideS
                 <div className="author-bio">{config.description}</div>
               </div>
             </div>
+
+            {/* 标签云 */}
+            {allTags.length > 0 && (
+              <div className="sidebar-card">
+                <div className="sidebar-card-header">
+                  <span className="sidebar-card-title">标签</span>
+                </div>
+                <div className="sidebar-card-body">
+                  <div className="tag-cloud">
+                    {allTags.map(tag => (
+                      <span key={tag} className="tag-cloud-item">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* 待办事项 */}
             <div className="sidebar-card">
@@ -120,6 +134,7 @@ export default function Layout({ children, title, description, posts = [], hideS
                 </ul>
               </div>
             </div>
+
           </aside>
         )}
 
@@ -128,56 +143,9 @@ export default function Layout({ children, title, description, posts = [], hideS
           {children}
         </main>
 
-        {/* ===== 右侧三个独立模块 ===== */}
+        {/* ===== 右侧：记录轨迹 ===== */}
         {!hideSidebar && (
           <aside className="site-right-rail">
-
-            {/* 模块一：最新动态 */}
-            <div className="rail-card">
-              <div className="rail-card-header">
-                <span className="rail-card-icon">⚡</span>
-                <span className="rail-card-title">最新动态</span>
-                <span className="rail-live-dot" />
-              </div>
-              <div className="rail-card-body">
-                <ul className="updates-list">
-                  {UPDATES.map((u, i) => (
-                    <li key={i} className="update-item">
-                      <span className="update-date">{u.date}</span>
-                      <span className="update-text">{u.text}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            {/* 模块二：最新文章（公众号主线） */}
-            <div className="rail-card">
-              <div className="rail-card-header">
-                <span className="rail-card-icon">📝</span>
-                <span className="rail-card-title">最新文章</span>
-              </div>
-              <div className="rail-card-body">
-                {recentPosts.length > 0 ? (
-                  <ul className="rail-post-list">
-                    {recentPosts.map(post => (
-                      <li key={post.slug} className="rail-post-item">
-                        <Link href={`/posts/${post.slug}`} className="rail-post-link">
-                          {post.title}
-                        </Link>
-                        <span className="rail-post-date">
-                          {format(new Date(post.date), 'M月d日', { locale: zhCN })}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p className="rail-empty">暂无文章</p>
-                )}
-              </div>
-            </div>
-
-            {/* 模块三：记录轨迹 */}
             <div className="rail-card">
               <div className="rail-card-header">
                 <span className="rail-card-icon">🗓</span>
@@ -197,9 +165,9 @@ export default function Layout({ children, title, description, posts = [], hideS
                 </ul>
               </div>
             </div>
-
           </aside>
         )}
+
       </div>
 
       {/* 页脚 */}
