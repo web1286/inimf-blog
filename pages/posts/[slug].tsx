@@ -17,7 +17,6 @@ interface PostProps {
   }
   prevPost: { slug: string; title: string } | null
   nextPost: { slug: string; title: string } | null
-  allPosts: { slug: string; title: string; date: string; tags?: string[] }[]
 }
 
 // Giscus 评论组件
@@ -26,12 +25,10 @@ function GiscusComments() {
 
   useEffect(() => {
     if (!ref.current) return
-    // 清空旧实例（路由跳转时）
     ref.current.innerHTML = ''
 
     const script = document.createElement('script')
     script.src = 'https://giscus.app/client.js'
-    // ⚠️  主人需要去 https://giscus.app 配置后填入以下参数
     script.setAttribute('data-repo', 'web1286/inimf-blog')
     script.setAttribute('data-repo-id', 'R_kgDORyMqNQ')
     script.setAttribute('data-category', 'General')
@@ -58,15 +55,18 @@ function GiscusComments() {
   )
 }
 
-export default function Post({ postData, prevPost, nextPost, allPosts }: PostProps) {
+export default function Post({ postData, prevPost, nextPost }: PostProps) {
   return (
     <Layout
       title={postData.title}
       description={postData.summary}
-      posts={allPosts}
-      hideSidebar={true}
     >
       <article className="article-page">
+        {/* 返回首页链接 */}
+        <Link href="/" className="article-back">
+          ← 返回
+        </Link>
+
         <header className="article-header">
           <h1 className="article-title">{postData.title}</h1>
           <div className="article-meta">
@@ -74,13 +74,13 @@ export default function Post({ postData, prevPost, nextPost, allPosts }: PostPro
               {format(new Date(postData.date), 'yyyy年 M月 d日', { locale: zhCN })}
             </time>
             {postData.tags && postData.tags.length > 0 && (
-              <div className="post-card-footer">
+              <>
                 {postData.tags.map((tag) => (
                   <span key={tag} className="post-tag">
                     {tag}
                   </span>
                 ))}
-              </div>
+              </>
             )}
           </div>
         </header>
@@ -136,12 +136,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       postData,
-      allPosts: allPosts.map(p => ({
-        slug: p.slug,
-        title: p.title,
-        date: p.date,
-        tags: p.tags || [],
-      })),
       prevPost: prevPost ? { slug: prevPost.slug, title: prevPost.title } : null,
       nextPost: nextPost ? { slug: nextPost.slug, title: nextPost.title } : null,
     },
