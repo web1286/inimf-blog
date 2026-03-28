@@ -1,6 +1,4 @@
-/* 全局样式 - Dawn 风格：极简主义 + 内容优先 + 衬线字体 */
-
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+/* 全局样式 - xiaohu.ai 风格：深灰配色 + 双栏布局 */
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -9,34 +7,38 @@
 }
 
 :root {
-  /* Dawn 字体系统 */
-  --font-serif: 'Lora', 'Georgia', 'Noto Serif SC', 'Source Han Serif SC', serif;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB',
-    'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', 'Noto Sans SC', 'Segoe UI', sans-serif;
+  --font-serif: 'Georgia', 'Noto Serif SC', 'Source Han Serif SC', serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', 'Consolas', monospace;
 
-  /* Dawn 配色 - 极简黑白 */
-  --color-bg: #ffffff;
-  --color-bg-secondary: #f9f9f9;
+  /* xiaohu.ai 配色系统 */
+  --color-bg: #f0f2f5;
   --color-surface: #ffffff;
-  --color-text: #15171A;
-  --color-text-secondary: #394047;
-  --color-text-muted: #738A94;
-  --color-text-light: #acb6bb;
-  --color-border: #e9ebed;
-  --color-border-light: #f0f2f3;
-  --color-accent: #15171A;        /* Dawn 主色：近黑，而非蓝 */
-  --color-accent-hover: #394047;
-  --color-tag-bg: #f0f2f3;
-  --color-tag-text: #738A94;
+  --color-surface-hover: #fafbfc;
+  --color-sidebar-bg: #ffffff;
+  --color-text: #1a1d21;
+  --color-text-secondary: #4a5568;
+  --color-text-muted: #8896a5;
+  --color-border: #e2e8f0;
+  --color-border-light: #edf2f7;
+  --color-accent: #2563eb;        /* 蓝色主调，类似 xiaohu.ai */
+  --color-accent-hover: #1d4ed8;
+  --color-accent-light: #eff6ff;
+  --color-brand: #2B2E33;         /* xiaohu.ai 品牌深灰 */
+  --color-tag-bg: #eff6ff;
+  --color-tag-text: #2563eb;
+  --color-header-bg: #2B2E33;    /* 深灰色顶栏，xiaohu.ai 风格 */
+  --color-link: #2563eb;
 
   --max-width-site: 1100px;
-  --max-width-content: 680px;    /* Dawn 单栏内容最大宽 */
-  --max-width-wide: 860px;       /* 宽幅内容区 */
+  --max-width-article: 680px;
+  --sidebar-width: 260px;
+  --spacing-page: 1.25rem;
 }
 
 html {
-  font-size: 18px;               /* Dawn 正文基准字号偏大 */
+  font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -45,7 +47,7 @@ body {
   font-family: var(--font-sans);
   background-color: var(--color-bg);
   color: var(--color-text);
-  line-height: 1.75;
+  line-height: 1.7;
   min-height: 100vh;
 }
 
@@ -54,166 +56,291 @@ a {
   text-decoration: none;
 }
 
-/* ==================== 顶部导航（Dawn：白底、底部细线、居中） ==================== */
+/* ==================== 顶部导航（深灰色，xiaohu.ai 风格） ==================== */
 
 .site-header {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--color-border);
+  background: var(--color-header-bg);
+  border-bottom: none;
   position: sticky;
   top: 0;
   z-index: 200;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.18);
 }
 
 .header-inner {
   max-width: var(--max-width-site);
   margin: 0 auto;
-  padding: 0 2rem;
-  height: 60px;
+  padding: 0 var(--spacing-page);
+  height: 54px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1.5rem;
 }
 
 .site-title {
-  font-family: var(--font-serif);
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--color-text);
-  letter-spacing: -0.01em;
-  transition: opacity 0.15s;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .site-title:hover {
-  opacity: 0.7;
+  color: #e2e8f0;
+}
+
+.site-title-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  margin-left: 2px;
+  margin-bottom: 2px;
 }
 
 .site-nav {
   display: flex;
-  gap: 0.25rem;
+  gap: 0.15rem;
   align-items: center;
 }
 
 .site-nav a {
   font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--color-text-muted);
-  padding: 0.4rem 0.75rem;
-  border-radius: 4px;
+  color: rgba(255,255,255,0.75);
+  padding: 0.3rem 0.85rem;
+  border-radius: 5px;
   transition: color 0.15s, background 0.15s;
-  letter-spacing: 0.01em;
+  font-weight: 500;
 }
 
 .site-nav a:hover {
-  color: var(--color-text);
-  background: var(--color-bg-secondary);
+  color: #ffffff;
+  background: rgba(255,255,255,0.12);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
 }
 
 .header-rss {
   font-size: 0.78rem;
-  color: var(--color-text-muted);
-  padding: 0.3rem 0.65rem;
+  color: rgba(255,255,255,0.5);
+  padding: 0.25rem 0.65rem;
   border-radius: 4px;
-  border: 1px solid var(--color-border);
+  border: 1px solid rgba(255,255,255,0.15);
   transition: all 0.15s;
 }
 
 .header-rss:hover {
-  color: var(--color-text);
-  border-color: var(--color-text-muted);
+  color: rgba(255,255,255,0.85);
+  border-color: rgba(255,255,255,0.35);
 }
 
-/* ==================== 单栏布局（Dawn 核心：去侧边栏，居中内容） ==================== */
+/* ==================== 双栏布局系统 ==================== */
 
 .site-body {
-  max-width: var(--max-width-wide);
+  max-width: var(--max-width-site);
   margin: 0 auto;
-  padding: 0 2rem 5rem;
+  padding: 1.5rem var(--spacing-page) 3rem;
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
 }
 
-/* 首页用更宽的容器 */
-.site-body.home-body {
-  max-width: var(--max-width-site);
+/* 文章页：单栏公众号风格，无侧边栏，内容居中 */
+.site-body.no-sidebar {
+  display: block;
+  max-width: 780px;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.site-body.no-sidebar .site-main {
+  max-width: 100%;
+}
+
+.site-body.no-sidebar .article-page {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  padding: 2.5rem 3rem 3rem;
+}
+
+/* 左侧边栏 */
+.site-sidebar {
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+  position: sticky;
+  top: calc(54px + 1.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* 右侧主内容区 */
+.site-main {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ==================== 侧边栏组件 ==================== */
+
+.sidebar-card {
+  background: var(--color-sidebar-bg);
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.sidebar-card-header {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--color-border-light);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sidebar-card-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+}
+
+.sidebar-card-body {
+  padding: 0.85rem 1rem;
+}
+
+/* 作者卡片 */
+.author-card {
+  text-align: center;
+  padding: 1.25rem 1rem 1rem;
+}
+
+.author-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 auto 0.75rem;
+  letter-spacing: -0.03em;
+}
+
+.author-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.25rem;
+}
+
+.author-bio {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+/* 标签云 */
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.tag-cloud-item {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.65rem;
+  background: var(--color-tag-bg);
+  color: var(--color-tag-text);
+  border-radius: 20px;
+  font-weight: 500;
+  transition: all 0.15s;
+  border: 1px solid transparent;
+}
+
+.tag-cloud-item:hover {
+  background: var(--color-accent);
+  color: #ffffff;
+}
+
+/* 最新文章列表（侧边栏） */
+.sidebar-post-list {
+  list-style: none;
+}
+
+.sidebar-post-item {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.sidebar-post-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.sidebar-post-item:first-child {
   padding-top: 0;
 }
 
-/* ==================== 首页 Hero 区块（Dawn 标志性大标题区） ==================== */
-
-.home-hero {
-  max-width: var(--max-width-site);
-  margin: 0 auto;
-  padding: 5rem 2rem 4rem;
-  border-bottom: 1px solid var(--color-border);
-  margin-bottom: 4rem;
+.sidebar-post-link {
+  font-size: 0.84rem;
+  color: var(--color-text-secondary);
+  line-height: 1.45;
+  display: block;
+  transition: color 0.12s;
 }
 
-.home-hero-title {
-  font-family: var(--font-serif);
-  font-size: clamp(2.2rem, 5vw, 3.5rem);
-  font-weight: 700;
-  line-height: 1.22;
-  letter-spacing: -0.03em;
-  color: var(--color-text);
-  margin-bottom: 1.25rem;
-  max-width: 600px;
+.sidebar-post-link:hover {
+  color: var(--color-accent);
 }
 
-.home-hero-desc {
-  font-size: 1rem;
+.sidebar-post-date {
+  font-size: 0.72rem;
   color: var(--color-text-muted);
-  line-height: 1.7;
-  max-width: 480px;
-  font-weight: 400;
+  margin-top: 0.2rem;
+  display: block;
 }
 
-/* ==================== 文章列表（Dawn 风格：日期 + 标题，极简列表） ==================== */
-
-.post-feed-wrap {
-  max-width: var(--max-width-wide);
-  margin: 0 auto;
-  padding: 0 2rem;
-}
+/* ==================== 首页文章 Feed 流 ==================== */
 
 .post-feed {
   display: flex;
   flex-direction: column;
+  gap: 0.75rem;
 }
 
-/* Dawn 文章条目 */
 .post-card {
-  display: flex;
-  align-items: baseline;
-  gap: 1.5rem;
-  padding: 1.1rem 0;
-  border-bottom: 1px solid var(--color-border-light);
-  transition: all 0.12s;
+  background: var(--color-surface);
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  transition: box-shadow 0.18s, transform 0.18s;
   cursor: pointer;
-  text-decoration: none;
-  color: inherit;
 }
 
-.post-card:first-child {
-  border-top: 1px solid var(--color-border-light);
+.post-card:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.09);
+  transform: translateY(-1px);
 }
 
-.post-card:hover .post-card-title {
-  color: var(--color-text-secondary);
-}
-
-.post-card:hover .post-date {
-  color: var(--color-text-muted);
-}
-
-.post-date {
-  font-size: 0.78rem;
-  color: var(--color-text-light);
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-  min-width: 5.5rem;
-  flex-shrink: 0;
-  letter-spacing: 0.01em;
-  transition: color 0.12s;
+.post-card-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.2rem 1.25rem;
 }
 
 .post-card-content {
@@ -221,39 +348,88 @@ a {
   min-width: 0;
 }
 
+.post-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.post-category-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  background: var(--color-accent-light);
+  padding: 0.1rem 0.5rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.post-date {
+  font-size: 0.76rem;
+  color: var(--color-text-muted);
+}
+
+.post-meta-sep {
+  color: var(--color-border);
+  font-size: 0.7rem;
+}
+
 .post-card-title {
-  font-family: var(--font-serif);
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1.05rem;
+  font-weight: 700;
   line-height: 1.45;
-  color: var(--color-text);
-  transition: color 0.12s;
+  margin-bottom: 0.4rem;
   letter-spacing: -0.01em;
+  color: var(--color-text);
+}
+
+.post-card-title a {
+  color: var(--color-text);
+  transition: color 0.15s;
+}
+
+.post-card-title a:hover {
+  color: var(--color-accent);
 }
 
 .post-card-summary {
   font-size: 0.875rem;
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary);
   line-height: 1.6;
-  margin-top: 0.3rem;
   display: -webkit-box;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
+.post-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.65rem;
+  flex-wrap: wrap;
+}
+
 .post-tag {
-  display: inline-block;
-  font-size: 0.68rem;
-  padding: 0.1rem 0.5rem;
+  font-size: 0.7rem;
+  padding: 0.12rem 0.5rem;
   background: var(--color-tag-bg);
   color: var(--color-tag-text);
   border-radius: 3px;
   font-weight: 500;
-  margin-left: 0.75rem;
-  vertical-align: middle;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+}
+
+/* 封面图 */
+.post-card-cover {
+  width: 110px;
+  height: 75px;
+  object-fit: cover;
+  border-radius: 7px;
+  flex-shrink: 0;
+  background: var(--color-bg);
 }
 
 /* Feed 顶部栏 */
@@ -261,57 +437,56 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 1rem;
   padding-bottom: 0.75rem;
-  margin-bottom: 0;
+  border-bottom: 2px solid var(--color-border);
 }
 
 .feed-title {
-  font-size: 0.72rem;
-  font-weight: 600;
+  font-size: 0.8rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.06em;
   color: var(--color-text-muted);
 }
 
 .feed-count {
-  font-size: 0.72rem;
-  color: var(--color-text-light);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  background: var(--color-bg);
+  padding: 0.15rem 0.55rem;
+  border-radius: 20px;
 }
 
-/* ==================== 文章详情页（Dawn：居中单栏阅读） ==================== */
+/* ==================== 文章详情页 ==================== */
+
+.article-wrap {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
 
 .article-page {
-  max-width: var(--max-width-content);
-  margin: 0 auto;
-  padding-top: 3.5rem;
-  padding-bottom: 5rem;
+  background: var(--color-surface);
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  padding: 2.5rem 2.5rem 3rem;
+  flex: 1;
+  min-width: 0;
 }
 
 .article-header {
-  margin-bottom: 2.5rem;
-}
-
-.article-back {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.8rem;
-  color: var(--color-text-muted);
   margin-bottom: 2rem;
-  transition: color 0.15s;
-}
-
-.article-back:hover {
-  color: var(--color-text);
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .article-title {
-  font-family: var(--font-serif);
-  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-  font-weight: 700;
-  line-height: 1.28;
-  letter-spacing: -0.025em;
-  margin-bottom: 1.25rem;
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1.38;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
   color: var(--color-text);
 }
 
@@ -323,107 +498,100 @@ a {
 }
 
 .article-date {
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: var(--color-text-muted);
-  letter-spacing: 0.01em;
 }
 
-.article-meta .post-tag {
-  margin-left: 0;
-}
-
-/* ==================== 正文 Markdown 样式（保留主人偏好 + Dawn 风格字体） ==================== */
+/* ==================== 正文 Markdown 样式（公众号研报风格，保留主人偏好） ==================== */
 
 .article-content {
-  font-size: 1rem;
-  line-height: 1.95;
-  color: var(--color-text-secondary);
+  font-size: 1.05rem;
+  line-height: 2.0;
+  color: #333333;
+  text-align: justify;
+  word-break: break-word;
   font-family: var(--font-sans);
   word-break: break-word;
 }
 
-/* H2：深色背景色块+白字（保留主人偏好） */
+/* H2：深色背景色块+白字 */
 .article-content h2 {
-  font-family: var(--font-serif);
-  font-size: 1.15rem;
-  font-weight: 700;
-  line-height: 1.45;
-  margin-top: 2.75rem;
-  margin-bottom: 1.1rem;
+  font-size: 1.1rem;
+  font-weight: 800;
+  line-height: 1.5;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
   color: #ffffff;
-  background: #15171A;
+  background: #1a1a1a;
   padding: 0.55rem 1rem;
   border-radius: 4px;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
 }
 
-/* H3：左侧蓝色竖条（保留主人偏好） */
+/* H3：左侧粗蓝条（配合新主色调） */
 .article-content h3 {
-  font-family: var(--font-serif);
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1.05rem;
+  font-weight: 700;
   line-height: 1.5;
-  margin-top: 2.25rem;
-  margin-bottom: 0.85rem;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
   color: var(--color-text);
-  padding-left: 0.85rem;
-  border-left: 3px solid #3EB0EF;
+  padding-left: 0.75rem;
+  border-left: 4px solid var(--color-accent);
 }
 
-/* H4 */
+/* H4：纯加粗 */
 .article-content h4 {
-  font-family: var(--font-serif);
-  font-size: 1.05rem;
-  font-weight: 600;
-  margin-top: 2rem;
-  margin-bottom: 0.7rem;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 0.6rem;
   color: var(--color-text);
 }
 
 .article-content h1 {
-  font-family: var(--font-serif);
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-top: 2.75rem;
-  margin-bottom: 1.1rem;
+  font-size: 1.45rem;
+  font-weight: 800;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
   color: var(--color-text);
 }
 
 .article-content p {
-  margin-bottom: 1.65rem;
+  margin-bottom: 1.6rem;
 }
 
 .article-content a {
-  color: var(--color-text);
+  color: var(--color-accent);
   text-decoration: underline;
-  text-decoration-color: rgba(21, 23, 26, 0.25);
+  text-decoration-color: rgba(37, 99, 235, 0.35);
   text-underline-offset: 3px;
   transition: text-decoration-color 0.15s;
 }
 
 .article-content a:hover {
-  text-decoration-color: var(--color-text);
+  text-decoration-color: var(--color-accent);
 }
 
-/* 加粗：关键信息突出 */
+/* 加粗：关键信息深黑突出 */
 .article-content strong {
   font-weight: 700;
-  color: var(--color-text);
+  color: #111111;
 }
 
 .article-content em {
   font-style: italic;
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary);
 }
 
-/* 引用块：灰底无斜体（保留主人偏好） */
+/* 引用块：灰色底纹，无斜体，研报"核心观点"框 */
 .article-content blockquote {
   border-left: none;
-  padding: 1.1rem 1.35rem;
-  margin: 2rem 0;
+  padding: 1rem 1.25rem;
+  margin: 1.75rem 0;
   background: #f7f8fa;
   border-radius: 6px;
-  color: #4a5568;
+  color: #444444;
   font-style: normal;
   border-top: 3px solid #d1d9e6;
 }
@@ -435,11 +603,11 @@ a {
 
 .article-content code {
   font-family: var(--font-mono);
-  font-size: 0.85em;
+  font-size: 0.86em;
   background: #f0f4f8;
   padding: 0.15em 0.45em;
   border-radius: 4px;
-  color: #394047;
+  color: #2563eb;
   border: 1px solid var(--color-border);
 }
 
@@ -448,7 +616,7 @@ a {
   border-radius: 8px;
   padding: 1.25rem 1.5rem;
   overflow-x: auto;
-  margin: 2rem 0;
+  margin: 1.75rem 0;
 }
 
 .article-content pre code {
@@ -463,35 +631,36 @@ a {
 .article-content ul,
 .article-content ol {
   padding-left: 1.75rem;
-  margin-bottom: 1.65rem;
+  margin-bottom: 1.6rem;
 }
 
 .article-content li {
-  margin-bottom: 0.5rem;
-  color: var(--color-text-secondary);
+  margin-bottom: 0.55rem;
+  color: #333333;
   line-height: 1.9;
 }
 
 .article-content img {
   max-width: 100%;
   height: auto;
-  border-radius: 6px;
-  margin: 2rem auto;
+  border-radius: 8px;
+  margin: 1.75rem auto;
   display: block;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
 }
 
 /* 分割线 */
 .article-content hr {
   border: none;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid #e2e8f0;
   margin: 2.5rem 0;
 }
 
 .article-content table {
   width: 100%;
   border-collapse: collapse;
-  margin: 2rem 0;
-  font-size: 0.9rem;
+  margin: 1.75rem 0;
+  font-size: 0.92rem;
 }
 
 .article-content th,
@@ -502,37 +671,37 @@ a {
 }
 
 .article-content th {
-  background: #f7f8fa;
-  font-weight: 600;
+  background: #f0f4f8;
+  font-weight: 700;
   color: var(--color-text);
-  font-size: 0.85rem;
+  font-size: 0.88rem;
 }
 
-/* 参考资料小字灰色 */
+/* 参考资料小字 */
 .article-content p > em:only-child {
-  font-size: 0.78rem;
-  color: var(--color-text-light);
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
   font-style: normal;
   display: block;
   padding-top: 0.5rem;
-  border-top: 1px solid var(--color-border-light);
+  border-top: 1px solid #eeeeee;
 }
 
 /* ==================== Giscus 评论区 ==================== */
 
 .giscus-wrap {
-  margin-top: 4rem;
-  padding-top: 2.5rem;
-  border-top: 1px solid var(--color-border);
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-border-light);
 }
 
 .giscus-title {
-  font-size: 0.72rem;
-  font-weight: 600;
+  font-size: 0.8rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.06em;
   color: var(--color-text-muted);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 /* ==================== 文章导航 ==================== */
@@ -541,14 +710,14 @@ a {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  margin-top: 3.5rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--color-border);
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-border-light);
 }
 
 .nav-prev, .nav-next {
   flex: 1;
-  padding: 1rem 1.25rem;
+  padding: 0.75rem 1rem;
   border-radius: 8px;
   border: 1px solid var(--color-border);
   background: var(--color-bg);
@@ -556,8 +725,8 @@ a {
 }
 
 .nav-prev:hover, .nav-next:hover {
-  border-color: var(--color-text-muted);
-  background: var(--color-bg-secondary);
+  border-color: var(--color-accent);
+  background: var(--color-accent-light);
 }
 
 .nav-next {
@@ -566,57 +735,46 @@ a {
 
 .nav-label {
   display: block;
-  font-size: 0.68rem;
-  color: var(--color-text-light);
-  margin-bottom: 0.35rem;
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0.25rem;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
 }
 
 .nav-title {
-  font-family: var(--font-serif);
-  font-size: 0.95rem;
+  font-size: 0.875rem;
   color: var(--color-text-secondary);
   transition: color 0.15s;
-  line-height: 1.45;
+  line-height: 1.4;
   display: block;
 }
 
 .nav-title:hover {
-  color: var(--color-text);
+  color: var(--color-accent);
 }
 
 /* ==================== 归档页 ==================== */
 
 .archive-page {
-  max-width: var(--max-width-content);
-  margin: 0 auto;
-  padding-top: 3.5rem;
-  padding-bottom: 5rem;
-}
-
-.archive-page-title {
-  font-family: var(--font-serif);
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  margin-bottom: 2.5rem;
-  color: var(--color-text);
+  background: var(--color-surface);
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  padding: 2rem 2rem 3rem;
 }
 
 .archive-year {
-  margin-bottom: 2rem;
+  margin-bottom: 1.75rem;
 }
 
 .archive-year-title {
-  font-size: 0.72rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--color-text-muted);
-  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.6rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 2px solid var(--color-accent);
+  display: inline-block;
 }
 
 .archive-list {
@@ -626,109 +784,107 @@ a {
 .archive-item {
   display: flex;
   align-items: baseline;
-  gap: 1.25rem;
-  padding: 0.75rem 0;
+  gap: 1rem;
+  padding: 0.6rem 0;
   border-bottom: 1px solid var(--color-border-light);
 }
 
 .archive-date {
   font-size: 0.78rem;
-  color: var(--color-text-light);
-  min-width: 4.5rem;
+  color: var(--color-text-muted);
+  min-width: 5.5rem;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
 .archive-title {
-  font-family: var(--font-serif);
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: var(--color-text-secondary);
   transition: color 0.15s;
   line-height: 1.45;
 }
 
 .archive-title:hover {
-  color: var(--color-text);
+  color: var(--color-accent);
 }
 
 /* ==================== 关于页 ==================== */
 
 .about-page {
-  max-width: var(--max-width-content);
-  margin: 0 auto;
-  padding-top: 3.5rem;
-  padding-bottom: 5rem;
+  background: var(--color-surface);
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  padding: 2.5rem 2.5rem 3rem;
 }
 
 .about-page h1 {
-  font-family: var(--font-serif);
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  margin-bottom: 2rem;
-  color: var(--color-text);
+  font-size: 1.45rem;
+  font-weight: 800;
+  margin-bottom: 1.75rem;
+  letter-spacing: -0.02em;
 }
 
 /* ==================== 页脚 ==================== */
 
 .site-footer {
-  border-top: 1px solid var(--color-border);
-  padding: 2rem 0;
+  padding: 1.5rem 0;
   text-align: center;
-  margin-top: auto;
+  margin-top: 1rem;
 }
 
 .site-footer p {
-  font-size: 0.78rem;
-  color: var(--color-text-light);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
 }
 
 /* ==================== 空状态 ==================== */
 
 .empty-state {
   text-align: center;
-  padding: 6rem 0;
+  padding: 5rem 0;
   color: var(--color-text-muted);
+  background: var(--color-surface);
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
 }
 
-/* ==================== 响应式 ==================== */
+/* ==================== 响应式：平板以下隐藏侧边栏 ==================== */
 
-@media (max-width: 760px) {
-  :root {
-    --max-width-content: 100%;
-    --max-width-wide: 100%;
+@media (max-width: 860px) {
+  .site-sidebar {
+    display: none;
   }
-
-  html { font-size: 16px; }
-
-  .header-inner { padding: 0 1.25rem; height: 54px; }
-  .site-title { font-size: 1.1rem; }
-
-  .home-hero { padding: 3rem 1.25rem 2.5rem; margin-bottom: 2.5rem; }
-  .home-hero-title { font-size: 1.85rem; }
-
-  .post-feed-wrap { padding: 0 1.25rem; }
-
-  .site-body { padding: 0 1.25rem 3rem; }
-
-  .post-card { gap: 1rem; }
-  .post-date { min-width: 4rem; font-size: 0.72rem; }
-  .post-card-title { font-size: 1rem; }
-
-  .article-page { padding-top: 2rem; }
-  .article-title { font-size: 1.6rem; }
-  .article-content { font-size: 0.95rem; line-height: 1.9; }
-  .article-content h2 { font-size: 1.05rem; }
-
-  .post-navigation { flex-direction: column; gap: 0.75rem; }
-  .nav-next { text-align: left; }
-
-  .archive-page { padding-top: 2rem; }
-  .about-page { padding-top: 2rem; }
+  .site-body {
+    padding: 1rem var(--spacing-page) 2rem;
+  }
+  .site-body.no-sidebar {
+    padding: 1rem 0.5rem 2rem;
+  }
+  .site-body.no-sidebar .article-page {
+    padding: 1.5rem 1.25rem 2rem;
+    border-radius: 8px;
+  }
+  .article-page {
+    padding: 1.75rem 1.5rem 2.5rem;
+  }
 }
 
-@media (max-width: 480px) {
-  .post-date { display: none; }
+@media (max-width: 640px) {
+  html { font-size: 15px; }
+  :root { --spacing-page: 1rem; }
+
+  .header-inner { height: 48px; }
+  .site-title { font-size: 1.1rem; }
+  .site-nav a { padding: 0.25rem 0.6rem; font-size: 0.82rem; }
+
+  .post-card-inner { padding: 1rem; gap: 0.75rem; }
+  .post-card-cover { width: 88px; height: 60px; }
   .post-card-title { font-size: 0.98rem; }
-  .site-nav a { padding: 0.3rem 0.5rem; font-size: 0.8rem; }
+
+  .article-page { padding: 1.25rem 1rem 2rem; border-radius: 8px; }
+  .article-title { font-size: 1.4rem; }
+  .article-content { font-size: 1rem; line-height: 1.95; text-align: justify; }
+  .article-content h2 { font-size: 1rem; padding: 0.48rem 0.8rem; }
+  .post-navigation { flex-direction: column; }
+  .nav-next { text-align: left; }
 }
