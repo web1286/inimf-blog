@@ -4,7 +4,13 @@ import { ReactNode } from 'react'
 import { getSortedPostsData } from '../lib/posts'
 import { format } from 'date-fns'
 import { zhCN } from 'date-fns/locale'
+import { TRACKS } from '../data/tracks'
+import { NOTES } from '../data/notes'
+import { TODO_ITEMS } from '../data/todos'
 const config = require('../blog.config')
+
+// 消除 getSortedPostsData 的 unused import 警告（留着备用）
+void getSortedPostsData
 
 interface Post {
   slug: string
@@ -20,44 +26,6 @@ interface LayoutProps {
   posts?: Post[]
   hideSidebar?: boolean
 }
-
-// 待办事项（可手动维护）
-const TODO_ITEMS = [
-  { id: 1, text: '完成每周商业分析复盘', done: false, priority: 'high' },
-  { id: 2, text: '整理 AI 趋势观测笔记', done: false, priority: 'high' },
-  { id: 3, text: '更新博客关于页内容', done: false, priority: 'normal' },
-  { id: 4, text: '阅读《置身事内》第三章', done: true, priority: 'normal' },
-  { id: 5, text: '写一篇具身智能观察文章', done: false, priority: 'normal' },
-]
-
-// 记录轨迹（今日看了什么，可手动维护）— 最多显示前5条
-const TRACKS = [
-  { date: '2026-03-28', time: '21:30', type: '文章', content: '《中国 AI 产业地图 2025》— 36氪研究院，系统梳理了当前国内大模型、AI应用、AI基础设施三层架构格局。' },
-  { date: '2026-03-27', time: '19:12', type: '视频', content: '李永乐讲 DeepSeek 背后的 MoE 架构原理，用类比方式把混合专家模型讲得相当清楚。' },
-  { date: '2026-03-26', time: '22:05', type: '播客', content: '硅谷 101 × 张俊林：大模型的下一个突破口在哪里？重点讨论了推理能力与世界模型。' },
-  { date: '2026-03-25', time: '20:44', type: '书', content: '《置身事内》第二章：地方政府的融资逻辑，土地财政与城投债的关系梳理得很通透。' },
-  { date: '2026-03-24', time: '15:20', type: '文章', content: '黄仁勋 GTC 2025 演讲全文，重点在 Blackwell 架构与 Physical AI 的战略布局。' },
-]
-
-// 备注信息（静态文章存档，放两篇博客自带文章）
-const NOTES = [
-  {
-    date: '2026-03-27',
-    time: '10:00',
-    slug: 'how-to-write',
-    title: '如何写一篇新文章',
-    summary: '关于如何在这个博客添加新文章的操作说明：用 Markdown 格式，在 posts/ 目录新建 .md 文件，frontmatter 填写 title/date/summary/tags 即可自动发布。',
-    tags: ['指南'],
-  },
-  {
-    date: '2026-03-27',
-    time: '09:00',
-    slug: 'hello-world',
-    title: '你好，世界',
-    summary: '这是我博客的第一篇文章。博客这件事，最重要的不是第一篇写什么，而是后来有没有继续写下去。',
-    tags: ['随笔'],
-  },
-]
 
 export default function Layout({ children, title, description, posts = [], hideSidebar }: LayoutProps) {
   const pageTitle = title ? `${title} - ${config.title}` : config.title
@@ -118,7 +86,7 @@ export default function Layout({ children, title, description, posts = [], hideS
               </div>
             </div>
 
-            {/* 标签云 */}
+            {/* 标签云（来自最新文章 tags，自动聚合）*/}
             {allTags.length > 0 && (
               <div className="sidebar-card">
                 <div className="sidebar-card-header">
@@ -134,7 +102,7 @@ export default function Layout({ children, title, description, posts = [], hideS
               </div>
             )}
 
-            {/* 待办事项 */}
+            {/* 待办事项（数据来自 data/todos.ts）*/}
             <div className="sidebar-card">
               <div className="sidebar-card-header">
                 <span className="sidebar-card-title">待办事项</span>
@@ -170,7 +138,7 @@ export default function Layout({ children, title, description, posts = [], hideS
         {!hideSidebar && (
           <aside className="site-right-rail">
 
-            {/* 记录轨迹 — 微博/X 时间线风格 */}
+            {/* 记录轨迹（数据来自 data/tracks.ts）— 微博/X 时间线风格 */}
             <div className="rail-card">
               <div className="rail-card-header">
                 <span className="rail-card-icon">🗓</span>
@@ -203,7 +171,7 @@ export default function Layout({ children, title, description, posts = [], hideS
               </div>
             </div>
 
-            {/* 备注信息 — 时间线风格 */}
+            {/* 备注信息（数据来自 data/notes.ts）— 时间线风格 */}
             <div className="rail-card">
               <div className="rail-card-header">
                 <span className="rail-card-icon">📌</span>
