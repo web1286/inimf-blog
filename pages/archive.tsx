@@ -28,12 +28,11 @@ export default function Archive({ posts }: ArchiveProps) {
   const years = Object.keys(grouped).sort((a, b) => Number(b) - Number(a))
 
   return (
-    <Layout title="目录">
+    <Layout title="目录" posts={posts}>
       <div className="archive-page">
-        <h1 className="archive-page-title">文章目录</h1>
       {years.map((year) => (
         <div key={year} className="archive-year">
-          <div className="archive-year-title">{year}</div>
+          <h2 className="archive-year-title">{year}</h2>
           <ul className="archive-list">
             {grouped[year].map((post) => (
               <li key={post.slug} className="archive-item">
