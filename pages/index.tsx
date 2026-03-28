@@ -22,8 +22,8 @@ export default function Home({ posts }: HomeProps) {
   return (
     <Layout posts={posts}>
       <div className="feed-header">
-        <span className="feed-title">最新动态</span>
-        <span className="feed-count">{posts.length} 篇文章</span>
+        <span className="feed-title">公众号文章</span>
+        <span className="feed-count">{posts.length} 篇</span>
       </div>
 
       {posts.length === 0 ? (
