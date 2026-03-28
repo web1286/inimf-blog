@@ -8,7 +8,7 @@ interface AboutProps {
 
 export default function About({ posts }: AboutProps) {
   return (
-    <Layout title="关于" posts={posts}>
+    <Layout title="关于">
       <div className="about-page article-content">
         <h1>关于</h1>
         <p>
