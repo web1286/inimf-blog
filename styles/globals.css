@@ -1125,51 +1125,255 @@ a {
   padding: 0.5rem 0;
 }
 
-/* 记录轨迹列表 */
-.track-list {
+/* ==================== 右侧时间线（记录轨迹 / 备注信息）==================== */
+
+.rail-timeline-body {
+  padding-top: 0.5rem;
+}
+
+/* 时间线竖轴容器 */
+.tl-list {
   list-style: none;
   display: flex;
   flex-direction: column;
+  gap: 0;
 }
 
-.track-item {
-  padding: 0.6rem 0;
-  border-bottom: 1px solid var(--color-border-light);
+.tl-item {
+  display: flex;
+  gap: 0.55rem;
+  padding-bottom: 0.9rem;
+}
+
+.tl-last {
+  padding-bottom: 0;
+}
+
+/* 左侧轴 */
+.tl-dot-wrap {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  align-items: center;
+  flex-shrink: 0;
+  width: 10px;
+  padding-top: 0.28rem;
 }
 
-.track-item:last-child {
+.tl-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  flex-shrink: 0;
+  border: 1.5px solid #fff;
+  box-shadow: 0 0 0 1.5px var(--color-accent);
+}
+
+.tl-dot-note {
+  background: #f59e0b;
+  box-shadow: 0 0 0 1.5px #f59e0b;
+}
+
+.tl-line {
+  flex: 1;
+  width: 1.5px;
+  background: var(--color-border);
+  margin-top: 3px;
+  min-height: 16px;
+}
+
+/* 右侧内容 */
+.tl-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.22rem;
+}
+
+.tl-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.tl-type-badge {
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 0.05rem 0.38rem;
+  border-radius: 3px;
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+  letter-spacing: 0.02em;
+}
+
+.tl-badge-note {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.tl-time {
+  font-size: 0.65rem;
+  color: var(--color-text-muted);
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.tl-title-link {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.4;
+  transition: color 0.12s;
+  display: block;
+}
+
+.tl-title-link:hover {
+  color: var(--color-accent);
+}
+
+.tl-content {
+  font-size: 0.77rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  word-break: break-all;
+}
+
+/* 「更多」链接（右侧栏） */
+.rail-more {
+  padding-top: 0.65rem;
+  text-align: right;
+}
+
+.rail-more-link {
+  font-size: 0.72rem;
+  color: var(--color-accent);
+  font-weight: 500;
+  transition: opacity 0.12s;
+}
+
+.rail-more-link:hover {
+  opacity: 0.75;
+}
+
+/* ==================== 中间最新动态 — 微博/X 时间线 ==================== */
+
+.timeline-feed {
+  display: flex;
+  flex-direction: column;
+}
+
+.tl-feed-item {
+  display: flex;
+  gap: 0.75rem;
+  padding-bottom: 0.1rem;
+}
+
+.tl-feed-last {
+  padding-bottom: 0;
+}
+
+/* 左侧头像 + 竖线 */
+.tl-feed-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 36px;
+}
+
+.tl-feed-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.tl-feed-line {
+  flex: 1;
+  width: 2px;
+  background: var(--color-border);
+  min-height: 20px;
+  margin-top: 4px;
+}
+
+/* 右侧内容 */
+.tl-feed-right {
+  flex: 1;
+  min-width: 0;
+  padding-bottom: 1.15rem;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.tl-feed-item.tl-feed-last .tl-feed-right {
   border-bottom: none;
   padding-bottom: 0;
 }
 
-.track-top {
+.tl-feed-header {
   display: flex;
   align-items: center;
   gap: 0.4rem;
+  margin-bottom: 0.35rem;
+  flex-wrap: wrap;
 }
 
-.track-type {
-  font-size: 0.62rem;
+.tl-feed-author {
+  font-size: 0.88rem;
   font-weight: 700;
-  padding: 0.05rem 0.4rem;
-  border-radius: 3px;
+  color: var(--color-text);
+}
+
+.tl-feed-tag {
+  font-size: 0.66rem;
+  padding: 0.04rem 0.45rem;
+  border-radius: 20px;
   background: var(--color-accent-light);
   color: var(--color-accent);
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
+  font-weight: 500;
 }
 
-.track-date {
-  font-size: 0.65rem;
+.tl-feed-time {
+  font-size: 0.75rem;
   color: var(--color-text-muted);
   margin-left: auto;
+  white-space: nowrap;
 }
 
-.track-content {
-  font-size: 0.78rem;
+.tl-feed-text {
+  font-size: 0.9rem;
   color: var(--color-text-secondary);
-  line-height: 1.5;
+  line-height: 1.7;
+  word-break: break-all;
+}
+
+/* 「更多」按钮（Feed 底部） */
+.feed-more {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.feed-more-link {
+  display: inline-block;
+  font-size: 0.82rem;
+  color: var(--color-accent);
+  font-weight: 500;
+  padding: 0.4rem 1.2rem;
+  border: 1px solid var(--color-accent);
+  border-radius: 20px;
+  transition: all 0.15s;
+}
+
+.feed-more-link:hover {
+  background: var(--color-accent);
+  color: #fff;
 }
