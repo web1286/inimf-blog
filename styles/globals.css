@@ -268,6 +268,31 @@ a {
   line-height: 1.5;
 }
 
+/* 标签云 */
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0.6rem 0.85rem;
+}
+
+.tag-cloud-item {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.65rem;
+  background: var(--color-tag-bg);
+  color: var(--color-tag-text);
+  border-radius: 20px;
+  font-weight: 500;
+  transition: all 0.15s;
+  border: 1px solid transparent;
+  cursor: default;
+}
+
+.tag-cloud-item:hover {
+  background: var(--color-accent);
+  color: #ffffff;
+}
+
 /* 侧边栏 badge */
 .sidebar-badge {
   margin-left: auto;
@@ -486,6 +511,19 @@ a {
   border-radius: 7px;
   flex-shrink: 0;
   background: var(--color-bg);
+}
+
+/* Feed 区块容器 */
+.feed-section {
+  margin-bottom: 0.5rem;
+}
+
+/* 两个 Feed 之间的分隔线 */
+.feed-divider {
+  height: 1px;
+  background: var(--color-border);
+  margin: 2rem 0 1.75rem;
+  border: none;
 }
 
 /* Feed 顶部栏 */
