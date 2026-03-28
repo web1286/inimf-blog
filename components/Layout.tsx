@@ -17,25 +17,41 @@ interface LayoutProps {
   children: ReactNode
   title?: string
   description?: string
-  posts?: Post[]          // 传给 sidebar 的最新文章
-  hideSidebar?: boolean   // 文章页可以把侧边栏换成 TOC
+  posts?: Post[]
+  hideSidebar?: boolean
 }
 
-// 提取所有标签（去重）
-function getAllTags(posts: Post[]): string[] {
-  const tagSet = new Set<string>()
-  posts.forEach(p => (p.tags || []).forEach(t => tagSet.add(t)))
-  return Array.from(tagSet).slice(0, 12) // 最多显示 12 个
-}
+// 待办事项数据（可手动维护，以后可以接 API）
+const TODO_ITEMS = [
+  { id: 1, text: '完成每周商业分析复盘', done: false, priority: 'high' },
+  { id: 2, text: '整理 AI 趋势观测笔记', done: false, priority: 'high' },
+  { id: 3, text: '更新博客关于页内容', done: false, priority: 'normal' },
+  { id: 4, text: '阅读《置身事内》第三章', done: true, priority: 'normal' },
+  { id: 5, text: '写一篇具身智能观察文章', done: false, priority: 'normal' },
+]
+
+// 最新动态（简讯，短思考，可手动维护）
+const UPDATES = [
+  { date: '03-28', text: '关注到 Manus 在 Agent 工作流编排上的新进展，值得深入研究。' },
+  { date: '03-27', text: '字节旗下豆包大模型视觉理解能力提升明显，尤其是复杂图表解析。' },
+  { date: '03-26', text: 'OpenAI o3 正式发布，推理能力有实质性跃升，成本仍是门槛。' },
+]
+
+// 记录轨迹（今日看了什么，可手动维护）
+const TRACKS = [
+  { date: '03-28', type: '文章', content: '《中国 AI 产业地图 2025》— 36氪研究院' },
+  { date: '03-27', type: '视频', content: '李永乐讲 DeepSeek 背后的 MoE 架构原理' },
+  { date: '03-26', type: '播客', content: '硅谷 101 × 张俊林：大模型的下一个突破口' },
+  { date: '03-25', type: '书', content: '《置身事内》第二章：地方政府的融资逻辑' },
+]
 
 export default function Layout({ children, title, description, posts = [], hideSidebar }: LayoutProps) {
   const pageTitle = title ? `${title} - ${config.title}` : config.title
   const pageDesc = description || config.description
-  const tags = getAllTags(posts)
-  const recentPosts = posts.slice(0, 6) // 侧边栏最新 6 篇
-
-  // 作者名首字母，用于头像
+  const recentPosts = posts.slice(0, 5)
   const avatarLetter = (config.author || 'I').charAt(0).toUpperCase()
+  const pendingTodos = TODO_ITEMS.filter(t => !t.done)
+  const doneTodos = TODO_ITEMS.filter(t => t.done)
 
   return (
     <>
@@ -49,7 +65,7 @@ export default function Layout({ children, title, description, posts = [], hideS
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* 顶部导航：深灰 xiaohu.ai 风格 */}
+      {/* 顶部导航 */}
       <header className="site-header">
         <div className="header-inner">
           <Link href="/" className="site-title">
@@ -66,9 +82,10 @@ export default function Layout({ children, title, description, posts = [], hideS
         </div>
       </header>
 
-      {/* 双栏布局 */}
+      {/* 三栏布局 */}
       <div className={`site-body${hideSidebar ? ' no-sidebar' : ''}`}>
-        {/* 左侧边栏 */}
+
+        {/* ===== 左侧边栏 ===== */}
         {!hideSidebar && (
           <aside className="site-sidebar">
             {/* 作者卡片 */}
@@ -80,51 +97,109 @@ export default function Layout({ children, title, description, posts = [], hideS
               </div>
             </div>
 
-            {/* 标签云 */}
-            {tags.length > 0 && (
-              <div className="sidebar-card">
-                <div className="sidebar-card-header">
-                  <span className="sidebar-card-title">标签</span>
-                </div>
-                <div className="sidebar-card-body">
-                  <div className="tag-cloud">
-                    {tags.map(tag => (
-                      <span key={tag} className="tag-cloud-item">{tag}</span>
-                    ))}
-                  </div>
-                </div>
+            {/* 待办事项 */}
+            <div className="sidebar-card">
+              <div className="sidebar-card-header">
+                <span className="sidebar-card-title">待办事项</span>
+                <span className="sidebar-badge">{pendingTodos.length} 项</span>
               </div>
-            )}
+              <div className="sidebar-card-body todo-body">
+                <ul className="todo-list">
+                  {pendingTodos.map(item => (
+                    <li key={item.id} className={`todo-item${item.priority === 'high' ? ' todo-high' : ''}`}>
+                      <span className="todo-dot" />
+                      <span className="todo-text">{item.text}</span>
+                    </li>
+                  ))}
+                  {doneTodos.map(item => (
+                    <li key={item.id} className="todo-item todo-done">
+                      <span className="todo-dot todo-dot-done" />
+                      <span className="todo-text">{item.text}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </aside>
+        )}
 
-            {/* 最新文章 */}
-            {recentPosts.length > 0 && (
-              <div className="sidebar-card">
-                <div className="sidebar-card-header">
-                  <span className="sidebar-card-title">最新文章</span>
-                </div>
-                <div className="sidebar-card-body">
-                  <ul className="sidebar-post-list">
+        {/* ===== 中间主内容区 ===== */}
+        <main className="site-main">
+          {children}
+        </main>
+
+        {/* ===== 右侧三个独立模块 ===== */}
+        {!hideSidebar && (
+          <aside className="site-right-rail">
+
+            {/* 模块一：最新动态 */}
+            <div className="rail-card">
+              <div className="rail-card-header">
+                <span className="rail-card-icon">⚡</span>
+                <span className="rail-card-title">最新动态</span>
+                <span className="rail-live-dot" />
+              </div>
+              <div className="rail-card-body">
+                <ul className="updates-list">
+                  {UPDATES.map((u, i) => (
+                    <li key={i} className="update-item">
+                      <span className="update-date">{u.date}</span>
+                      <span className="update-text">{u.text}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* 模块二：最新文章（公众号主线） */}
+            <div className="rail-card">
+              <div className="rail-card-header">
+                <span className="rail-card-icon">📝</span>
+                <span className="rail-card-title">最新文章</span>
+              </div>
+              <div className="rail-card-body">
+                {recentPosts.length > 0 ? (
+                  <ul className="rail-post-list">
                     {recentPosts.map(post => (
-                      <li key={post.slug} className="sidebar-post-item">
-                        <Link href={`/posts/${post.slug}`} className="sidebar-post-link">
+                      <li key={post.slug} className="rail-post-item">
+                        <Link href={`/posts/${post.slug}`} className="rail-post-link">
                           {post.title}
                         </Link>
-                        <span className="sidebar-post-date">
+                        <span className="rail-post-date">
                           {format(new Date(post.date), 'M月d日', { locale: zhCN })}
                         </span>
                       </li>
                     ))}
                   </ul>
-                </div>
+                ) : (
+                  <p className="rail-empty">暂无文章</p>
+                )}
               </div>
-            )}
+            </div>
+
+            {/* 模块三：记录轨迹 */}
+            <div className="rail-card">
+              <div className="rail-card-header">
+                <span className="rail-card-icon">🗓</span>
+                <span className="rail-card-title">记录轨迹</span>
+              </div>
+              <div className="rail-card-body">
+                <ul className="track-list">
+                  {TRACKS.map((t, i) => (
+                    <li key={i} className="track-item">
+                      <div className="track-top">
+                        <span className="track-type">{t.type}</span>
+                        <span className="track-date">{t.date}</span>
+                      </div>
+                      <span className="track-content">{t.content}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
           </aside>
         )}
-
-        {/* 右侧主内容区 */}
-        <main className="site-main">
-          {children}
-        </main>
       </div>
 
       {/* 页脚 */}
