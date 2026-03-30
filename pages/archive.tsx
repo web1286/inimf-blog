@@ -2,12 +2,13 @@ import { GetStaticProps } from 'next'
 import Link from 'next/link'
 import Layout from '../components/Layout'
 import { getSortedPostsData } from '../lib/posts'
-import { format } from 'date-fns'
+import { format, formatDistanceToNow, parseISO } from 'date-fns'
 import { zhCN } from 'date-fns/locale'
 import { UPDATES } from '../data/updates'
 import { TRACKS } from '../data/tracks'
 import { NOTES } from '../data/notes'
 import { TODO_ITEMS } from '../data/todos'
+import { EVENTS } from '../data/events'
 
 interface Post {
   slug: string
@@ -26,7 +27,7 @@ export default function Archive({ posts }: ArchiveProps) {
       <div className="toc-page">
         <div className="toc-page-header">
           <h1 className="toc-page-title">总目录</h1>
-          <p className="toc-page-desc">站点内容索引，共五个模块</p>
+          <p className="toc-page-desc">站点内容索引，共六个模块</p>
         </div>
 
         {/* ========== 模块一：最新动态 ========== */}
@@ -141,6 +142,27 @@ export default function Archive({ posts }: ArchiveProps) {
                 <span className="toc-item-text">{t.text}</span>
               </li>
             ))}
+          </ul>
+        </div>
+
+        {/* ========== 模块六：重要事件 ========== */}
+        <div className="toc-module">
+          <div className="toc-module-header">
+            <span className="toc-module-icon">⚡</span>
+            <h2 className="toc-module-title">重要事件</h2>
+            <span className="toc-module-count">{EVENTS.length} 条</span>
+          </div>
+          <ul className="toc-list">
+            {EVENTS.map((ev, i) => {
+              const relTime = formatDistanceToNow(parseISO(ev.datetime), { addSuffix: true, locale: zhCN })
+              return (
+                <li key={i} className="toc-item">
+                  <span className="toc-item-dot toc-item-dot-event" />
+                  <time className="toc-item-date">{relTime}</time>
+                  <span className="toc-item-text">{ev.title}</span>
+                </li>
+              )
+            })}
           </ul>
         </div>
 
