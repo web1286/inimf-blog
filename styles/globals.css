@@ -1062,6 +1062,52 @@ a {
   font-weight: 600;
 }
 
+/* 移动端重要事件 feed 风格列表项（与最新动态/文章统一）*/
+.mobile-ev-feed-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+.mobile-ev-feed-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.mobile-ev-feed-title {
+  font-size: 0.82rem;
+  color: var(--color-text);
+  line-height: 1.5;
+  font-weight: 500;
+  flex: 1;
+}
+
+/* 事件状态标签 */
+.ev-status-tag {
+  display: inline-block;
+  flex-shrink: 0;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding: 2px 5px;
+  border-radius: 3px;
+  margin-top: 2px;
+  white-space: nowrap;
+}
+.ev-status-alert {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+.ev-status-ongoing {
+  background: #fef3c7;
+  color: #92400e;
+}
+.ev-status-pending {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
 /* 快捷按钮行 */
 .mobile-quick-row {
   display: grid;
