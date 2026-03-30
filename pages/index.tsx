@@ -109,7 +109,14 @@ export default function Home({ posts }: HomeProps) {
 
                     <h2 className="post-card-title">
                       {post.externalUrl ? (
-                        <a href={post.externalUrl} target="_blank" rel="noopener noreferrer">{post.title}</a>
+                        <a
+                          href={post.externalUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => window.umami?.track('external-link-click', { title: post.title, url: post.externalUrl })}
+                        >
+                          {post.title}
+                        </a>
                       ) : (
                         <Link href={`/posts/${post.slug}`}>{post.title}</Link>
                       )}
