@@ -992,6 +992,107 @@ a {
   border: 1px solid var(--color-border);
 }
 
+/* ==================== 移动端追加区块（主内容下方，PC 隐藏）==================== */
+
+/* 默认 PC 隐藏 */
+.mobile-extra {
+  display: none;
+}
+
+/* 关键事件小卡片 */
+.mobile-extra-card {
+  background: var(--color-surface-gray);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.mobile-extra-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.55rem 0.85rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border-light);
+  background: var(--color-bg);
+}
+
+.mobile-ev-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-ev-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 0.55rem 0.85rem;
+  border-bottom: 1px solid var(--color-border-light);
+  position: relative;
+}
+.mobile-ev-item:last-child {
+  border-bottom: none;
+}
+.mobile-ev-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 3px;
+  background: #f59e0b;
+  border-radius: 2px;
+}
+.mobile-ev-time {
+  font-size: 0.64rem;
+  font-weight: 700;
+  color: #f59e0b;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.mobile-ev-title {
+  font-size: 0.78rem;
+  color: var(--color-text);
+  line-height: 1.45;
+  font-weight: 600;
+}
+
+/* 快捷按钮行 */
+.mobile-quick-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.mobile-quick-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0.7rem 0.4rem;
+  background: var(--color-surface-gray);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-text);
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+.mobile-quick-btn span {
+  font-size: 1.1rem;
+}
+.mobile-quick-btn:hover {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
 /* ==================== 响应式：平板以下隐藏侧边栏和右栏 ==================== */
 
 @media (max-width: 1080px) {
@@ -1004,6 +1105,12 @@ a {
 }
 
 @media (max-width: 860px) {
+  .mobile-extra {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 1.5rem;
+  }
   .site-sidebar {
     display: none;
   }
