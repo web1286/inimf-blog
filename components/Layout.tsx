@@ -92,7 +92,14 @@ export default function Layout({ children, title, description, posts = [], hideS
                   return (
                     <li key={i} className="ev-item">
                       <div className="ev-time">{relTime}</div>
-                      <div className="ev-title">{ev.title}</div>
+                      <div style={{display:'flex',alignItems:'flex-start',gap:'6px',flexWrap:'wrap'}}>
+                        {ev.status && (
+                          <span className={`ev-status-tag ev-status-${ev.status === '突发重大' ? 'alert' : ev.status === '持续发酵' ? 'ongoing' : 'pending'}`}>
+                            {ev.status}
+                          </span>
+                        )}
+                        <div className="ev-title" style={{flex:1,minWidth:0}}>{ev.title}</div>
+                      </div>
                       {ev.content && <div className="ev-content">{ev.content}</div>}
                     </li>
                   )
@@ -111,26 +118,22 @@ export default function Layout({ children, title, description, posts = [], hideS
           {!hideSidebar && (
             <div className="mobile-extra">
 
-              {/* 重要事件紧凑列表 */}
-              <div className="mobile-extra-card">
-                <div className="mobile-extra-header">
-                  <span>⚡</span>
-                  <span>重要事件</span>
-                  <span className="rail-live-dot" style={{marginLeft: '4px'}} />
+              {/* 重要事件 — feed-section 风格，与最新动态/文章统一 */}
+              <div className="feed-section">
+                <div className="feed-header">
+                  <span className="feed-title">⚡ 重要事件</span>
                 </div>
-                <ul className="mobile-ev-list">
-                  {EVENTS.slice(0, 4).map((ev, i) => {
-                    const relTime = formatDistanceToNow(parseISO(ev.datetime), {
-                      addSuffix: true,
-                      locale: zhCN,
-                    })
-                    return (
-                      <li key={i} className="mobile-ev-item">
-                        <span className="mobile-ev-time">{relTime}</span>
-                        <span className="mobile-ev-title">{ev.title}</span>
-                      </li>
-                    )
-                  })}
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                  {EVENTS.slice(0, 4).map((ev, i) => (
+                    <li key={i} className="mobile-ev-feed-item">
+                      {ev.status && (
+                        <span className={`ev-status-tag ev-status-${ev.status === '突发重大' ? 'alert' : ev.status === '持续发酵' ? 'ongoing' : 'pending'}`}>
+                          {ev.status}
+                        </span>
+                      )}
+                      <span className="mobile-ev-feed-title">{ev.title}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
 
