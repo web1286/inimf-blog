@@ -1,38 +1,51 @@
 export interface EventItem {
-  datetime: string  // ISO 8601，如 "2026-03-30T14:00:00"
-  title: string
-  content?: string
+  datetime: string  // ISO 8601，时间线排序用
+  title: string     // 事件标题
+  status?: string   // 状态标签：如「突发重大」「持续发酵」「等待落地」
+  content?: string  // 补充说明（可选）
 }
 
 export const EVENTS: EventItem[] = [
   {
-    datetime: '2026-03-30T10:15:00',
-    title: 'OpenAI 发布 GPT-4.5 Turbo',
-    content: '推理速度提升 40%，上下文窗口扩展至 256K，多模态能力全面升级。',
+    datetime: '2026-05-14T00:00:00+08:00',
+    status: '等待落地',
+    title: '特朗普计划对华开展国事访问',
+    content: '特朗普计划于该日期对华开展国事访问，相关筹备工作有序推进。',
   },
   {
-    datetime: '2026-03-29T16:30:00',
-    title: '英伟达 GTC 2026 发布 Blackwell Ultra',
-    content: 'GB300 架构，单卡 HBM4 内存 288GB，AI 训练性能较上代翻倍。',
+    datetime: '2026-06-01T00:00:00+08:00',
+    status: '等待落地',
+    title: 'SpaceX 美股 IPO 项目（计划 2026 年 6 月挂牌）',
+    content: '2026-03-25 官方披露拟近期向 SEC 提交招股书，预计募资最高 750 亿美元，有望成为全球史上最大规模 IPO。',
   },
   {
-    datetime: '2026-03-28T09:00:00',
-    title: '字节跳动 Seed1.5-VL 多模态模型开源',
-    content: '图文理解能力接近 GPT-4o，推理效率显著优化，Apache 2.0 协议。',
+    datetime: '2026-04-01T00:00:00+08:00',
+    status: '等待落地',
+    title: '先正达集团港股 IPO（2026 年 Q2-Q3 计划挂牌）',
+    content: '已启动港股上市筹备，计划年内完成挂牌，拟募资约 100 亿美元，为 2026 年港股核心大额 IPO 项目。',
   },
   {
-    datetime: '2026-03-27T14:00:00',
-    title: '国内 AI Agent 赛道融资超 20 亿',
-    content: '一周内多家 Agent 初创完成融资，Pre-A 轮估值中位数约 2 亿人民币。',
+    datetime: '2026-03-01T00:00:00+08:00',
+    status: '持续发酵',
+    title: '全球私募信贷集中赎回危机',
+    content: '黑石、贝莱德等华尔街头部机构密集遭遇超百亿级赎回申请，行业流动性风险加剧。',
   },
   {
-    datetime: '2026-03-26T11:45:00',
-    title: 'Anthropic Claude 3.7 Sonnet 正式上线',
-    content: '推出「扩展思维」模式，复杂推理任务成功率较 3.5 提升 23%。',
+    datetime: '2026-02-28T00:00:00+08:00',
+    status: '突发重大',
+    title: '美以对伊朗联合军事打击事件',
+    content: '美国直接参战对伊朗发起军事打击，伊朗最高领袖遇袭身亡，中东地缘局势全面升级。',
   },
   {
-    datetime: '2026-03-25T08:00:00',
-    title: '特斯拉 FSD v13 国内推送',
-    content: '城区道路端到端自动驾驶能力大幅提升，接管率下降至历史最低。',
+    datetime: '2026-01-01T00:00:00+08:00',
+    status: '等待落地',
+    title: '百度昆仑芯港股 IPO 项目',
+    content: '以保密形式向港交所递交主板上市申请，正式启动港股上市流程。',
+  },
+  {
+    datetime: '2022-02-24T00:00:00+08:00',
+    status: '持续发酵',
+    title: '俄乌全面军事冲突事件',
+    content: '俄乌冲突全面爆发，地缘政治风险持续向全球市场外溢。',
   },
 ]
