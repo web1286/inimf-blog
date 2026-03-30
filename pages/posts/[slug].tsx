@@ -69,6 +69,35 @@ export default function Post({ postData, prevPost, nextPost, allPosts }: PostPro
       window.location.href = postData.externalUrl
     }
   }, [postData.externalUrl])
+
+  // 滚动深度追踪：25% / 50% / 75% / 100%
+  useEffect(() => {
+    if (postData.externalUrl) return // 跳转类文章不追踪
+
+    const milestones = [25, 50, 75, 100]
+    const reached = new Set<number>()
+
+    const handleScroll = () => {
+      const scrollTop = window.scrollY
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight
+      if (docHeight <= 0) return
+      const pct = Math.round((scrollTop / docHeight) * 100)
+
+      milestones.forEach((m) => {
+        if (pct >= m && !reached.has(m)) {
+          reached.add(m)
+          window.umami?.track('scroll-depth', {
+            title: postData.title,
+            slug: postData.slug,
+            depth: `${m}%`,
+          })
+        }
+      })
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [postData.slug, postData.title, postData.externalUrl])
   return (
     <Layout
       title={postData.title}
