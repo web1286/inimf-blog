@@ -158,6 +158,11 @@ export default function Archive({ posts }: ArchiveProps) {
               return (
                 <li key={i} className="toc-item">
                   <span className="toc-item-dot toc-item-dot-event" />
+                  {ev.status && (
+                    <span className={`ev-status-tag ev-status-${ev.status === '突发重大' ? 'alert' : ev.status === '持续发酵' ? 'ongoing' : 'pending'}`} style={{flexShrink:0}}>
+                      {ev.status}
+                    </span>
+                  )}
                   <time className="toc-item-date">{relTime}</time>
                   <span className="toc-item-text">{ev.title}</span>
                 </li>
