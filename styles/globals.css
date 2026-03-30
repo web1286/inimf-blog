@@ -1308,7 +1308,61 @@ a {
   opacity: 0.75;
 }
 
-/* ==================== 中间最新动态 — 微博/X 时间线 ==================== */
+/* ==================== 关键事件列表（Bloomberg live blog 风格）==================== */
+
+.ev-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.ev-item {
+  padding: 0.7rem 0.9rem;
+  border-bottom: 1px solid var(--color-border-light);
+  position: relative;
+}
+
+.ev-item:last-child {
+  border-bottom: none;
+}
+
+/* 左侧橙色竖条 */
+.ev-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6rem;
+  bottom: 0.6rem;
+  width: 3px;
+  background: #f59e0b;
+  border-radius: 2px;
+}
+
+.ev-time {
+  font-size: 0.64rem;
+  font-weight: 700;
+  color: #f59e0b;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.2rem;
+  text-transform: uppercase;
+}
+
+.ev-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.45;
+  margin-bottom: 0.2rem;
+}
+
+.ev-content {
+  font-size: 0.72rem;
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+  word-break: break-all;
+}
+
+
 
 .timeline-feed {
   display: flex;
