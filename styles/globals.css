@@ -2109,6 +2109,10 @@ a {
   background: #cccccc !important;
 }
 
+.toc-item-dot-event {
+  background: #f59e0b;
+}
+
 .toc-item-date {
   font-size: 0.72rem;
   color: var(--color-text-muted);
@@ -2168,5 +2172,112 @@ a {
   font-size: 0.88rem;
   color: var(--color-text-muted);
   padding: 1rem 1.25rem;
+}
+
+/* ==================== 随想页面 ==================== */
+
+.thoughts-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 2rem 0 3rem;
+}
+
+.thoughts-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.thoughts-header-icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.6rem;
+  line-height: 1;
+}
+
+.thoughts-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--color-text);
+  margin: 0 0 0.35rem;
+}
+
+.thoughts-subtitle {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin: 0;
+  letter-spacing: 0.04em;
+}
+
+/* 时间轴容器 */
+.thoughts-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* 单条随想卡片 */
+.thought-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  position: relative;
+  transition: box-shadow 0.15s, border-color 0.15s;
+  border-left: 3px solid #fbbf24;
+}
+
+.thought-card:hover {
+  box-shadow: 0 3px 14px rgba(0,0,0,0.07);
+  border-color: #fbbf24;
+}
+
+.thought-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0.6rem;
+}
+
+.thought-mood {
+  font-size: 1rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.thought-time {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #f59e0b;
+  white-space: nowrap;
+}
+
+.thought-abs-time {
+  font-size: 0.65rem;
+  color: var(--color-text-muted);
+  margin-left: auto;
+}
+
+.thought-text {
+  font-size: 0.9rem;
+  color: var(--color-text);
+  line-height: 1.7;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* 空状态 */
+.thoughts-empty {
+  text-align: center;
+  padding: 4rem 0;
+  color: var(--color-text-muted);
+}
+
+.thoughts-empty span {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.thoughts-empty p {
+  font-size: 0.88rem;
 }
 
