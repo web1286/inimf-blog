@@ -145,15 +145,15 @@ export default function Archive({ posts }: ArchiveProps) {
           </ul>
         </div>
 
-        {/* ========== 模块六：重要事件 ========== */}
+        {/* ========== 模块六：关键事件 ========== */}
         <div className="toc-module">
           <div className="toc-module-header">
             <span className="toc-module-icon">⚡</span>
-            <h2 className="toc-module-title">重要事件</h2>
+            <h2 className="toc-module-title">关键事件</h2>
             <span className="toc-module-count">{EVENTS.length} 条</span>
           </div>
           <ul className="toc-list">
-            {EVENTS.map((ev, i) => {
+            {[...EVENTS].sort((a, b) => a.datetime.localeCompare(b.datetime)).map((ev, i) => {
               const relTime = formatDistanceToNow(parseISO(ev.datetime), { addSuffix: true, locale: zhCN })
               return (
                 <li key={i} className="toc-item">
