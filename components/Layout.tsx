@@ -260,45 +260,46 @@ export default function Layout({ children, title, description, posts = [], hideS
         {!hideSidebar && (
           <aside className="site-right-rail">
 
-            {/* ① 日历模块 */}
-            <div className="rail-card">
+            {/* ① 日历模块 — sidebar-card 风格，与左侧作者卡片对称 */}
+            <div className="sidebar-card" style={{overflow: 'hidden', padding: 0}}>
+              <div className="sidebar-card-header" style={{borderBottom: '1px solid var(--color-border-light)'}}>
+                <span className="sidebar-card-icon" style={{fontSize: '0.8rem'}}>📅</span>
+                <span className="sidebar-card-title">日历</span>
+              </div>
               <CalendarWidget />
             </div>
 
-            {/* ② 最新动态 — 紧凑卡片列表，Bloomberg 风格 */}
-            <div className="rail-card">
-              <div className="rail-card-header">
-                <span className="rail-card-icon">📡</span>
-                <span className="rail-card-title">最新动态</span>
-                <span className="rail-count-num" style={{fontSize:'0.68rem', color:'var(--color-text-muted)', marginLeft:'2px'}}>{UPDATES.length} 条</span>
-                <span className="rail-live-dot" style={{marginLeft:'auto'}} />
-                <Link href="/updates" style={{marginLeft:'8px', fontSize:'0.68rem', color:'var(--color-text-muted)', textDecoration:'none'}}>更多</Link>
+            {/* ② 最新动态 — 与关键事件完全统一的 ev-item 风格 */}
+            <div className="sidebar-card" style={{overflow: 'hidden', padding: 0}}>
+              <div className="sidebar-card-header" style={{borderBottom: '1px solid var(--color-border-light)'}}>
+                <span className="sidebar-card-icon" style={{fontSize: '0.8rem'}}>📡</span>
+                <span className="sidebar-card-title">最新动态</span>
+                <span className="rail-count-num" style={{marginLeft: 'auto', fontSize: '0.7rem', color: 'var(--color-text-muted)'}}>{UPDATES.length} 条</span>
+                <Link href="/updates" style={{marginLeft: '8px', fontSize: '0.68rem', color: 'var(--color-text-muted)', textDecoration: 'none'}}>更多</Link>
               </div>
-              <div className="rail-card-body" style={{padding: '0.4rem 0.9rem 0.65rem'}}>
-                <ul className="rail-updates-list">
-                  {displayUpdates.map((item, i) => {
-                    const relTime = mounted
-                      ? formatDistanceToNow(new Date(item.date), { addSuffix: true, locale: zhCN })
-                      : ''
-                    const snippet = item.text.length > 80 ? item.text.slice(0, 80) + '…' : item.text
-                    return (
-                      <li key={i} className="rail-update-item">
-                        <div className="rail-update-meta">
-                          {item.tags && item.tags[0] && (
-                            <span className="rail-update-tag">{item.tags[0]}</span>
-                          )}
-                          <time className="rail-update-time">{relTime}</time>
-                        </div>
-                        <p className="rail-update-text">{snippet}</p>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
+              <ul className="ev-list" style={{margin: 0}}>
+                {displayUpdates.map((item, i) => {
+                  const relTime = mounted
+                    ? formatDistanceToNow(new Date(item.date), { addSuffix: true, locale: zhCN })
+                    : ''
+                  const snippet = item.text.length > 100 ? item.text.slice(0, 100) + '…' : item.text
+                  return (
+                    <li key={i} className="ev-item">
+                      <div className="ev-time">{relTime}</div>
+                      <div style={{display: 'flex', alignItems: 'flex-start', gap: '6px', flexWrap: 'wrap'}}>
+                        {item.tags && item.tags[0] && (
+                          <span className="ev-status-tag ev-status-pending">{item.tags[0]}</span>
+                        )}
+                        <div className="ev-content" style={{flex: 1, minWidth: 0}}>{snippet}</div>
+                      </div>
+                    </li>
+                  )
+                })}
+              </ul>
             </div>
 
             {/* ③ 待办事项入口 */}
-            <div className="rail-card">
+            <div className="sidebar-card">
               <Link href="/todos" style={{ textDecoration: 'none', display: 'block' }}>
                 <div style={{
                   display: 'flex',
@@ -322,7 +323,7 @@ export default function Layout({ children, title, description, posts = [], hideS
             </div>
 
             {/* ④ 备注信息入口 */}
-            <div className="rail-card">
+            <div className="sidebar-card">
               <Link href="/notes" style={{ textDecoration: 'none', display: 'block' }}>
                 <div style={{
                   display: 'flex',
@@ -346,7 +347,7 @@ export default function Layout({ children, title, description, posts = [], hideS
             </div>
 
             {/* ⑤ 数据面板入口 */}
-            <div className="rail-card">
+            <div className="sidebar-card">
               <Link href="/analytics" style={{ textDecoration: 'none', display: 'block' }}>
                 <div style={{
                   display: 'flex',
