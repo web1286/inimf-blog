@@ -1,11 +1,11 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { ReactNode } from 'react'
-import { format } from 'date-fns'
+import { formatDistanceToNow, parseISO } from 'date-fns'
 import { zhCN } from 'date-fns/locale'
-import { TRACKS } from '../data/tracks'
 import { NOTES } from '../data/notes'
 import { TODO_ITEMS } from '../data/todos'
+import { EVENTS } from '../data/events'
 const config = require('../blog.config')
 
 interface Post {
@@ -35,7 +35,7 @@ export default function Layout({ children, title, description, posts = [], hideS
     new Set(posts.flatMap(p => p.tags || []))
   )
 
-  const displayTracks = TRACKS.slice(0, 3)
+  const displayEvents = EVENTS.slice(0, 5)
 
   return (
     <>
@@ -155,74 +155,57 @@ export default function Layout({ children, title, description, posts = [], hideS
         {!hideSidebar && (
           <aside className="site-right-rail">
 
-            {/* 记录轨迹（数据来自 data/tracks.ts）— 微博/X 时间线风格 */}
+            {/* 关键事件（数据来自 data/events.ts）— Bloomberg live blog 风格 */}
             <div className="rail-card">
               <div className="rail-card-header">
-                <span className="rail-card-icon">🗓</span>
-                <span className="rail-card-title">记录轨迹</span>
+                <span className="rail-card-icon">⚡</span>
+                <span className="rail-card-title">关键事件</span>
                 <span className="rail-count-with-more" style={{marginLeft:'auto'}}>
-                  <span className="rail-count-num">{TRACKS.length} 条</span>
-                  {TRACKS.length > 3 && (
-                    <Link href="/tracks" className="rail-inline-more">更多</Link>
-                  )}
+                  <span className="rail-count-num">{EVENTS.length} 条</span>
                 </span>
                 <span className="rail-live-dot" />
               </div>
-              <div className="rail-card-body rail-timeline-body">
-                <ul className="tl-list">
-                  {displayTracks.map((t, i) => (
-                    <li key={i} className={`tl-item${i === displayTracks.length - 1 ? ' tl-last' : ''}`}>
-                      <div className="tl-dot-wrap">
-                        <span className="tl-dot" />
-                        {i < displayTracks.length - 1 && <span className="tl-line" />}
-                      </div>
-                      <div className="tl-body">
-                        <div className="tl-meta">
-                          <span className="tl-type-badge">{t.type}</span>
-                          <span className="tl-time">{t.date.slice(5).replace('-', '/')} {t.time}</span>
-                        </div>
-                        <p className="tl-content">{t.content}</p>
-                      </div>
-                    </li>
-                  ))}
+              <div className="rail-card-body" style={{padding: '0'}}>
+                <ul className="ev-list">
+                  {displayEvents.map((ev, i) => {
+                    const relTime = formatDistanceToNow(parseISO(ev.datetime), {
+                      addSuffix: true,
+                      locale: zhCN,
+                    })
+                    return (
+                      <li key={i} className="ev-item">
+                        <div className="ev-time">{relTime}</div>
+                        <div className="ev-title">{ev.title}</div>
+                        {ev.content && <div className="ev-content">{ev.content}</div>}
+                      </li>
+                    )
+                  })}
                 </ul>
               </div>
             </div>
 
-            {/* 备注信息（数据来自 data/notes.ts）— 时间线风格 */}
+            {/* 备注信息入口 — 折叠为单行 */}
             <div className="rail-card">
-              <div className="rail-card-header">
-                <span className="rail-card-icon">📌</span>
-                <span className="rail-card-title">备注信息</span>
-                <span className="rail-count-with-more" style={{marginLeft:'auto'}}>
-                  <span className="rail-count-num">{NOTES.length} 条</span>
-                  {NOTES.length > 3 && (
-                    <Link href="/notes" className="rail-inline-more">更多</Link>
-                  )}
-                </span>
-              </div>
-              <div className="rail-card-body rail-timeline-body">
-                <ul className="tl-list">
-                  {NOTES.map((n, i) => (
-                    <li key={i} className={`tl-item${i === NOTES.length - 1 ? ' tl-last' : ''}`}>
-                      <div className="tl-dot-wrap">
-                        <span className="tl-dot tl-dot-note" />
-                        {i < NOTES.length - 1 && <span className="tl-line" />}
-                      </div>
-                      <div className="tl-body">
-                        <div className="tl-meta">
-                          {n.tags && n.tags[0] && (
-                            <span className="tl-type-badge tl-badge-note">{n.tags[0]}</span>
-                          )}
-                          <span className="tl-time">{n.date.slice(5).replace('-', '/')} {n.time}</span>
-                        </div>
-                        <Link href={`/posts/${n.slug}`} className="tl-title-link">{n.title}</Link>
-                        <p className="tl-content">{n.summary}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <Link href="/notes" style={{ textDecoration: 'none', display: 'block' }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '0.65rem 0.9rem',
+                  color: '#4a5568',
+                  transition: 'color 0.15s',
+                }}
+                  onMouseEnter={e => (e.currentTarget.style.color = '#2563eb')}
+                  onMouseLeave={e => (e.currentTarget.style.color = '#4a5568')}
+                >
+                  <span style={{ fontSize: '14px', lineHeight: 1 }}>📌</span>
+                  <span style={{ fontSize: '13px', fontWeight: 600 }}>备注信息</span>
+                  <span style={{ fontSize: '11px', color: '#a0aec0', marginLeft: '2px' }}>
+                    {NOTES.length} 条
+                  </span>
+                  <span style={{ marginLeft: 'auto', fontSize: '12px', color: '#a0aec0' }}>→</span>
+                </div>
+              </Link>
             </div>
 
           </aside>
