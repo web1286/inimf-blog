@@ -28,7 +28,8 @@ export default function Layout({ children, title, description, posts = [], hideS
   const pageDesc = description || config.description
   const avatarLetter = (config.author || 'I').charAt(0).toUpperCase()
 
-  const displayEvents = EVENTS.slice(0, 5)
+  // 关键事件：按时间线正序（过去→现在→未来）
+  const displayEvents = [...EVENTS].sort((a, b) => a.datetime.localeCompare(b.datetime))
 
   return (
     <>
@@ -75,11 +76,11 @@ export default function Layout({ children, title, description, posts = [], hideS
               </div>
             </div>
 
-            {/* 重要事件（左侧，Bloomberg live blog 风格）*/}
+            {/* 关键事件（左侧，Bloomberg live blog 风格）*/}
             <div className="sidebar-card" style={{overflow: 'hidden', padding: 0}}>
               <div className="sidebar-card-header" style={{borderBottom: '1px solid var(--color-border-light)'}}>
                 <span className="sidebar-card-icon" style={{fontSize: '0.8rem'}}>⚡</span>
-                <span className="sidebar-card-title">重要事件</span>
+                <span className="sidebar-card-title">关键事件</span>
                 <span className="rail-count-num" style={{marginLeft: 'auto', fontSize: '0.7rem', color: 'var(--color-text-muted)'}}>{EVENTS.length} 条</span>
                 <span className="rail-live-dot" style={{marginLeft: '4px'}} />
               </div>
@@ -118,13 +119,13 @@ export default function Layout({ children, title, description, posts = [], hideS
           {!hideSidebar && (
             <div className="mobile-extra">
 
-              {/* 重要事件 — feed-section 风格，与最新动态/文章统一 */}
+              {/* 关键事件 — feed-section 风格，与最新动态/文章统一 */}
               <div className="feed-section">
                 <div className="feed-header">
-                  <span className="feed-title">⚡ 重要事件</span>
+                  <span className="feed-title">⚡ 关键事件</span>
                 </div>
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                  {EVENTS.slice(0, 4).map((ev, i) => (
+                  {displayEvents.map((ev, i) => (
                     <li key={i} className="mobile-ev-feed-item">
                       {ev.status && (
                         <span className={`ev-status-tag ev-status-${ev.status === '突发重大' ? 'alert' : ev.status === '持续发酵' ? 'ongoing' : 'pending'}`}>
