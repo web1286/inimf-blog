@@ -18,7 +18,7 @@ export function getSortedPostsData() {
       const matterResult = matter(fileContents)
       return {
         slug,
-        ...(matterResult.data as { title: string; date: string; summary?: string; tags?: string[] }),
+        ...(matterResult.data as { title: string; date: string; summary?: string; tags?: string[]; externalUrl?: string }),
       }
     })
 
@@ -49,6 +49,6 @@ export async function getPostData(slug: string) {
   return {
     slug,
     contentHtml,
-    ...(matterResult.data as { title: string; date: string; summary?: string; tags?: string[] }),
+    ...(matterResult.data as { title: string; date: string; summary?: string; tags?: string[]; externalUrl?: string }),
   }
 }
