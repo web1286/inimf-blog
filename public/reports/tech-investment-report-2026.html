@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三大科技赛道深度投研报告 · 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --primary: #0f172a;
+    --accent: #3b82f6;
+    --accent2: #10b981;
+    --accent3: #f59e0b;
+    --red: #ef4444;
+    --green: #22c55e;
+    --purple: #8b5cf6;
+    --bg: #0f172a;
+    --card: #1e293b;
+    --card2: #162032;
+    --border: #334155;
+    --text: #f1f5f9;
+    --muted: #94a3b8;
+    --tag-bg: #1e3a5f;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    line-height: 1.7;
+  }
+  /* ===== NAV ===== */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,23,42,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem; height: 56px;
+  }
+  .nav-brand { font-weight: 700; font-size: 1rem; color: var(--accent); letter-spacing: 0.05em; }
+  .nav-links { display: flex; gap: 1.5rem; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none; font-size: 0.875rem;
+    transition: color 0.2s; cursor: pointer;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--text); }
+  .nav-date { font-size: 0.75rem; color: var(--muted); }
+  /* ===== HERO ===== */
+  .hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1a1040 50%, #0c2340 100%);
+    padding: 4rem 2rem 3rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(59,130,246,0.15) 0%, transparent 70%);
+  }
+  .hero-inner { max-width: 1100px; margin: 0 auto; position: relative; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3);
+    color: var(--accent); padding: 0.3rem 0.8rem; border-radius: 20px;
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; margin-bottom: 1.5rem;
+  }
+  .hero h1 { font-size: 2.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 1rem; }
+  .hero h1 span { 
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #10b981);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero-sub { font-size: 1.05rem; color: var(--muted); max-width: 700px; margin-bottom: 2.5rem; }
+  .hero-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .hero-card {
+    background: rgba(30,41,59,0.7);
+    border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.25rem;
+    transition: all 0.2s; cursor: pointer;
+  }
+  .hero-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .hero-card-num { font-size: 1.8rem; font-weight: 800; line-height: 1; margin-bottom: 0.25rem; }
+  .hero-card-label { font-size: 0.75rem; color: var(--muted); }
+  .hero-card-desc { font-size: 0.85rem; margin-top: 0.5rem; color: var(--text); }
+  /* ===== SECTION ===== */
+  .section { padding: 3rem 2rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-title {
+    display: flex; align-items: center; gap: 1rem;
+    font-size: 1.6rem; font-weight: 700; margin-bottom: 0.5rem;
+  }
+  .section-badge {
+    display: inline-block; padding: 0.2rem 0.7rem;
+    border-radius: 6px; font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+  .badge-robot { background: rgba(16,185,129,0.2); color: var(--accent2); }
+  .badge-ai { background: rgba(59,130,246,0.2); color: var(--accent); }
+  .badge-quantum { background: rgba(139,92,246,0.2); color: var(--purple); }
+  .section-desc { color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem; max-width: 800px; }
+  /* ===== GRID ===== */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+  /* ===== CARD ===== */
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.5rem;
+  }
+  .card-title { font-size: 0.8rem; color: var(--muted); font-weight: 600; letter-spacing: 0.06em; margin-bottom: 1rem; text-transform: uppercase; }
+  .metric-value { font-size: 2rem; font-weight: 800; line-height: 1; }
+  .metric-sub { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
+  .trend-up { color: var(--red); } /* 中国习惯：涨=红 */
+  .trend-down { color: var(--green); }
+  /* ===== TABLE ===== */
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  th {
+    background: rgba(51,65,85,0.5); color: var(--muted);
+    padding: 0.75rem 1rem; text-align: left;
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 0.75rem 1rem; border-bottom: 1px solid rgba(51,65,85,0.3);
+    vertical-align: top;
+  }
+  tr:hover td { background: rgba(30,58,95,0.3); }
+  tr:last-child td { border-bottom: none; }
+  .tag {
+    display: inline-block;
+    background: var(--tag-bg); color: var(--accent);
+    padding: 0.15rem 0.5rem; border-radius: 4px;
+    font-size: 0.7rem; font-weight: 600;
+  }
+  .tag-green { background: rgba(16,185,129,0.15); color: var(--accent2); }
+  .tag-amber { background: rgba(245,158,11,0.15); color: var(--accent3); }
+  .tag-red { background: rgba(239,68,68,0.15); color: var(--red); }
+  .tag-purple { background: rgba(139,92,246,0.15); color: var(--purple); }
+  /* ===== CHART ===== */
+  .chart-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .chart-title { font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 1rem; }
+  /* ===== SCENARIO ===== */
+  .scenario-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.5rem 0; }
+  .scenario-card {
+    border-radius: 10px; padding: 1.25rem;
+    border: 1px solid var(--border);
+  }
+  .scenario-bear { background: rgba(16,185,129,0.07); border-color: rgba(16,185,129,0.3); }
+  .scenario-base { background: rgba(59,130,246,0.07); border-color: rgba(59,130,246,0.3); }
+  .scenario-bull { background: rgba(239,68,68,0.07); border-color: rgba(239,68,68,0.3); }
+  .scenario-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+  .scenario-ret { font-size: 1.8rem; font-weight: 800; }
+  .scenario-ret-bear { color: var(--green); }
+  .scenario-ret-base { color: var(--accent); }
+  .scenario-ret-bull { color: var(--red); }
+  .scenario-desc { font-size: 0.8rem; color: var(--muted); margin-top: 0.5rem; }
+  /* ===== INSIGHT BOX ===== */
+  .insight {
+    background: rgba(59,130,246,0.08);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 1rem 1.25rem; margin: 1rem 0;
+    font-size: 0.875rem;
+  }
+  .insight-warn {
+    background: rgba(245,158,11,0.08);
+    border-left-color: var(--accent3);
+  }
+  .insight-danger {
+    background: rgba(239,68,68,0.08);
+    border-left-color: var(--red);
+  }
+  /* ===== TIMELINE ===== */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 0.4rem; top: 0; bottom: 0;
+    width: 2px; background: var(--border);
+  }
+  .timeline-item { position: relative; margin-bottom: 1.5rem; }
+  .timeline-dot {
+    position: absolute; left: -1.65rem; top: 0.25rem;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent); border: 2px solid var(--bg);
+  }
+  .timeline-year { font-size: 0.7rem; color: var(--accent); font-weight: 700; margin-bottom: 0.25rem; }
+  .timeline-title { font-size: 0.9rem; font-weight: 600; }
+  .timeline-desc { font-size: 0.8rem; color: var(--muted); }
+  /* ===== PORTFOLIO ===== */
+  .portfolio-bar {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 8px; overflow: hidden;
+    display: flex; height: 48px; margin: 1rem 0;
+  }
+  .pb-robot { flex: 35; background: linear-gradient(90deg, #10b981, #059669); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; }
+  .pb-ai { flex: 45; background: linear-gradient(90deg, #3b82f6, #2563eb); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; }
+  .pb-quantum { flex: 20; background: linear-gradient(90deg, #8b5cf6, #7c3aed); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; }
+  /* ===== SEPARATOR ===== */
+  .sep {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+  /* ===== RATING ===== */
+  .rating-stars { color: var(--accent3); font-size: 0.85rem; }
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .hero-cards, .grid-2, .grid-3, .grid-4, .scenario-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">📊 三大科技赛道深度研报</div>
+  <div class="nav-links">
+    <a onclick="scrollTo('s-robot')" class="active">人形机器人</a>
+    <a onclick="scrollTo('s-ai')">AI大模型</a>
+    <a onclick="scrollTo('s-quantum')">量子计算</a>
+    <a onclick="scrollTo('s-portfolio')">投资组合</a>
+  </div>
+  <div class="nav-date">2026年3月30日</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">⚡ 2026 年度深度投研报告</div>
+    <h1>三大科技赛道<span>全球投资机会矩阵</span></h1>
+    <p class="hero-sub">覆盖人形机器人产业链、AI大模型商业化、量子计算商业化路径。包含A股+港股+美股全市场核心标的筛选、DCF/PS/ARR多维估值模型及三情景敏感性分析。</p>
+    <div class="hero-cards">
+      <div class="hero-card" onclick="scrollTo('s-robot')">
+        <div class="hero-card-num trend-up" style="color:#10b981">🦾 11×</div>
+        <div class="hero-card-label">2026年人形机器人出货量YoY</div>
+        <div class="hero-card-desc">量产元年确立，产业链确定性最高</div>
+      </div>
+      <div class="hero-card" onclick="scrollTo('s-ai')">
+        <div class="hero-card-num" style="color:#3b82f6">$250亿</div>
+        <div class="hero-card-label">OpenAI 2026年2月ARR</div>
+        <div class="hero-card-desc">AI商业化加速，中国赛道窗口期</div>
+      </div>
+      <div class="hero-card" onclick="scrollTo('s-quantum')">
+        <div class="hero-card-num" style="color:#8b5cf6">202%</div>
+        <div class="hero-card-label">IonQ 2025年营收YoY增速</div>
+        <div class="hero-card-desc">量子纯标的商业化初步验证</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SECTION 1: 人形机器人 ===================== -->
+<div id="s-robot" class="section" style="background: linear-gradient(180deg, #0f172a 0%, #0c1f14 100%);">
+  <div class="section-inner">
+    <div class="section-title">
+      <span class="section-badge badge-robot">HUMANOID ROBOT</span>
+      🦾 人形机器人
+    </div>
+    <p class="section-desc">2026年量产元年：全球出货量预计11倍增长，国内市场规模82.4亿元，"具身智能"首入政府工作报告，产业链投资确定性最高的方向。</p>
+
+    <!-- 关键指标 -->
+    <div class="grid-4" style="margin-bottom:1.5rem">
+      <div class="card">
+        <div class="card-title">2025年全球出货</div>
+        <div class="metric-value" style="color:#10b981">1.3万台</div>
+        <div class="metric-sub">↑验证技术可行性</div>
+      </div>
+      <div class="card">
+        <div class="card-title">2026年规划产能</div>
+        <div class="metric-value trend-up">15万台+</div>
+        <div class="metric-sub">特斯拉10万+国产5万</div>
+      </div>
+      <div class="card">
+        <div class="card-title">国内市场规模</div>
+        <div class="metric-value trend-up">82.4亿</div>
+        <div class="metric-sub">占全球近50%</div>
+      </div>
+      <div class="card">
+        <div class="card-title">绿的谐波2025营收</div>
+        <div class="metric-value trend-up">5.69亿</div>
+        <div class="metric-sub">YoY +46.9%，净利+122%</div>
+      </div>
+    </div>
+
+    <!-- 产业链图谱 + 雷达图 -->
+    <div class="grid-2">
+      <div class="chart-card">
+        <div class="chart-title">产业链分层图谱 · 投资优先级评分</div>
+        <canvas id="robotRadar" height="260"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">人形机器人出货量增长预测（万台）</div>
+        <canvas id="robotShipment" height="260"></canvas>
+      </div>
+    </div>
+
+    <!-- A股标的精选 -->
+    <div class="card" style="margin-bottom:1.5rem">
+      <div class="card-title">A股+港股+美股 核心标的筛选（2026年3月数据）</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>公司</th><th>代码</th><th>市场</th><th>产业链位置</th>
+              <th>2025营收/亿</th><th>净利增速</th><th>当前PE(TTM)</th><th>评级</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>绿的谐波</strong></td>
+              <td>688017.SH</td><td><span class="tag">A股</span></td>
+              <td>谐波减速器（核心关节）</td>
+              <td>5.69</td><td class="trend-up">+122.4%</td>
+              <td style="color:#f59e0b">~180x</td>
+              <td><span class="tag-green">首选</span></td>
+            </tr>
+            <tr>
+              <td><strong>汇川技术</strong></td>
+              <td>300124.SZ</td><td><span class="tag">A股</span></td>
+              <td>伺服电机+驱动控制（通用自动化龙头）</td>
+              <td>~180</td><td class="trend-up">+17%</td>
+              <td style="color:#f59e0b">40x</td>
+              <td><span class="tag-green">首选</span></td>
+            </tr>
+            <tr>
+              <td><strong>三花智控</strong></td>
+              <td>002050.SZ</td><td><span class="tag">A股</span></td>
+              <td>热管理+精密零部件（产能弹性大）</td>
+              <td>~80</td><td class="trend-up">+15%</td>
+              <td style="color:#3b82f6">30x</td>
+              <td><span class="tag">增持</span></td>
+            </tr>
+            <tr>
+              <td><strong>拓普集团</strong></td>
+              <td>601689.SH</td><td><span class="tag">A股</span></td>
+              <td>丝杠+关节模组（特斯拉供应链）</td>
+              <td>~200</td><td class="trend-up">机器人毛利52%</td>
+              <td style="color:#f59e0b">45x</td>
+              <td><span class="tag-green">首选</span></td>
+            </tr>
+            <tr>
+              <td><strong>兆威机电</strong></td>
+              <td>003021.SZ</td><td><span class="tag">A股</span></td>
+              <td>微型减速器（小型关节）</td>
+              <td>~15</td><td class="trend-up">高弹性</td>
+              <td style="color:#f59e0b">60x</td>
+              <td><span class="tag-amber">关注</span></td>
+            </tr>
+            <tr>
+              <td><strong>优必选</strong></td>
+              <td>9880.HK</td><td><span class="tag-purple">港股</span></td>
+              <td>整机制造（人形机器人整机龙头）</td>
+              <td>~8</td><td>亏损收窄</td>
+              <td style="color:#ef4444">PS估值</td>
+              <td><span class="tag-amber">关注</span></td>
+            </tr>
+            <tr>
+              <td><strong>特斯拉</strong></td>
+              <td>TSLA.US</td><td><span class="tag-red">美股</span></td>
+              <td>整机巨头（Optimus主导者）</td>
+              <td>~978亿</td><td>利润承压</td>
+              <td style="color:#8b5cf6">90x</td>
+              <td><span class="tag">标配</span></td>
+            </tr>
+            <tr>
+              <td><strong>英伟达</strong></td>
+              <td>NVDA.US</td><td><span class="tag-red">美股</span></td>
+              <td>AI算力底层基础（具身智能必需）</td>
+              <td>~1300亿</td><td class="trend-up">+78%</td>
+              <td style="color:#3b82f6">30x</td>
+              <td><span class="tag-green">首选</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 估值模型 -->
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">绿的谐波 · DCF出货量驱动估值模型</div>
+        <table style="font-size:0.8rem">
+          <thead>
+            <tr><th>假设参数</th><th>悲观</th><th>基准</th><th>乐观</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>2026年具身智能营收占比</td><td>15%</td><td>25%</td><td>40%</td></tr>
+            <tr><td>整体营收增速</td><td>35%</td><td>55%</td><td>80%</td></tr>
+            <tr><td>净利润率</td><td>18%</td><td>22%</td><td>26%</td></tr>
+            <tr><td>目标PE倍数</td><td>100x</td><td>150x</td><td>220x</td></tr>
+            <tr><td><strong>目标市值（亿）</strong></td><td><strong>~150</strong></td><td><strong>~280</strong></td><td><strong>~500+</strong></td></tr>
+            <tr><td><strong>对应潜在涨跌幅</strong></td><td style="color:var(--green)"><strong>-25%</strong></td><td style="color:var(--accent)"><strong>+40%</strong></td><td style="color:var(--red)"><strong>+150%</strong></td></tr>
+          </tbody>
+        </table>
+        <div class="insight" style="margin-top:1rem">
+          💡 当前市值约200亿，基准情景下具有40%向上空间；乐观情景需要特斯拉大规模订单落地。
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">三情景目标市值分布（亿元）</div>
+        <canvas id="robotValuation" height="260"></canvas>
+      </div>
+    </div>
+
+    <!-- 多情景敏感性分析 -->
+    <div class="card" style="margin-bottom:1.5rem">
+      <div class="card-title">人形机器人产业链投资敏感性分析矩阵</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>触发因素</th><th>悲观情景</th><th>基准情景</th><th>乐观情景</th><th>关键风险点</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>出货量增速</td>
+              <td style="color:var(--green)">5×（5万台）</td>
+              <td style="color:var(--accent)">11×（14万台）</td>
+              <td style="color:var(--red)">20×（26万台）</td>
+              <td>国产量产良率爬坡</td>
+            </tr>
+            <tr>
+              <td>零部件国产替代</td>
+              <td>进展缓慢，毛利率压缩</td>
+              <td>逐步替代，毛利持稳</td>
+              <td>加速替代，毛利提升</td>
+              <td>日韩减速器竞争</td>
+            </tr>
+            <tr>
+              <td>特斯拉Optimus进度</td>
+              <td>推迟至2027年</td>
+              <td>2026年小批量稳定</td>
+              <td>2026年10万台放量</td>
+              <td>供应链验证周期</td>
+            </tr>
+            <tr>
+              <td>国内竞争格局</td>
+              <td>价格战，毛利-30%</td>
+              <td>差异化竞争维稳</td>
+              <td>头部集中，定价权强</td>
+              <td>优必选/宇树/小米入局</td>
+            </tr>
+            <tr>
+              <td>估值体系切换</td>
+              <td>降至DCF合理估值</td>
+              <td>维持成长股溢价</td>
+              <td>市场给予更高PS</td>
+              <td>流动性收紧风险</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="scenario-grid">
+      <div class="scenario-card scenario-bear">
+        <div class="scenario-label" style="color:var(--green)">⬇ 悲观情景（25%概率）</div>
+        <div class="scenario-ret scenario-ret-bear">-15% ~ -30%</div>
+        <div class="scenario-desc">量产不及预期，估值回归；持股到2H2026观察订单能见度</div>
+      </div>
+      <div class="scenario-card scenario-base">
+        <div class="scenario-label" style="color:var(--accent)">◎ 基准情景（55%概率）</div>
+        <div class="scenario-ret scenario-ret-base">+30% ~ +60%</div>
+        <div class="scenario-desc">量产按计划推进，绿的谐波/拓普集团跑赢大盘</div>
+      </div>
+      <div class="scenario-card scenario-bull">
+        <div class="scenario-label" style="color:var(--red)">⬆ 乐观情景（20%概率）</div>
+        <div class="scenario-ret scenario-ret-bull">+100% ~ +200%</div>
+        <div class="scenario-desc">特斯拉大订单催化，产业链进入业绩爆发期</div>
+      </div>
+    </div>
+
+    <div class="insight insight-warn">
+      ⚠️ <strong>估值风险提示：</strong>绿的谐波当前PE约180倍，大幅高于行业平均，需要连续3年50%+净利增速兑现才能消化估值。进场时机建议分批布局，控制单标的仓位在5%以内。
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SECTION 2: AI大模型 ===================== -->
+<div id="s-ai" class="section" style="background: linear-gradient(180deg, #0c1f14 0%, #0c1830 100%);">
+  <div class="section-inner">
+    <div class="section-title">
+      <span class="section-badge badge-ai">AI LARGE MODEL</span>
+      🧠 AI大模型
+    </div>
+    <p class="section-desc">商业化加速阶段：OpenAI年化收入突破250亿美元，中国大模型市场CAGR≈89%，AI Agent正成为2026年核心增长驱动力，从消费级走向企业级部署。</p>
+
+    <div class="grid-4" style="margin-bottom:1.5rem">
+      <div class="card">
+        <div class="card-title">OpenAI ARR（2026.2月）</div>
+        <div class="metric-value trend-up">$250亿</div>
+        <div class="metric-sub">较2025年底+17%</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Anthropic ARR</div>
+        <div class="metric-value trend-up">$190亿</div>
+        <div class="metric-sub">企业端Claude爆发</div>
+      </div>
+      <div class="card">
+        <div class="card-title">ChatGPT周活用户</div>
+        <div class="metric-value" style="color:#3b82f6">9亿</div>
+        <div class="metric-sub">个人订阅5000万+</div>
+      </div>
+      <div class="card">
+        <div class="card-title">中国市场CAGR</div>
+        <div class="metric-value trend-up">89%</div>
+        <div class="metric-sub">2025→2026: 294→738亿</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="chart-card">
+        <div class="chart-title">全球顶级AI公司收入增长对比（ARR/亿美元）</div>
+        <canvas id="aiRevenue" height="280"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">AI大模型估值方法论：PS倍数分布</div>
+        <canvas id="aiPS" height="280"></canvas>
+      </div>
+    </div>
+
+    <!-- 全球标的对比 -->
+    <div class="card" style="margin-bottom:1.5rem">
+      <div class="card-title">全球AI大模型核心标的横向对比（2026年3月）</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>公司</th><th>市场</th><th>ARR/收入</th><th>估值</th><th>PS倍数</th><th>盈利性</th><th>核心护城河</th><th>评级</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>英伟达 NVDA</strong></td>
+              <td><span class="tag-red">美股</span></td>
+              <td>$1300亿+</td>
+              <td>$3.3万亿</td>
+              <td style="color:#f59e0b">~25x</td>
+              <td class="trend-up">高盈利</td>
+              <td>GPU算力垄断，CUDA生态</td>
+              <td><span class="tag-green">首选</span></td>
+            </tr>
+            <tr>
+              <td><strong>微软 MSFT</strong></td>
+              <td><span class="tag-red">美股</span></td>
+              <td>$2700亿+</td>
+              <td>$3.1万亿</td>
+              <td style="color:#3b82f6">~11x</td>
+              <td class="trend-up">强盈利</td>
+              <td>Azure AI+OpenAI独家+Office Copilot</td>
+              <td><span class="tag-green">首选</span></td>
+            </tr>
+            <tr>
+              <td><strong>谷歌 GOOGL</strong></td>
+              <td><span class="tag-red">美股</span></td>
+              <td>$3500亿+</td>
+              <td>$2.0万亿</td>
+              <td style="color:#10b981">~5.7x</td>
+              <td class="trend-up">高盈利</td>
+              <td>Gemini+搜索+TPU自研算力</td>
+              <td><span class="tag-green">首选</span></td>
+            </tr>
+            <tr>
+              <td><strong>OpenAI（拟IPO）</strong></td>
+              <td><span class="tag-red">美股拟上市</span></td>
+              <td>$250亿ARR</td>
+              <td>预计$1500亿+</td>
+              <td style="color:#ef4444">~60x</td>
+              <td style="color:var(--green)">持续亏损</td>
+              <td>ChatGPT品牌+GPT-5技术领先</td>
+              <td><span class="tag-amber">上市后观察</span></td>
+            </tr>
+            <tr>
+              <td><strong>百度 BIDU</strong></td>
+              <td><span class="tag-purple">港股/美股</span></td>
+              <td>~130亿人民币</td>
+              <td>~1800亿港元</td>
+              <td style="color:#10b981">~2.5x</td>
+              <td class="trend-up">盈利</td>
+              <td>文心大模型+国内搜索壁垒</td>
+              <td><span class="tag-amber">关注</span></td>
+            </tr>
+            <tr>
+              <td><strong>阿里巴巴 BABA</strong></td>
+              <td><span class="tag-purple">港股/美股</span></td>
+              <td>~9400亿人民币</td>
+              <td>$3000亿</td>
+              <td style="color:#10b981">~0.55x</td>
+              <td class="trend-up">盈利</td>
+              <td>通义千问+阿里云+电商生态</td>
+              <td><span class="tag-green">首选</span></td>
+            </tr>
+            <tr>
+              <td><strong>腾讯 0700.HK</strong></td>
+              <td><span class="tag-purple">港股</span></td>
+              <td>~6600亿人民币</td>
+              <td>$5000亿</td>
+              <td style="color:#10b981">~1.1x</td>
+              <td class="trend-up">强盈利</td>
+              <td>混元+微信生态闭环</td>
+              <td><span class="tag-green">首选</span></td>
+            </tr>
+            <tr>
+              <td><strong>科大讯飞 IFLYTEK</strong></td>
+              <td><span class="tag">A股</span></td>
+              <td>~220亿人民币</td>
+              <td>~1400亿</td>
+              <td style="color:#f59e0b">~6x</td>
+              <td>微亏转盈中</td>
+              <td>讯飞星火+教育/政务AI应用</td>
+              <td><span class="tag">标配</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ARR/PS估值模型 -->
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">OpenAI · ARR增长路径与估值测算</div>
+        <table style="font-size:0.8rem">
+          <thead>
+            <tr><th>时间节点</th><th>ARR预测</th><th>PS倍数区间</th><th>对应估值</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>2025年底（实际）</td><td>$130亿（全年营收）</td><td>—</td><td>$1570亿（融资估值）</td></tr>
+            <tr><td>2026年2月（最新）</td><td>$250亿ARR</td><td>~50-60x</td><td>$1500亿+</td></tr>
+            <tr><td>2026年底（预测）</td><td>$300亿</td><td>40-50x</td><td>$1200-1500亿</td></tr>
+            <tr><td>2027年（悲观）</td><td>$350亿</td><td>20-30x</td><td>$700-1050亿</td></tr>
+            <tr><td>2027年（乐观）</td><td>$500亿</td><td>30-40x</td><td>$1500-2000亿</td></tr>
+          </tbody>
+        </table>
+        <div class="insight" style="margin-top:1rem">
+          💡 IPO估值压缩风险：当前$1500亿估值对应60x ARR，历史SaaS顶峰估值；盈利路径2026年内难以实现，IPO后需关注估值合理化过程。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">AI商业化拐点信号追踪</div>
+        <table style="font-size:0.8rem">
+          <thead>
+            <tr><th>拐点信号</th><th>当前状态</th><th>时间预期</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>企业级AI支出超消费级</td>
+              <td><span class="tag-green">已发生</span></td>
+              <td>2025Q3已切换</td>
+            </tr>
+            <tr>
+              <td>AI Agent大规模部署</td>
+              <td><span class="tag-amber">进行中</span></td>
+              <td>2026全年加速</td>
+            </tr>
+            <tr>
+              <td>OpenAI实现GAAP盈利</td>
+              <td><span class="tag-red">未发生</span></td>
+              <td>最早2027年</td>
+            </tr>
+            <tr>
+              <td>国内AI应用收入超百亿</td>
+              <td><span class="tag-amber">接近</span></td>
+              <td>2026年底</td>
+            </tr>
+            <tr>
+              <td>微软Copilot ARR超$100亿</td>
+              <td><span class="tag-green">已达到</span></td>
+              <td>2026Q1已确认</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="scenario-grid">
+      <div class="scenario-card scenario-bear">
+        <div class="scenario-label" style="color:var(--green)">⬇ 悲观（20%概率）</div>
+        <div class="scenario-ret scenario-ret-bear">+10% ~ +20%</div>
+        <div class="scenario-desc">AI泡沫修正，高PS标的回调；大盘科技股普跌</div>
+      </div>
+      <div class="scenario-card scenario-base">
+        <div class="scenario-label" style="color:var(--accent)">◎ 基准（60%概率）</div>
+        <div class="scenario-ret scenario-ret-base">+25% ~ +50%</div>
+        <div class="scenario-desc">AI商业化稳步推进，英伟达/微软/腾讯跑赢；OpenAI IPO成催化剂</div>
+      </div>
+      <div class="scenario-card scenario-bull">
+        <div class="scenario-label" style="color:var(--red)">⬆ 乐观（20%概率）</div>
+        <div class="scenario-ret scenario-ret-bull">+80% ~ +150%</div>
+        <div class="scenario-desc">AGI突破性进展，企业AI渗透超预期，估值体系重构</div>
+      </div>
+    </div>
+
+    <div class="insight">
+      💡 <strong>核心逻辑：</strong>AI大模型赛道最确定的机会在于"卖铲子"（英伟达）和"做生态"（微软/谷歌），而非模型本身；中国方向的最优选是阿里（极低PS+AI云双驱动）和腾讯（微信生态护城河）。
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SECTION 3: 量子计算 ===================== -->
+<div id="s-quantum" class="section" style="background: linear-gradient(180deg, #0c1830 0%, #180c30 100%);">
+  <div class="section-inner">
+    <div class="section-title">
+      <span class="section-badge badge-quantum">QUANTUM COMPUTING</span>
+      ⚛️ 量子计算
+    </div>
+    <p class="section-desc">2026年进入"概念验证商业化"阶段：IonQ首破1亿美元年收入，全球市场规模66亿美元，但商业化真正落地仍需3-5年，高风险高回报布局窗口期。</p>
+
+    <div class="grid-4" style="margin-bottom:1.5rem">
+      <div class="card">
+        <div class="card-title">IonQ 2025年营收</div>
+        <div class="metric-value trend-up">$1.3亿</div>
+        <div class="metric-sub">YoY +202%，首破1亿</div>
+      </div>
+      <div class="card">
+        <div class="card-title">全球市场规模（2025）</div>
+        <div class="metric-value" style="color:#8b5cf6">$66亿</div>
+        <div class="metric-sub">2030预测$1795亿</div>
+      </div>
+      <div class="card">
+        <div class="card-title">国盾量子（2026.3）</div>
+        <div class="metric-value" style="color:#8b5cf6">552元</div>
+        <div class="metric-sub">量子通信+计算双轮</div>
+      </div>
+      <div class="card">
+        <div class="card-title">投资时间框架</div>
+        <div class="metric-value" style="color:#f59e0b">5-8年</div>
+        <div class="metric-sub">2029-2031特定领域商用</div>
+      </div>
+    </div>
+
+    <!-- 技术路线 + 商业化时间轴 -->
+    <div class="grid-2">
+      <div class="chart-card">
+        <div class="chart-title">主流量子计算技术路线竞争力评估</div>
+        <canvas id="quantumTech" height="280"></canvas>
+      </div>
+      <div class="card">
+        <div class="card-title">商业化路径时间轴</div>
+        <div class="timeline" style="margin-top:1rem">
+          <div class="timeline-item">
+            <div class="timeline-dot" style="background:#3b82f6"></div>
+            <div class="timeline-year">2025-2026（当前）</div>
+            <div class="timeline-title">概念验证商业化</div>
+            <div class="timeline-desc">量子云服务初步付费，IonQ $1.3亿营收验证市场存在，纠错量子计算机原型机出现</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="background:#8b5cf6"></div>
+            <div class="timeline-year">2027-2028</div>
+            <div class="timeline-title">混合量子-经典计算阶段</div>
+            <div class="timeline-desc">特定行业（药物发现、金融优化）开始规模部署，头部公司年收入突破10亿美元</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="background:#f59e0b"></div>
+            <div class="timeline-year">2029-2031</div>
+            <div class="timeline-title">特定领域商业化</div>
+            <div class="timeline-desc">密码学、材料仿真、AI训练加速等领域实质性替代，全球市场规模超$500亿</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="background:#10b981"></div>
+            <div class="timeline-year">2032+</div>
+            <div class="timeline-title">通用量子计算</div>
+            <div class="timeline-desc">容错量子计算机实现，颠覆性应用落地，市场规模超$1000亿</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 全球量子计算标的对比 -->
+    <div class="card" style="margin-bottom:1.5rem">
+      <div class="card-title">全球量子计算核心标的横向对比</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>公司</th><th>市场</th><th>技术路线</th><th>2025营收</th><th>市值</th><th>PS倍数</th><th>核心优势</th><th>风险</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>IonQ</strong></td>
+              <td><span class="tag-red">美股</span></td>
+              <td>离子阱（最精准）</td>
+              <td>$1.3亿</td>
+              <td>~$50亿</td>
+              <td style="color:#ef4444">~38x</td>
+              <td>AQ64里程碑，纯量子领导者</td>
+              <td><span class="tag-red">持续亏损，高估值</span></td>
+            </tr>
+            <tr>
+              <td><strong>IBM</strong></td>
+              <td><span class="tag-red">美股</span></td>
+              <td>超导量子（规模最大）</td>
+              <td>量子云含于总收入</td>
+              <td>$1500亿+</td>
+              <td>~2.5x（整体）</td>
+              <td>1000+量子比特，企业客户积累</td>
+              <td><span class="tag-amber">量子只是战略之一</span></td>
+            </tr>
+            <tr>
+              <td><strong>谷歌 Quantum AI</strong></td>
+              <td><span class="tag-red">美股</span></td>
+              <td>超导量子（Willow芯片）</td>
+              <td>含于谷歌云</td>
+              <td>$2万亿（整体）</td>
+              <td>~6x（整体）</td>
+              <td>Willow超越经典计算机证明</td>
+              <td><span class="tag-amber">量子仅为研究项目</span></td>
+            </tr>
+            <tr>
+              <td><strong>微软</strong></td>
+              <td><span class="tag-red">美股</span></td>
+              <td>拓扑量子（未商业化）</td>
+              <td>含于Azure</td>
+              <td>$3万亿（整体）</td>
+              <td>~11x（整体）</td>
+              <td>拓扑量子比特理论突破</td>
+              <td><span class="tag-amber">拓扑路线商业化最慢</span></td>
+            </tr>
+            <tr>
+              <td><strong>国盾量子</strong></td>
+              <td><span class="tag">A股</span></td>
+              <td>量子通信+计算（双轮）</td>
+              <td>~3亿人民币</td>
+              <td>~200亿人民币</td>
+              <td style="color:#ef4444">~65x</td>
+              <td>量子通信国家队，政策红利</td>
+              <td><span class="tag-red">严重高估，商业化慢</span></td>
+            </tr>
+            <tr>
+              <td><strong>中科曙光</strong></td>
+              <td><span class="tag">A股</span></td>
+              <td>量子计算+超算（混合）</td>
+              <td>~130亿人民币</td>
+              <td>~400亿人民币</td>
+              <td style="color:#10b981">~3x</td>
+              <td>国产超算龙头，量子布局早</td>
+              <td><span class="tag-amber">量子占比小，受制裁</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="chart-card">
+        <div class="chart-title">量子计算市场规模增长预测（亿美元）</div>
+        <canvas id="quantumMarket" height="260"></canvas>
+      </div>
+      <div class="card">
+        <div class="card-title">IonQ · DCF估值测算（基于技术里程碑）</div>
+        <table style="font-size:0.8rem">
+          <thead>
+            <tr><th>参数</th><th>悲观</th><th>基准</th><th>乐观</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>2027年营收</td><td>$2.5亿</td><td>$4亿</td><td>$7亿</td></tr>
+            <tr><td>2030年营收</td><td>$10亿</td><td>$25亿</td><td>$60亿</td></tr>
+            <tr><td>长期毛利率</td><td>40%</td><td>55%</td><td>65%</td></tr>
+            <tr><td>PS倍数（成熟期）</td><td>10x</td><td>15x</td><td>25x</td></tr>
+            <tr><td>折现率</td><td>15%</td><td>12%</td><td>10%</td></tr>
+            <tr><td><strong>当前合理市值</strong></td><td><strong>$15亿</strong></td><td><strong>$45亿</strong></td><td><strong>$120亿</strong></td></tr>
+            <tr><td><strong>相对当前$50亿</strong></td><td style="color:var(--green)"><strong>-70%高估</strong></td><td style="color:var(--accent)"><strong>-10%合理</strong></td><td style="color:var(--red)"><strong>+140%低估</strong></td></tr>
+          </tbody>
+        </table>
+        <div class="insight insight-warn" style="margin-top:1rem">
+          ⚠️ 量子计算估值具有极高不确定性，适合以"期权思维"少量配置（总组合1-3%），不建议超配。
+        </div>
+      </div>
+    </div>
+
+    <div class="scenario-grid">
+      <div class="scenario-card scenario-bear">
+        <div class="scenario-label" style="color:var(--green)">⬇ 悲观（35%概率）</div>
+        <div class="scenario-ret scenario-ret-bear">-40% ~ -70%</div>
+        <div class="scenario-desc">技术里程碑延期，资本寒冬，国盾量子估值大幅修正</div>
+      </div>
+      <div class="scenario-card scenario-base">
+        <div class="scenario-label" style="color:var(--accent)">◎ 基准（45%概率）</div>
+        <div class="scenario-ret scenario-ret-base">+20% ~ +50%</div>
+        <div class="scenario-desc">IonQ持续超预期，商业合同增加；整体保持高波动</div>
+      </div>
+      <div class="scenario-card scenario-bull">
+        <div class="scenario-label" style="color:var(--red)">⬆ 乐观（20%概率）</div>
+        <div class="scenario-ret scenario-ret-bull">+200% ~ +500%</div>
+        <div class="scenario-desc">量子纠错突破商用，颠覆性应用出现，IonQ成为下一个英伟达</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SECTION 4: 投资组合配置 ===================== -->
+<div id="s-portfolio" class="section" style="background: linear-gradient(180deg, #180c30 0%, #0f172a 100%);">
+  <div class="section-inner">
+    <div class="section-title">
+      <span class="section-badge" style="background:rgba(245,158,11,0.2);color:#f59e0b">PORTFOLIO</span>
+      💼 投资组合配置建议
+    </div>
+    <p class="section-desc">基于三赛道风险收益比、市场时机、流动性和相关性分析，给出具体的仓位建议和进场时机矩阵。</p>
+
+    <!-- 总仓位分配 -->
+    <div class="card" style="margin-bottom:1.5rem">
+      <div class="card-title">三大赛道仓位建议（以科技成长股可投资金为基准）</div>
+      <div class="portfolio-bar">
+        <div class="pb-ai">AI大模型<br>45%</div>
+        <div class="pb-robot">人形机器人<br>35%</div>
+        <div class="pb-quantum">量子计算<br>20%</div>
+      </div>
+      <p style="font-size:0.8rem;color:var(--muted);margin-top:0.5rem">* 建议科技成长仓位不超过总组合的30-40%；以上为科技部分内部分配比例</p>
+    </div>
+
+    <!-- 详细配置表 -->
+    <div class="card" style="margin-bottom:1.5rem">
+      <div class="card-title">精选标的组合 · 分仓配置建议</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>标的</th><th>市场</th><th>赛道</th><th>仓位比例</th><th>进场时机</th><th>止损线</th><th>目标收益</th><th>持仓周期</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>英伟达 NVDA</strong></td>
+              <td><span class="tag-red">美股</span></td>
+              <td><span class="tag">AI</span></td>
+              <td style="color:var(--red)"><strong>12%</strong></td>
+              <td>分3批（当前/回调5%/回调10%）</td>
+              <td>-20%</td>
+              <td class="trend-up">+40-60%</td>
+              <td>12-18个月</td>
+            </tr>
+            <tr>
+              <td><strong>阿里巴巴 BABA</strong></td>
+              <td><span class="tag-purple">港股</span></td>
+              <td><span class="tag">AI</span></td>
+              <td style="color:var(--red)"><strong>10%</strong></td>
+              <td>当前已是低估区间，可直接建仓</td>
+              <td>-15%</td>
+              <td class="trend-up">+50-80%</td>
+              <td>12-24个月</td>
+            </tr>
+            <tr>
+              <td><strong>腾讯 0700.HK</strong></td>
+              <td><span class="tag-purple">港股</span></td>
+              <td><span class="tag">AI</span></td>
+              <td style="color:var(--red)"><strong>10%</strong></td>
+              <td>分2批（当前60%/回调8%补40%）</td>
+              <td>-12%</td>
+              <td class="trend-up">+30-50%</td>
+              <td>12-18个月</td>
+            </tr>
+            <tr>
+              <td><strong>微软 MSFT</strong></td>
+              <td><span class="tag-red">美股</span></td>
+              <td><span class="tag">AI</span></td>
+              <td style="color:var(--accent)"><strong>8%</strong></td>
+              <td>分2批，避开季报前1周</td>
+              <td>-15%</td>
+              <td class="trend-up">+25-40%</td>
+              <td>12-18个月</td>
+            </tr>
+            <tr>
+              <td><strong>拓普集团</strong></td>
+              <td><span class="tag">A股</span></td>
+              <td><span class="tag-green">机器人</span></td>
+              <td style="color:var(--accent)"><strong>8%</strong></td>
+              <td>观察Q1财报后进场（4月下旬）</td>
+              <td>-18%</td>
+              <td class="trend-up">+40-80%</td>
+              <td>18-24个月</td>
+            </tr>
+            <tr>
+              <td><strong>绿的谐波</strong></td>
+              <td><span class="tag">A股</span></td>
+              <td><span class="tag-green">机器人</span></td>
+              <td style="color:var(--accent)"><strong>7%</strong></td>
+              <td>等待回调至170元以下再建仓</td>
+              <td>-20%</td>
+              <td class="trend-up">+40-150%</td>
+              <td>18-36个月</td>
+            </tr>
+            <tr>
+              <td><strong>汇川技术</strong></td>
+              <td><span class="tag">A股</span></td>
+              <td><span class="tag-green">机器人</span></td>
+              <td style="color:var(--accent)"><strong>8%</strong></td>
+              <td>当前60元区间估值合理，可建仓</td>
+              <td>-15%</td>
+              <td class="trend-up">+30-50%</td>
+              <td>12-18个月</td>
+            </tr>
+            <tr>
+              <td><strong>三花智控</strong></td>
+              <td><span class="tag">A股</span></td>
+              <td><span class="tag-green">机器人</span></td>
+              <td style="color:var(--muted)"><strong>5%</strong></td>
+              <td>分批建仓，等待机器人订单催化</td>
+              <td>-15%</td>
+              <td class="trend-up">+25-40%</td>
+              <td>12-18个月</td>
+            </tr>
+            <tr>
+              <td><strong>IonQ IONQ</strong></td>
+              <td><span class="tag-red">美股</span></td>
+              <td><span class="tag-purple">量子</span></td>
+              <td style="color:var(--muted)"><strong>3%</strong></td>
+              <td>分3批超长期布局，期权思维</td>
+              <td>-30%</td>
+              <td class="trend-up">+100-500%</td>
+              <td>36-60个月</td>
+            </tr>
+            <tr>
+              <td><strong>谷歌 GOOGL</strong></td>
+              <td><span class="tag-red">美股</span></td>
+              <td><span class="tag">AI+量子</span></td>
+              <td style="color:var(--muted)"><strong>5%</strong></td>
+              <td>AI+量子双赛道覆盖，性价比高</td>
+              <td>-12%</td>
+              <td class="trend-up">+30-50%</td>
+              <td>12-18个月</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 综合预期收益 + 敏感性 -->
+    <div class="grid-2">
+      <div class="chart-card">
+        <div class="chart-title">投资组合 · 三情景预期收益分布（持仓18个月）</div>
+        <canvas id="portfolioReturn" height="280"></canvas>
+      </div>
+      <div class="card">
+        <div class="card-title">进场时机矩阵</div>
+        <table style="font-size:0.8rem">
+          <thead>
+            <tr><th>时间节点</th><th>催化剂</th><th>建议动作</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>2026年4-5月</strong></td>
+              <td>A股Q1财报季</td>
+              <td>根据绿的谐波/拓普/汇川财报调整仓位</td>
+            </tr>
+            <tr>
+              <td><strong>2026年6月</strong></td>
+              <td>特斯拉AI Day</td>
+              <td>Optimus量产进度若超预期，加仓人形机器人</td>
+            </tr>
+            <tr>
+              <td><strong>2026年H2</strong></td>
+              <td>OpenAI IPO窗口</td>
+              <td>上市前减仓MSFT/NVDA锁定收益，上市后观察1个月再决策</td>
+            </tr>
+            <tr>
+              <td><strong>2026年Q3</strong></td>
+              <td>IonQ AQ指标进展</td>
+              <td>若实现256量子比特商用，加仓IonQ至5%</td>
+            </tr>
+            <tr>
+              <td><strong>2026年底</strong></td>
+              <td>美联储降息预期</td>
+              <td>流动性改善利好成长股，整体仓位可提升至80%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">风险对冲策略</div>
+        <table style="font-size:0.8rem">
+          <thead>
+            <tr><th>风险类型</th><th>对冲方式</th><th>建议比例</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>AI泡沫破裂</td><td>持有黄金/国债ETF</td><td>组合10-15%</td></tr>
+            <tr><td>地缘政治风险</td><td>中美持仓比例均衡（≤60%单市场）</td><td>—</td></tr>
+            <tr><td>汇率风险</td><td>美元资产对冲人民币贬值</td><td>美股占30-40%</td></tr>
+            <tr><td>流动性风险</td><td>小盘A股单只≤5%，预留20%现金</td><td>现金20%</td></tr>
+            <tr><td>黑天鹅事件</td><td>全组合设8%止损总线，触发即减仓</td><td>组合层面</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">核心判断摘要</div>
+        <div style="margin-top:0.5rem">
+          <div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)">
+            <div style="font-size:0.75rem;color:var(--muted);margin-bottom:0.25rem">AI大模型（45%）——</div>
+            <div style="font-size:0.875rem"><strong>确定性最高，当前是最佳建仓窗口</strong>。商业化已从验证转入加速阶段，卖铲子（英伟达）＞做生态（微软/阿里/腾讯）＞模型公司（OpenAI）。</div>
+          </div>
+          <div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)">
+            <div style="font-size:0.75rem;color:var(--muted);margin-bottom:0.25rem">人形机器人（35%）——</div>
+            <div style="font-size:0.875rem"><strong>高弹性赛道，等待Q1财报验证</strong>。零部件优先于整机，绿的谐波/拓普集团核心仓位，等合适价格入场。</div>
+          </div>
+          <div>
+            <div style="font-size:0.75rem;color:var(--muted);margin-bottom:0.25rem">量子计算（20%）——</div>
+            <div style="font-size:0.875rem"><strong>期权式布局，超长期持有</strong>。IonQ是纯标的首选，但现阶段估值仍偏高，以小仓位换取超高回报可能性。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 敏感性分析汇总 -->
+    <div class="card" style="margin-bottom:1.5rem">
+      <div class="card-title">全组合敏感性分析 · 关键变量影响矩阵</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>关键变量</th><th>变化方向</th><th>对组合的影响</th><th>最受影响标的</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>美联储利率</td><td>降息100bp</td><td class="trend-up">+8-12%（成长股估值提升）</td><td>IonQ / 绿的谐波 / OpenAI</td></tr>
+            <tr><td>美联储利率</td><td>意外加息50bp</td><td style="color:var(--green)">-10-15%（高PE压缩）</td><td>IonQ / 绿的谐波 / 科大讯飞</td></tr>
+            <tr><td>英伟达GPU出货</td><td>超预期20%</td><td class="trend-up">+5-8%（AI算力价值链传导）</td><td>NVDA / MSFT / 阿里云</td></tr>
+            <tr><td>特斯拉Optimus进度</td><td>年内放量5万台</td><td class="trend-up">+10-20%（机器人概念催化）</td><td>绿的谐波 / 拓普 / 三花</td></tr>
+            <tr><td>中美关系</td><td>科技脱钩加剧</td><td style="color:var(--green)">-5-10%（港股/A股折价扩大）</td><td>阿里 / 腾讯 / 中科曙光</td></tr>
+            <tr><td>IonQ技术里程碑</td><td>AQ256实现</td><td class="trend-up">+3-8%（量子板块重估）</td><td>IonQ / 国盾量子</td></tr>
+            <tr><td>AI泡沫修正</td><td>纳指-20%</td><td style="color:var(--green)">-15-25%（AI/量子双跌）</td><td>全组合，量子跌幅最大</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="insight insight-warn">
+      ⚠️ <strong>重要免责声明：</strong>本报告所有分析和建议仅供投资研究参考，不构成实际投资建议。估值模型基于公开信息和历史数据，未来存在重大不确定性。投资有风险，请结合个人风险承受能力审慎决策。
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>三大科技赛道深度投研报告 · 2026年3月30日 · 方法论：数据模型 → 业务模型 → 财务估值模型 → 未来趋势观测模型</p>
+  <p style="margin-top:0.5rem">数据来源：东方财富、证券时报、Bloomberg、TechCrunch、IonQ官方财报、OpenAI官方博客 | 仅供研究参考</p>
+</footer>
+
+<script>
+// 颜色主题
+const C = {
+  blue: '#3b82f6', green: '#10b981', amber: '#f59e0b',
+  red: '#ef4444', purple: '#8b5cf6', muted: '#94a3b8',
+  grid: 'rgba(51,65,85,0.5)', bg: '#1e293b'
+};
+
+Chart.defaults.color = '#94a3b8';
+Chart.defaults.borderColor = 'rgba(51,65,85,0.5)';
+Chart.defaults.font.family = "-apple-system,'PingFang SC','Microsoft YaHei',sans-serif";
+
+// 导航滚动
+function scrollTo(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+}
+
+// ---- 1. 人形机器人产业链雷达 ----
+new Chart(document.getElementById('robotRadar'), {
+  type: 'radar',
+  data: {
+    labels: ['市场确定性', '技术壁垒', '盈利增速', '估值安全边际', '政策支持', '竞争格局'],
+    datasets: [
+      { label: '上游零部件（绿的谐波等）', data: [85,90,88,40,90,75], fill: true,
+        backgroundColor: 'rgba(16,185,129,0.15)', borderColor: C.green, pointBackgroundColor: C.green },
+      { label: '中游整机（优必选/宇树）', data: [65,70,30,20,85,60], fill: true,
+        backgroundColor: 'rgba(59,130,246,0.1)', borderColor: C.blue, pointBackgroundColor: C.blue },
+      { label: '系统集成/软件', data: [50,80,60,55,80,70], fill: true,
+        backgroundColor: 'rgba(245,158,11,0.1)', borderColor: C.amber, pointBackgroundColor: C.amber }
+    ]
+  },
+  options: {
+    scales: { r: { beginAtZero: true, max: 100, ticks: { display: false },
+      grid: { color: C.grid }, pointLabels: { font: { size: 11 } } } },
+    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } }
+  }
+});
+
+// ---- 2. 人形机器人出货量预测 ----
+new Chart(document.getElementById('robotShipment'), {
+  type: 'bar',
+  data: {
+    labels: ['2023', '2024', '2025', '2026E', '2027E', '2028E', '2030E'],
+    datasets: [
+      { label: '全球出货量（万台）', data: [0.08, 0.3, 1.3, 14, 35, 80, 280],
+        backgroundColor: ['rgba(16,185,129,0.3)','rgba(16,185,129,0.4)','rgba(16,185,129,0.5)',
+          'rgba(16,185,129,0.7)','rgba(59,130,246,0.5)','rgba(59,130,246,0.7)','rgba(139,92,246,0.7)'],
+        borderColor: [C.green,C.green,C.green,C.green,C.blue,C.blue,C.purple],
+        borderWidth: 2, borderRadius: 4 },
+      { label: '增速（右轴%）', data: [null, 275, 333, 977, 150, 129, null],
+        type: 'line', yAxisID: 'y2',
+        borderColor: C.amber, backgroundColor: 'transparent', pointBackgroundColor: C.amber,
+        pointRadius: 4, tension: 0.3 }
+    ]
+  },
+  options: {
+    scales: {
+      y: { beginAtZero: true, grid: { color: C.grid },
+        title: { display: true, text: '万台' } },
+      y2: { position: 'right', beginAtZero: true, grid: { display: false },
+        title: { display: true, text: '增速%' } }
+    },
+    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } }
+  }
+});
+
+// ---- 3. 人形机器人估值三情景 ----
+new Chart(document.getElementById('robotValuation'), {
+  type: 'bar',
+  data: {
+    labels: ['绿的谐波', '汇川技术', '拓普集团'],
+    datasets: [
+      { label: '悲观目标市值（亿）', data: [150, 1500, 1200],
+        backgroundColor: 'rgba(16,185,129,0.5)', borderColor: C.green, borderWidth: 1.5, borderRadius: 4 },
+      { label: '基准目标市值（亿）', data: [280, 2500, 2200],
+        backgroundColor: 'rgba(59,130,246,0.5)', borderColor: C.blue, borderWidth: 1.5, borderRadius: 4 },
+      { label: '乐观目标市值（亿）', data: [500, 4000, 4000],
+        backgroundColor: 'rgba(239,68,68,0.5)', borderColor: C.red, borderWidth: 1.5, borderRadius: 4 }
+    ]
+  },
+  options: {
+    scales: { y: { beginAtZero: true, grid: { color: C.grid } } },
+    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } }
+  }
+});
+
+// ---- 4. AI公司收入增长 ----
+new Chart(document.getElementById('aiRevenue'), {
+  type: 'line',
+  data: {
+    labels: ['2023', '2024', '2025', '2026E'],
+    datasets: [
+      { label: 'OpenAI ARR（亿美元）', data: [15, 40, 131, 300],
+        borderColor: C.green, backgroundColor: 'rgba(16,185,129,0.1)', fill: true, tension: 0.4, pointRadius: 5 },
+      { label: 'Anthropic ARR（亿美元）', data: [1.5, 8, 30, 250],
+        borderColor: C.blue, backgroundColor: 'rgba(59,130,246,0.1)', fill: true, tension: 0.4, pointRadius: 5 },
+      { label: '微软AI收入（亿美元）', data: [100, 250, 500, 900],
+        borderColor: C.amber, backgroundColor: 'transparent', tension: 0.4, pointRadius: 5 },
+      { label: '英伟达数据中心（亿美元）', data: [146, 476, 1150, 1500],
+        borderColor: C.red, backgroundColor: 'transparent', tension: 0.4, pointRadius: 5 }
+    ]
+  },
+  options: {
+    scales: {
+      y: { beginAtZero: true, grid: { color: C.grid },
+        title: { display: true, text: '亿美元' } }
+    },
+    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } }
+  }
+});
+
+// ---- 5. AI PS倍数分布 ----
+new Chart(document.getElementById('aiPS'), {
+  type: 'bar',
+  data: {
+    labels: ['英伟达', '微软', '谷歌', '阿里巴巴', '腾讯', '百度', 'OpenAI(拟上市)', '科大讯飞'],
+    datasets: [{
+      label: 'PS倍数（当前/预估）',
+      data: [25, 11, 5.7, 0.55, 1.1, 2.5, 60, 6],
+      backgroundColor: [C.red, C.blue, C.blue, C.green, C.green, C.amber, C.red, C.amber],
+      borderRadius: 4
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    scales: {
+      x: { beginAtZero: true, grid: { color: C.grid }, title: { display: true, text: 'PS倍数' } }
+    },
+    plugins: { legend: { display: false } }
+  }
+});
+
+// ---- 6. 量子计算技术路线雷达 ----
+new Chart(document.getElementById('quantumTech'), {
+  type: 'radar',
+  data: {
+    labels: ['商业化成熟度', '错误纠正能力', '规模可扩展性', '技术领先性', '生态完整度', '市场验证'],
+    datasets: [
+      { label: '离子阱（IonQ）', data: [70, 85, 55, 85, 60, 75], fill: true,
+        backgroundColor: 'rgba(59,130,246,0.15)', borderColor: C.blue, pointBackgroundColor: C.blue },
+      { label: '超导量子（IBM/谷歌）', data: [65, 70, 80, 80, 75, 70], fill: true,
+        backgroundColor: 'rgba(139,92,246,0.15)', borderColor: C.purple, pointBackgroundColor: C.purple },
+      { label: '拓扑量子（微软）', data: [20, 90, 75, 70, 50, 15], fill: true,
+        backgroundColor: 'rgba(245,158,11,0.1)', borderColor: C.amber, pointBackgroundColor: C.amber }
+    ]
+  },
+  options: {
+    scales: { r: { beginAtZero: true, max: 100, ticks: { display: false },
+      grid: { color: C.grid }, pointLabels: { font: { size: 11 } } } },
+    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } }
+  }
+});
+
+// ---- 7. 量子计算市场规模预测 ----
+new Chart(document.getElementById('quantumMarket'), {
+  type: 'bar',
+  data: {
+    labels: ['2025', '2026E', '2027E', '2028E', '2029E', '2030E'],
+    datasets: [
+      { label: '全球市场规模（亿美元）', data: [66, 108, 180, 310, 550, 1795],
+        backgroundColor: ['rgba(139,92,246,0.3)','rgba(139,92,246,0.4)','rgba(139,92,246,0.5)',
+          'rgba(139,92,246,0.6)','rgba(139,92,246,0.7)','rgba(139,92,246,0.85)'],
+        borderColor: C.purple, borderWidth: 1.5, borderRadius: 4 },
+      { label: '增速%（右轴）', data: [null, 64, 67, 72, 77, 226],
+        type: 'line', yAxisID: 'y2',
+        borderColor: C.amber, backgroundColor: 'transparent', pointBackgroundColor: C.amber,
+        pointRadius: 4, tension: 0.3 }
+    ]
+  },
+  options: {
+    scales: {
+      y: { beginAtZero: true, grid: { color: C.grid }, title: { display: true, text: '亿美元' } },
+      y2: { position: 'right', beginAtZero: true, grid: { display: false }, title: { display: true, text: '增速%' } }
+    },
+    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } }
+  }
+});
+
+// ---- 8. 投资组合预期收益 ----
+new Chart(document.getElementById('portfolioReturn'), {
+  type: 'bar',
+  data: {
+    labels: ['AI大模型\n(45%)', '人形机器人\n(35%)', '量子计算\n(20%)', '组合综合\n(100%)'],
+    datasets: [
+      { label: '悲观情景', data: [15, -20, -50, -3],
+        backgroundColor: 'rgba(16,185,129,0.6)', borderColor: C.green, borderWidth: 1.5, borderRadius: 4 },
+      { label: '基准情景', data: [38, 50, 35, 42],
+        backgroundColor: 'rgba(59,130,246,0.6)', borderColor: C.blue, borderWidth: 1.5, borderRadius: 4 },
+      { label: '乐观情景', data: [115, 150, 350, 138],
+        backgroundColor: 'rgba(239,68,68,0.6)', borderColor: C.red, borderWidth: 1.5, borderRadius: 4 }
+    ]
+  },
+  options: {
+    scales: {
+      y: { grid: { color: C.grid }, title: { display: true, text: '预期回报率(%)' } }
+    },
+    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } }
+  }
+});
+</script>
+</body>
+</html>
