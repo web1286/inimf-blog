@@ -176,14 +176,14 @@ export default function Layout({ children, title, description, posts = [], hideS
             </div>
 
             {/* 关键事件（左侧，Bloomberg live blog 风格）*/}
-            <div className="sidebar-card" style={{overflow: 'hidden', padding: 0}}>
-              <div className="sidebar-card-header" style={{borderBottom: '1px solid var(--color-border-light)'}}>
+            <div className="sidebar-card">
+              <div className="sidebar-card-header">
                 <span className="sidebar-card-icon" style={{fontSize: '0.8rem'}}>⚡</span>
                 <span className="sidebar-card-title">关键事件</span>
                 <span className="rail-count-num" style={{marginLeft: 'auto', fontSize: '0.7rem', color: 'var(--color-text-muted)'}}>{EVENTS.length} 条</span>
                 <span className="rail-live-dot" style={{marginLeft: '4px'}} />
               </div>
-              <ul className="ev-list" style={{margin: 0}}>
+              <ul className="ev-list">
                 {displayEvents.map((ev, i) => {
                   const relTime = mounted
                     ? formatDistanceToNow(parseISO(ev.datetime), { addSuffix: true, locale: zhCN })
@@ -261,8 +261,8 @@ export default function Layout({ children, title, description, posts = [], hideS
           <aside className="site-right-rail">
 
             {/* ① 日历模块 — sidebar-card 风格，与左侧作者卡片对称 */}
-            <div className="sidebar-card" style={{overflow: 'hidden', padding: 0}}>
-              <div className="sidebar-card-header" style={{borderBottom: '1px solid var(--color-border-light)'}}>
+            <div className="sidebar-card">
+              <div className="sidebar-card-header">
                 <span className="sidebar-card-icon" style={{fontSize: '0.8rem'}}>📅</span>
                 <span className="sidebar-card-title">日历</span>
               </div>
@@ -270,14 +270,14 @@ export default function Layout({ children, title, description, posts = [], hideS
             </div>
 
             {/* ② 最新动态 — 与关键事件完全统一的 ev-item 风格 */}
-            <div className="sidebar-card" style={{overflow: 'hidden', padding: 0}}>
-              <div className="sidebar-card-header" style={{borderBottom: '1px solid var(--color-border-light)'}}>
+            <div className="sidebar-card">
+              <div className="sidebar-card-header">
                 <span className="sidebar-card-icon" style={{fontSize: '0.8rem'}}>📡</span>
                 <span className="sidebar-card-title">最新动态</span>
                 <span className="rail-count-num" style={{marginLeft: 'auto', fontSize: '0.7rem', color: 'var(--color-text-muted)'}}>{UPDATES.length} 条</span>
                 <Link href="/updates" style={{marginLeft: '8px', fontSize: '0.68rem', color: 'var(--color-text-muted)', textDecoration: 'none'}}>更多</Link>
               </div>
-              <ul className="ev-list" style={{margin: 0}}>
+              <ul className="ev-list">
                 {displayUpdates.map((item, i) => {
                   const relTime = mounted
                     ? formatDistanceToNow(new Date(item.date), { addSuffix: true, locale: zhCN })
@@ -305,7 +305,7 @@ export default function Layout({ children, title, description, posts = [], hideS
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
-                  padding: '0.65rem 0.9rem',
+                  padding: '0.5rem 0',
                   color: '#4a5568',
                   transition: 'color 0.15s',
                 }}
@@ -329,7 +329,7 @@ export default function Layout({ children, title, description, posts = [], hideS
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
-                  padding: '0.65rem 0.9rem',
+                  padding: '0.5rem 0',
                   color: '#4a5568',
                   transition: 'color 0.15s',
                 }}
@@ -353,7 +353,7 @@ export default function Layout({ children, title, description, posts = [], hideS
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
-                  padding: '0.65rem 0.9rem',
+                  padding: '0.5rem 0',
                   color: '#4a5568',
                   transition: 'color 0.15s',
                 }}
