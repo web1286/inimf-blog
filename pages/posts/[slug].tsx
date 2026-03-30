@@ -1,6 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
+import { useRouter } from 'next/router'
 import Layout from '../../components/Layout'
 import { getAllPostSlugs, getPostData, getSortedPostsData } from '../../lib/posts'
 import { format } from 'date-fns'
@@ -14,6 +15,7 @@ interface PostProps {
     summary?: string
     tags?: string[]
     contentHtml: string
+    externalUrl?: string
   }
   prevPost: { slug: string; title: string } | null
   nextPost: { slug: string; title: string } | null
@@ -59,6 +61,14 @@ function GiscusComments() {
 }
 
 export default function Post({ postData, prevPost, nextPost, allPosts }: PostProps) {
+  const router = useRouter()
+
+  // 如果文章设置了 externalUrl，直接跳转
+  useEffect(() => {
+    if (postData.externalUrl) {
+      window.location.href = postData.externalUrl
+    }
+  }, [postData.externalUrl])
   return (
     <Layout
       title={postData.title}
