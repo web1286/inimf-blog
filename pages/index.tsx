@@ -14,6 +14,7 @@ interface Post {
   summary?: string
   tags?: string[]
   cover?: string
+  externalUrl?: string
 }
 
 interface HomeProps {
@@ -107,7 +108,11 @@ export default function Home({ posts }: HomeProps) {
                     </div>
 
                     <h2 className="post-card-title">
-                      <Link href={`/posts/${post.slug}`}>{post.title}</Link>
+                      {post.externalUrl ? (
+                        <a href={post.externalUrl} target="_blank" rel="noopener noreferrer">{post.title}</a>
+                      ) : (
+                        <Link href={`/posts/${post.slug}`}>{post.title}</Link>
+                      )}
                     </h2>
 
                     {post.summary && (
