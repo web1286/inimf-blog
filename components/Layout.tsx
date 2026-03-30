@@ -149,6 +149,52 @@ export default function Layout({ children, title, description, posts = [], hideS
         {/* ===== 中间主内容区 ===== */}
         <main className="site-main">
           {children}
+
+          {/* ===== 移动端追加区块（≤860px 显示，PC 隐藏） ===== */}
+          {!hideSidebar && (
+            <div className="mobile-extra">
+
+              {/* 关键事件紧凑列表 */}
+              <div className="mobile-extra-card">
+                <div className="mobile-extra-header">
+                  <span>⚡</span>
+                  <span>关键事件</span>
+                  <span className="rail-live-dot" style={{marginLeft: '4px'}} />
+                </div>
+                <ul className="mobile-ev-list">
+                  {EVENTS.slice(0, 4).map((ev, i) => {
+                    const relTime = formatDistanceToNow(parseISO(ev.datetime), {
+                      addSuffix: true,
+                      locale: zhCN,
+                    })
+                    return (
+                      <li key={i} className="mobile-ev-item">
+                        <span className="mobile-ev-time">{relTime}</span>
+                        <span className="mobile-ev-title">{ev.title}</span>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </div>
+
+              {/* 快捷入口行 */}
+              <div className="mobile-quick-row">
+                <Link href="/todos" className="mobile-quick-btn">
+                  <span>✅</span> 待办
+                </Link>
+                <Link href="/notes" className="mobile-quick-btn">
+                  <span>📌</span> 备注
+                </Link>
+                <Link href="/analytics" className="mobile-quick-btn">
+                  <span>📊</span> 数据
+                </Link>
+                <Link href="/archive" className="mobile-quick-btn">
+                  <span>📂</span> 目录
+                </Link>
+              </div>
+
+            </div>
+          )}
         </main>
 
         {/* ===== 右侧 ===== */}
