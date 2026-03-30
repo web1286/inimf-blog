@@ -75,11 +75,11 @@ export default function Layout({ children, title, description, posts = [], hideS
               </div>
             </div>
 
-            {/* 关键事件（从右侧移入左侧，Bloomberg live blog 风格）*/}
+            {/* 重要事件（左侧，Bloomberg live blog 风格）*/}
             <div className="sidebar-card" style={{overflow: 'hidden', padding: 0}}>
               <div className="sidebar-card-header" style={{borderBottom: '1px solid var(--color-border-light)'}}>
                 <span className="sidebar-card-icon" style={{fontSize: '0.8rem'}}>⚡</span>
-                <span className="sidebar-card-title">关键事件</span>
+                <span className="sidebar-card-title">重要事件</span>
                 <span className="rail-count-num" style={{marginLeft: 'auto', fontSize: '0.7rem', color: 'var(--color-text-muted)'}}>{EVENTS.length} 条</span>
                 <span className="rail-live-dot" style={{marginLeft: '4px'}} />
               </div>
@@ -111,11 +111,11 @@ export default function Layout({ children, title, description, posts = [], hideS
           {!hideSidebar && (
             <div className="mobile-extra">
 
-              {/* 关键事件紧凑列表 */}
+              {/* 重要事件紧凑列表 */}
               <div className="mobile-extra-card">
                 <div className="mobile-extra-header">
                   <span>⚡</span>
-                  <span>关键事件</span>
+                  <span>重要事件</span>
                   <span className="rail-live-dot" style={{marginLeft: '4px'}} />
                 </div>
                 <ul className="mobile-ev-list">
@@ -145,8 +145,8 @@ export default function Layout({ children, title, description, posts = [], hideS
                 <Link href="/analytics" className="mobile-quick-btn">
                   <span>📊</span> 数据
                 </Link>
-                <Link href="/archive" className="mobile-quick-btn">
-                  <span>📂</span> 目录
+                <Link href="/thoughts" className="mobile-quick-btn">
+                  <span>💡</span> 随想
                 </Link>
               </div>
 
