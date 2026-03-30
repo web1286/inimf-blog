@@ -2289,6 +2289,19 @@ a {
   flex-shrink: 0;
 }
 
+/* 动态话题标签（合流模式）*/
+.thought-tag-badge {
+  display: inline-block;
+  flex-shrink: 0;
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 20px;
+  background: #e0f2fe;
+  color: #0369a1;
+  letter-spacing: 0.02em;
+}
+
 .thought-time {
   font-size: 0.7rem;
   font-weight: 700;
@@ -2325,5 +2338,168 @@ a {
 
 .thoughts-empty p {
   font-size: 0.88rem;
+}
+
+/* ==================== 日历模块（右侧 CalendarWidget）==================== */
+
+.cal-loading {
+  padding: 1rem;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+}
+
+.cal-widget {
+  padding: 0.75rem 0.9rem 0.8rem;
+}
+
+/* 实时时钟 */
+.cal-clock {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 0.65rem;
+  border-bottom: 1px solid var(--color-border-light);
+  padding-bottom: 0.55rem;
+}
+
+.cal-clock-time {
+  font-size: 1.35rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  color: var(--color-text);
+  line-height: 1;
+}
+
+.cal-clock-week {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+/* 月历头部 */
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.cal-month-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.cal-nav-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  padding: 0 4px;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.cal-nav-btn:hover {
+  color: var(--color-accent);
+}
+
+/* 日历网格 */
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  text-align: center;
+}
+
+.cal-weekday {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  padding: 3px 0;
+  text-transform: uppercase;
+}
+
+.cal-day {
+  font-size: 0.7rem;
+  color: var(--color-text-secondary);
+  padding: 4px 2px;
+  border-radius: 5px;
+  line-height: 1.3;
+  transition: background 0.1s;
+}
+
+.cal-day-empty {
+  color: transparent;
+  pointer-events: none;
+}
+
+.cal-day-weekend {
+  color: #e05c5c;
+}
+
+.cal-day-today {
+  background: var(--color-accent, #2563eb);
+  color: #fff !important;
+  font-weight: 700;
+  border-radius: 5px;
+}
+
+/* ==================== 右侧动态紧凑列表 ==================== */
+
+.rail-updates-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.rail-update-item {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--color-border-light);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.rail-update-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.rail-update-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rail-update-tag {
+  display: inline-block;
+  font-size: 0.58rem;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 20px;
+  background: #eff6ff;
+  color: #2563eb;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.rail-update-time {
+  font-size: 0.62rem;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+  margin-left: auto;
+}
+
+.rail-update-text {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+  margin: 0;
 }
 
