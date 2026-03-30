@@ -148,7 +148,7 @@ a {
 /* ==================== 三栏布局系统 ==================== */
 
 :root {
-  --right-rail-width: 220px;
+  --right-rail-width: 260px;
 }
 
 .site-body {
