@@ -219,90 +219,26 @@ export default function Analytics() {
           {/* 主内容 */}
           <main style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
 
-            {/* 说明提示 */}
-            <div style={{
-              background: '#eff6ff',
-              border: '1px solid #bfdbfe',
-              borderRadius: '10px',
-              padding: '14px 18px',
-              marginBottom: '20px',
-              fontSize: '13px',
-              color: '#1e40af',
-              display: 'flex',
-              alignItems: 'flex-start',
-              gap: '10px',
-            }}>
-              <span style={{ fontSize: '16px', flexShrink: 0 }}>ℹ️</span>
-              <div>
-                <strong>数据说明：</strong>Umami 正在追踪 inimf.com 全站访问数据（含每篇文章、投研报告点击、滚动深度）。
-                数据从接入之日起开始积累，新网站通常需要 <strong>1-3 天</strong>才有明显数据。
-                下方面板需要在 Umami 控制台开启「公开分享」后获取分享链接，点击「Umami 控制台 ↗」登录配置。
-              </div>
-            </div>
-
-            {/* 配置引导卡片（未配置公开分享时显示） */}
+            {/* Umami Dashboard iframe 嵌入 */}
             <div style={{
               background: '#fff',
               borderRadius: '12px',
               border: '1px solid #e2e8f0',
-              padding: '40px',
-              textAlign: 'center',
+              overflow: 'hidden',
+              boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
             }}>
-              <div style={{ fontSize: '40px', marginBottom: '16px' }}>🔧</div>
-              <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#1a1d21', marginBottom: '12px' }}>
-                完成最后一步：开启公开分享
-              </h2>
-              <p style={{ color: '#4a5568', fontSize: '14px', lineHeight: '1.8', maxWidth: '480px', margin: '0 auto 24px' }}>
-                去 Umami 控制台 → 选择 inimf.com → 点击「Share」按钮 → 开启公开分享，
-                复制分享链接后告诉助手，即可嵌入完整交互图表到此页面。
-              </p>
-              <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                <a
-                  href="https://cloud.umami.is"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    padding: '10px 24px',
-                    background: '#2563eb',
-                    color: '#fff',
-                    borderRadius: '8px',
-                    textDecoration: 'none',
-                    fontSize: '14px',
-                    fontWeight: 600,
-                  }}
-                >
-                  前往 Umami 控制台 ↗
-                </a>
-              </div>
-
-              {/* 当前已追踪的事件说明 */}
-              <div style={{
-                marginTop: '40px',
-                borderTop: '1px solid #f1f5f9',
-                paddingTop: '32px',
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-                gap: '16px',
-                textAlign: 'left',
-              }}>
-                {[
-                  { icon: '👁️', label: '页面浏览', desc: 'PV / UV / 来源 / 设备' },
-                  { icon: '📖', label: '阅读深度', desc: '滚动 25/50/75/100%' },
-                  { icon: '🔗', label: '外链点击', desc: '投研报告跳转追踪' },
-                  { icon: '🌍', label: '访客地域', desc: '国家 / 城市分布' },
-                ].map((item) => (
-                  <div key={item.label} style={{
-                    background: '#f8fafc',
-                    borderRadius: '8px',
-                    padding: '16px',
-                    border: '1px solid #f1f5f9',
-                  }}>
-                    <div style={{ fontSize: '24px', marginBottom: '8px' }}>{item.icon}</div>
-                    <div style={{ fontSize: '14px', fontWeight: 600, color: '#1a1d21', marginBottom: '4px' }}>{item.label}</div>
-                    <div style={{ fontSize: '12px', color: '#8896a5' }}>{item.desc}</div>
-                  </div>
-                ))}
-              </div>
+              <iframe
+                src="https://cloud.umami.is/share/xAfV1LGeC6I9HobB"
+                style={{
+                  width: '100%',
+                  height: 'calc(100vh - 120px)',
+                  minHeight: '700px',
+                  border: 'none',
+                  display: 'block',
+                }}
+                title="inimf.com 数据面板"
+                loading="lazy"
+              />
             </div>
           </main>
         </div>
