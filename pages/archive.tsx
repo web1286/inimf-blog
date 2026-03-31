@@ -5,6 +5,7 @@ import { getSortedPostsData } from '../lib/posts'
 import { format, formatDistanceToNow, parseISO } from 'date-fns'
 import { zhCN } from 'date-fns/locale'
 import { EVENTS } from '../data/events'
+import { getAllMastersSorted, getAuthors, getMastersGroupedByAuthor } from '../data/masters'
 
 interface Post {
   slug: string
@@ -18,6 +19,10 @@ interface ArchiveProps {
 }
 
 export default function Archive({ posts }: ArchiveProps) {
+  const masterAuthors = getAuthors()
+  const masterGroups = getMastersGroupedByAuthor()
+  const allMasters = getAllMastersSorted()
+
   return (
     <Layout title="总目录" posts={posts}>
       <div className="toc-page">
@@ -78,6 +83,61 @@ export default function Archive({ posts }: ArchiveProps) {
               )
             })}
           </ul>
+        </div>
+
+        {/* ========== 模块三：高手身影 ========== */}
+        <div className="toc-module">
+          <div className="toc-module-header">
+            <span className="toc-module-icon">✦</span>
+            <h2 className="toc-module-title">高手身影</h2>
+            <span className="toc-module-count">{allMasters.length} 篇 · {masterAuthors.length} 位</span>
+            <Link href="/masters" className="toc-module-more">查看全部</Link>
+          </div>
+          {/* 按作者分组，每位作者显示最新2篇 */}
+          {masterAuthors.map(author => {
+            const articles = masterGroups[author].slice(0, 2)
+            return (
+              <div key={author} style={{ marginBottom: '0.75rem' }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  marginBottom: '4px',
+                }}>
+                  <Link
+                    href={`/masters/${encodeURIComponent(author)}`}
+                    className="masters-author-tag"
+                    style={{ textDecoration: 'none' }}
+                  >
+                    {author}
+                  </Link>
+                  <span style={{ fontSize: '0.68rem', color: 'var(--color-text-muted)' }}>
+                    {masterGroups[author].length} 篇
+                  </span>
+                </div>
+                <ul className="toc-list" style={{ marginBottom: 0 }}>
+                  {articles.map((article, i) => (
+                    <li key={i} className="toc-item">
+                      <span className="toc-item-dot" style={{ background: '#7c3aed' }} />
+                      <time className="toc-item-date">{article.datetime.slice(0, 7)}</time>
+                      {article.url ? (
+                        <a
+                          href={article.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="toc-item-link"
+                        >
+                          {article.title}
+                        </a>
+                      ) : (
+                        <span className="toc-item-text">{article.title}</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          })}
         </div>
 
       </div>
