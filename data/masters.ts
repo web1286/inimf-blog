@@ -11,6 +11,15 @@ export interface MasterArticle {
 
 // 所有高手文章数据，新增时直接往数组里加
 export const MASTERS: MasterArticle[] = [
+  // === 冯柳 ===
+  {
+    author: '冯柳',
+    title: '技术规律的总结与体会',
+    datetime: '2006-06-12',
+    url: '/posts/2006-06-12-fengliu-technical-analysis',
+    summary: '兵无常形，从大局到细部多方研判、理解并感受运行之机远比结论和规律更重要。',
+  },
+
   // === 查理·芒格 ===
   {
     author: '查理·芒格',
