@@ -5,7 +5,9 @@ import {
   getAuthors,
   getArticlesByAuthor,
   MasterArticle,
+  MASTERS,
 } from '../../data/masters'
+import { getAuthorSlug } from '../../lib/masters-slug'
 
 interface Props {
   author: string
@@ -85,18 +87,21 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const authors = getAuthors()
   return {
     paths: authors.map(author => ({
-      params: { author: encodeURIComponent(author) },
+      params: { author: getAuthorSlug(author) },
     })),
     fallback: false,
   }
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const rawAuthor = decodeURIComponent(params?.author as string)
-  const articles = getArticlesByAuthor(rawAuthor)
+  const authorSlug = params?.author as string
+  // 通过 slug 反查中文作者名
+  const authorEntry = MASTERS.find(m => getAuthorSlug(m.author) === authorSlug)
+  const author = authorEntry?.author || authorSlug
+  const articles = getArticlesByAuthor(author)
   return {
     props: {
-      author: rawAuthor,
+      author,
       articles,
     },
   }
