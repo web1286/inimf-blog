@@ -18,7 +18,7 @@ export const MASTERS: MasterArticle[] = [
     title: '技术规律的总结与体会',
     datetime: '2006-06-12',
     addedAt: '2026-03-31',
-    url: '/masters/冯柳/技术规律的总结与体会',
+    url: '/masters/fengliu/technical-analysis',
     summary: '兵无常形，从大局到细部多方研判、理解并感受运行之机远比结论和规律更重要。',
   },
 ]
