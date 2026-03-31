@@ -5,26 +5,11 @@ import { remark } from 'remark'
 import remarkHtml from 'remark-html'
 import remarkGfm from 'remark-gfm'
 import { MASTERS } from '../data/masters'
+import { getAuthorSlug, getArticleSlug } from './masters-slug'
+
+export { getAuthorSlug, getArticleSlug } from './masters-slug'
 
 const mastersContentDir = path.join(process.cwd(), 'masters-content')
-
-// 作者名 → 英文目录名映射
-const AUTHOR_SLUG_MAP: Record<string, string> = {
-  '冯柳': 'fengliu',
-}
-
-// 文章标题 → 英文文件名映射（不含 .md）
-const ARTICLE_SLUG_MAP: Record<string, string> = {
-  '技术规律的总结与体会': 'technical-analysis',
-}
-
-export function getAuthorSlug(author: string): string {
-  return AUTHOR_SLUG_MAP[author] || author
-}
-
-export function getArticleSlug(title: string): string {
-  return ARTICLE_SLUG_MAP[title] || title
-}
 
 /** 枚举所有高手文章路径，供 getStaticPaths 使用 */
 export function getMasterArticlePaths(): Array<{
