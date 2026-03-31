@@ -1,17 +1,35 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Layout from '../../components/Layout'
+import { GetStaticProps } from 'next'
 import {
   getMastersGroupedByAuthor,
   getAuthors,
   MASTERS,
+  MasterArticle,
 } from '../../data/masters'
 
 const config = require('../../blog.config')
 
-export default function MastersIndex() {
+interface MastersIndexProps {
+  authors: string[]
+  groups: Record<string, MasterArticle[]>
+  totalCount: number
+}
+
+export const getStaticProps: GetStaticProps = async () => {
   const authors = getAuthors()
   const groups = getMastersGroupedByAuthor()
+  return {
+    props: {
+      authors,
+      groups,
+      totalCount: MASTERS.length,
+    },
+  }
+}
+
+export default function MastersIndex({ authors, groups, totalCount }: MastersIndexProps) {
 
   return (
     <Layout title="高手身影" description="收录高手智慧文章，按作者分类整理">
@@ -20,7 +38,7 @@ export default function MastersIndex() {
         {/* 页面标题 */}
         <div style={{ marginBottom: '0.25rem' }}>
           <h1 className="masters-page-title">高手身影</h1>
-          <p className="masters-page-desc">收录高手智慧文章 · 共 {MASTERS.length} 篇 · {authors.length} 位作者</p>
+          <p className="masters-page-desc">收录高手智慧文章 · 共 {totalCount} 篇 · {authors.length} 位作者</p>
         </div>
 
         {/* 作者快速导航 */}
