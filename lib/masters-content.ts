@@ -65,13 +65,21 @@ export async function getMasterArticleContent(
 
   const contentHtml = processedContent.toString()
 
+  const data = matterResult.data as {
+    title: string
+    datetime: string | Date
+    author: string
+    summary?: string
+  }
+
   return {
     contentHtml,
-    ...(matterResult.data as {
-      title: string
-      datetime: string
-      author: string
-      summary?: string
-    }),
+    title: data.title,
+    // gray-matter 会把 YYYY-MM-DD 解析为 Date 对象，强制转回字符串
+    datetime: data.datetime instanceof Date
+      ? data.datetime.toISOString().slice(0, 10)
+      : String(data.datetime),
+    author: data.author,
+    summary: data.summary,
   }
 }
