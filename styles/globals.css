@@ -852,10 +852,8 @@ a {
 /* ==================== 归档页 ==================== */
 
 .archive-page {
-  background: var(--color-surface);
-  border-radius: 10px;
-  border: 1px solid var(--color-border);
-  padding: 2rem 2rem 3rem;
+  background: transparent;
+  padding: 2rem 0 3rem;
 }
 
 .archive-year {
@@ -906,10 +904,53 @@ a {
 /* ==================== 关于页 ==================== */
 
 .about-page {
-  background: var(--color-surface);
-  border-radius: 10px;
-  border: 1px solid var(--color-border);
-  padding: 2.5rem 2.5rem 3rem;
+  background: transparent;
+  padding: 2.5rem 0 3rem;
+}
+
+/* ==================== 数据面板入口 ==================== */
+.analytics-entry {
+  display: block;
+  text-decoration: none;
+  margin-top: 1.5rem;
+  padding: 0.85rem 1rem;
+  background: rgba(37, 99, 235, 0.04);
+  border-left: 3px solid var(--color-accent);
+  border-radius: 0 6px 6px 0;
+  transition: background 0.15s, border-color 0.15s;
+}
+.analytics-entry:hover {
+  background: rgba(37, 99, 235, 0.09);
+  border-color: var(--color-accent);
+}
+.analytics-entry-top {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.analytics-entry-icon {
+  font-size: 15px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.analytics-entry-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  flex: 1;
+  letter-spacing: 0.01em;
+}
+.analytics-entry-arrow {
+  font-size: 12px;
+  color: var(--color-accent);
+  opacity: 0.7;
+}
+.analytics-entry-sub {
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--color-text-muted);
+  padding-left: 22px;
+  letter-spacing: 0.02em;
 }
 
 .about-page h1 {
