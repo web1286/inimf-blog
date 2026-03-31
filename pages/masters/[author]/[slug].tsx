@@ -118,8 +118,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: {
-      author: rawAuthor,
       ...articleData,
+      // 以 URL 参数中的 author 为准（防止 frontmatter 中文名与 URL 不一致）
+      author: articleData.author || rawAuthor,
     },
   }
 }
