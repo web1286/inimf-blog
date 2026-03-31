@@ -98,16 +98,6 @@ export default function Layout({ children, title, description, posts = [], hideS
               </ul>
             </div>
 
-            {/* 数据面板入口（关键事件下方）*/}
-            <Link href="/analytics" className="analytics-entry">
-              <div className="analytics-entry-top">
-                <span className="analytics-entry-icon">📊</span>
-                <span className="analytics-entry-label">数据面板</span>
-                <span className="analytics-entry-arrow">→</span>
-              </div>
-              <div className="analytics-entry-sub">站点流量 · Umami 驱动</div>
-            </Link>
-
           </aside>
         )}
 
