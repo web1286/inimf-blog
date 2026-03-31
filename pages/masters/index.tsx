@@ -8,6 +8,7 @@ import {
   MASTERS,
   MasterArticle,
 } from '../../data/masters'
+import { getAuthorSlug } from '../../lib/masters-slug'
 
 const config = require('../../blog.config')
 
@@ -46,7 +47,7 @@ export default function MastersIndex({ authors, groups, totalCount }: MastersInd
           {authors.map(author => (
             <Link
               key={author}
-              href={`/masters/${encodeURIComponent(author)}`}
+              href={`/masters/${getAuthorSlug(author)}`}
               className="masters-nav-item"
             >
               {author}
@@ -59,14 +60,14 @@ export default function MastersIndex({ authors, groups, totalCount }: MastersInd
         {authors.map(author => {
           const articles = groups[author]
           return (
-            <div key={author} className="masters-group" id={encodeURIComponent(author)}>
+            <div key={author} className="masters-group" id={getAuthorSlug(author)}>
 
               {/* 作者分组标题 */}
               <div className="masters-group-header">
                 <span className="masters-group-author">{author}</span>
                 <span className="masters-group-count">{articles.length} 篇</span>
                 <Link
-                  href={`/masters/${encodeURIComponent(author)}`}
+                  href={`/masters/${getAuthorSlug(author)}`}
                   className="masters-group-link"
                 >
                   查看全部 →
