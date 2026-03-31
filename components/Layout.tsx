@@ -128,13 +128,6 @@ export default function Layout({ children, title, description, posts = [], hideS
                 </ul>
               </div>
 
-              {/* 快捷入口行 */}
-              <div className="mobile-quick-row">
-                <Link href="/analytics" className="mobile-quick-btn">
-                  <span>📊</span> 数据
-                </Link>
-              </div>
-
             </div>
           )}
         </main>
