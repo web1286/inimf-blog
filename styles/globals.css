@@ -1187,11 +1187,15 @@ a {
 }
 
 /* ===== 高手身影文章详情页正文 ===== */
+.masters-article-content {
+  text-align: justify;
+}
 .masters-article-content p {
-  margin-bottom: 1.5em;
-  line-height: 1.85;
+  margin-bottom: 1.75em;
+  line-height: 1.9;
   font-size: 1rem;
   color: var(--color-text);
+  text-align: justify;
 }
 .masters-article-content p:last-child {
   margin-bottom: 0;
