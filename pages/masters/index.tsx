@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import Link from 'next/link'
 import Layout from '../../components/Layout'
 import { GetStaticProps } from 'next'
@@ -81,14 +80,12 @@ export default function MastersIndex({ authors, groups, totalCount }: MastersInd
                       {article.datetime.slice(0, 7)}
                     </span>
                     {article.url ? (
-                      <a
+                      <Link
                         href={article.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="masters-toc-title"
                       >
                         {article.title}
-                      </a>
+                      </Link>
                     ) : (
                       <span className="masters-toc-title" style={{ cursor: 'default' }}>
                         {article.title}
