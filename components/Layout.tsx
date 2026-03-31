@@ -156,14 +156,12 @@ export default function Layout({ children, title, description, posts = [], hideS
                       <span className="masters-author-tag">{item.author}</span>
                     </div>
                     {item.url ? (
-                      <a
+                      <Link
                         href={item.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="masters-item-title"
                       >
                         {item.title}
-                      </a>
+                      </Link>
                     ) : (
                       <span className="masters-item-title">{item.title}</span>
                     )}
