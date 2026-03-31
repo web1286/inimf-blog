@@ -4,9 +4,8 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import {
   getMasterArticlePaths,
   getMasterArticleContent,
-  getAuthorSlug,
-  getArticleSlug,
 } from '../../../lib/masters-content'
+import { getAuthorSlug } from '../../../lib/masters-slug'
 
 interface Props {
   author: string
@@ -97,10 +96,10 @@ export default function MasterArticlePage({ author, title, datetime, summary, co
 export const getStaticPaths: GetStaticPaths = async () => {
   const articlePaths = getMasterArticlePaths()
   return {
-    paths: articlePaths.map(({ author, title }) => ({
+    paths: articlePaths.map(({ authorSlug, articleSlug }) => ({
       params: {
-        author: encodeURIComponent(author),
-        slug: encodeURIComponent(title),
+        author: authorSlug,
+        slug: articleSlug,
       },
     })),
     fallback: false,
@@ -108,19 +107,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const rawAuthor = decodeURIComponent(params?.author as string)
-  const rawTitle = decodeURIComponent(params?.slug as string)
-
-  const authorSlug = getAuthorSlug(rawAuthor)
-  const articleSlug = getArticleSlug(rawTitle)
+  const authorSlug = params?.author as string
+  const articleSlug = params?.slug as string
 
   const articleData = await getMasterArticleContent(authorSlug, articleSlug)
 
   return {
     props: {
       ...articleData,
-      // 以 URL 参数中的 author 为准（防止 frontmatter 中文名与 URL 不一致）
-      author: articleData.author || rawAuthor,
     },
   }
 }
