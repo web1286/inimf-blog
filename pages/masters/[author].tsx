@@ -44,14 +44,12 @@ export default function AuthorPage({ author, articles }: Props) {
             <li key={i} className="masters-timeline-item">
               <div className="masters-timeline-date">{article.datetime}</div>
               {article.url ? (
-                <a
+                <Link
                   href={article.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="masters-timeline-title"
                 >
                   {article.title}
-                </a>
+                </Link>
               ) : (
                 <span className="masters-timeline-title" style={{ cursor: 'default' }}>
                   {article.title}
