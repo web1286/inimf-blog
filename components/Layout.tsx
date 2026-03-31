@@ -99,25 +99,14 @@ export default function Layout({ children, title, description, posts = [], hideS
             </div>
 
             {/* 数据面板入口（关键事件下方）*/}
-            <div className="sidebar-card">
-              <Link href="/analytics" style={{ textDecoration: 'none', display: 'block' }}>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  padding: '0.5rem 0',
-                  color: '#4a5568',
-                  transition: 'color 0.15s',
-                }}
-                  onMouseEnter={e => (e.currentTarget.style.color = '#2563eb')}
-                  onMouseLeave={e => (e.currentTarget.style.color = '#4a5568')}
-                >
-                  <span style={{ fontSize: '14px', lineHeight: 1 }}>📊</span>
-                  <span style={{ fontSize: '13px', fontWeight: 600 }}>数据面板</span>
-                  <span style={{ marginLeft: 'auto', fontSize: '12px', color: '#a0aec0' }}>→</span>
-                </div>
-              </Link>
-            </div>
+            <Link href="/analytics" className="analytics-entry">
+              <div className="analytics-entry-top">
+                <span className="analytics-entry-icon">📊</span>
+                <span className="analytics-entry-label">数据面板</span>
+                <span className="analytics-entry-arrow">→</span>
+              </div>
+              <div className="analytics-entry-sub">站点流量 · Umami 驱动</div>
+            </Link>
 
           </aside>
         )}
