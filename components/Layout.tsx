@@ -4,6 +4,7 @@ import { ReactNode, useState, useEffect } from 'react'
 import { formatDistanceToNow, parseISO } from 'date-fns'
 import { zhCN } from 'date-fns/locale'
 import { EVENTS } from '../data/events'
+import { getAllMastersSorted } from '../data/masters'
 const config = require('../blog.config')
 
 interface Post {
@@ -27,6 +28,9 @@ export default function Layout({ children, title, description, posts = [], hideS
 
   // 关键事件：按时间线正序（过去→现在→未来）
   const displayEvents = [...EVENTS].sort((a, b) => a.datetime.localeCompare(b.datetime))
+
+  // 高手身影：最新 6 条（全局倒序）
+  const latestMasters = getAllMastersSorted().slice(0, 6)
 
   const [mounted, setMounted] = useState(false)
   useEffect(() => { setMounted(true) }, [])
@@ -132,9 +136,43 @@ export default function Layout({ children, title, description, posts = [], hideS
           )}
         </main>
 
-        {/* ===== 右侧（保留容器，内容清空，预留将来用）===== */}
+        {/* ===== 右侧（高手身影）===== */}
         {!hideSidebar && (
           <aside className="site-right-rail">
+
+            {/* 高手身影卡片 */}
+            <div className="sidebar-card">
+              <div className="sidebar-card-header">
+                <span className="sidebar-card-icon" style={{ fontSize: '0.8rem' }}>✦</span>
+                <span className="sidebar-card-title">高手身影</span>
+                <span className="rail-count-num" style={{ marginLeft: 'auto', fontSize: '0.7rem', color: 'var(--color-text-muted)' }}>
+                  {latestMasters.length} 条
+                </span>
+              </div>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                {latestMasters.map((item, i) => (
+                  <li key={i} className="masters-item">
+                    <div className="masters-item-row">
+                      <span className="masters-author-tag">{item.author}</span>
+                    </div>
+                    {item.url ? (
+                      <a
+                        href={item.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="masters-item-title"
+                      >
+                        {item.title}
+                      </a>
+                    ) : (
+                      <span className="masters-item-title">{item.title}</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/masters" className="masters-more-link">查看全部 →</Link>
+            </div>
+
           </aside>
         )}
 
