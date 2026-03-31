@@ -3,8 +3,6 @@ import Link from 'next/link'
 import { ReactNode, useState, useEffect } from 'react'
 import { formatDistanceToNow, parseISO } from 'date-fns'
 import { zhCN } from 'date-fns/locale'
-import { NOTES } from '../data/notes'
-import { TODO_ITEMS } from '../data/todos'
 import { EVENTS } from '../data/events'
 const config = require('../blog.config')
 
@@ -100,6 +98,27 @@ export default function Layout({ children, title, description, posts = [], hideS
               </ul>
             </div>
 
+            {/* 数据面板入口（关键事件下方）*/}
+            <div className="sidebar-card">
+              <Link href="/analytics" style={{ textDecoration: 'none', display: 'block' }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '0.5rem 0',
+                  color: '#4a5568',
+                  transition: 'color 0.15s',
+                }}
+                  onMouseEnter={e => (e.currentTarget.style.color = '#2563eb')}
+                  onMouseLeave={e => (e.currentTarget.style.color = '#4a5568')}
+                >
+                  <span style={{ fontSize: '14px', lineHeight: 1 }}>📊</span>
+                  <span style={{ fontSize: '13px', fontWeight: 600 }}>数据面板</span>
+                  <span style={{ marginLeft: 'auto', fontSize: '12px', color: '#a0aec0' }}>→</span>
+                </div>
+              </Link>
+            </div>
+
           </aside>
         )}
 
@@ -132,17 +151,8 @@ export default function Layout({ children, title, description, posts = [], hideS
 
               {/* 快捷入口行 */}
               <div className="mobile-quick-row">
-                <Link href="/todos" className="mobile-quick-btn">
-                  <span>✅</span> 待办
-                </Link>
-                <Link href="/notes" className="mobile-quick-btn">
-                  <span>📌</span> 备注
-                </Link>
                 <Link href="/analytics" className="mobile-quick-btn">
                   <span>📊</span> 数据
-                </Link>
-                <Link href="/thoughts" className="mobile-quick-btn">
-                  <span>💡</span> 随想
                 </Link>
               </div>
 
@@ -150,79 +160,9 @@ export default function Layout({ children, title, description, posts = [], hideS
           )}
         </main>
 
-        {/* ===== 右侧 ===== */}
+        {/* ===== 右侧（保留容器，内容清空，预留将来用）===== */}
         {!hideSidebar && (
           <aside className="site-right-rail">
-
-            {/* ① 待办事项入口 */}
-            <div className="sidebar-card">
-              <Link href="/todos" style={{ textDecoration: 'none', display: 'block' }}>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  padding: '0.5rem 0',
-                  color: '#4a5568',
-                  transition: 'color 0.15s',
-                }}
-                  onMouseEnter={e => (e.currentTarget.style.color = '#2563eb')}
-                  onMouseLeave={e => (e.currentTarget.style.color = '#4a5568')}
-                >
-                  <span style={{ fontSize: '14px', lineHeight: 1 }}>✅</span>
-                  <span style={{ fontSize: '13px', fontWeight: 600 }}>待办事项</span>
-                  <span style={{ fontSize: '11px', color: '#a0aec0', marginLeft: '2px' }}>
-                    {TODO_ITEMS.filter(t => !t.done).length} 条
-                  </span>
-                  <span style={{ marginLeft: 'auto', fontSize: '12px', color: '#a0aec0' }}>→</span>
-                </div>
-              </Link>
-            </div>
-
-            {/* ④ 备注信息入口 */}
-            <div className="sidebar-card">
-              <Link href="/notes" style={{ textDecoration: 'none', display: 'block' }}>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  padding: '0.5rem 0',
-                  color: '#4a5568',
-                  transition: 'color 0.15s',
-                }}
-                  onMouseEnter={e => (e.currentTarget.style.color = '#2563eb')}
-                  onMouseLeave={e => (e.currentTarget.style.color = '#4a5568')}
-                >
-                  <span style={{ fontSize: '14px', lineHeight: 1 }}>📌</span>
-                  <span style={{ fontSize: '13px', fontWeight: 600 }}>备注信息</span>
-                  <span style={{ fontSize: '11px', color: '#a0aec0', marginLeft: '2px' }}>
-                    {NOTES.length} 条
-                  </span>
-                  <span style={{ marginLeft: 'auto', fontSize: '12px', color: '#a0aec0' }}>→</span>
-                </div>
-              </Link>
-            </div>
-
-            {/* ⑤ 数据面板入口 */}
-            <div className="sidebar-card">
-              <Link href="/analytics" style={{ textDecoration: 'none', display: 'block' }}>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  padding: '0.5rem 0',
-                  color: '#4a5568',
-                  transition: 'color 0.15s',
-                }}
-                  onMouseEnter={e => (e.currentTarget.style.color = '#2563eb')}
-                  onMouseLeave={e => (e.currentTarget.style.color = '#4a5568')}
-                >
-                  <span style={{ fontSize: '14px', lineHeight: 1 }}>📊</span>
-                  <span style={{ fontSize: '13px', fontWeight: 600 }}>数据面板</span>
-                  <span style={{ marginLeft: 'auto', fontSize: '12px', color: '#a0aec0' }}>→</span>
-                </div>
-              </Link>
-            </div>
-
           </aside>
         )}
 
