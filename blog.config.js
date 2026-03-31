@@ -14,7 +14,7 @@ const config = {
   nav: [
     { label: '首页', href: '/' },
     { label: '目录', href: '/archive' },
-    { label: '关于', href: '/about' },
+    { label: '数据', href: '/analytics' },
   ],
   // 页脚文字
   footer: `© ${new Date().getFullYear()} inimf`,
