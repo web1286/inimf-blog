@@ -1186,6 +1186,17 @@ a {
   line-height: 1.55;
 }
 
+/* ===== 高手身影文章详情页正文 ===== */
+.masters-article-content p {
+  margin-bottom: 1.5em;
+  line-height: 1.85;
+  font-size: 1rem;
+  color: var(--color-text);
+}
+.masters-article-content p:last-child {
+  margin-bottom: 0;
+}
+
 /* ==================== 数据面板入口 ==================== */
 .analytics-entry {
   display: block;
