@@ -16,11 +16,13 @@ export interface MarketData {
     name: string
     price: string
     change: string
+    changePercent?: string
   }[]
   crypto: {
     name: string
     price: string
     change: string
+    changePercent?: string
   }[]
 }
 
