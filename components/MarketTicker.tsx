@@ -1,7 +1,7 @@
-import { getMarketData, MarketData } from '../data/market-data'
+import { STATIC_MARKET_DATA, IndexData, BondData, CommodityData, CryptoData, ForexData } from '../data/market-data'
 
 export default function MarketTicker() {
-  const marketData = getMarketData()
+  const marketData = STATIC_MARKET_DATA
 
   const getChangeColor = (change: string) => {
     if (change.startsWith('+')) return 'ticker-up'
@@ -10,81 +10,94 @@ export default function MarketTicker() {
   }
 
   return (
-    <div className="market-ticker-clean">
+    <div className="market-ticker">
       <div className="ticker-header">
         <span className="ticker-icon">📊</span>
         <span className="ticker-title">市场动态</span>
         <span className="ticker-time">{new Date(marketData.updatedAt).toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })}</span>
       </div>
-      
-      <table className="ticker-table">
-        <tbody>
-          {/* 全球指数 */}
-          <tr>
-            <td className="ticker-cat" rowSpan={2}>全球指数</td>
-            {marketData.indices.slice(0, 3).map((item, i) => (
-              <td key={i} className="ticker-cell">
-                <span className="ticker-name">{item.name}</span>
-                <span className="ticker-val">{item.value}</span>
-                <span className={`ticker-chg ${getChangeColor(item.change)}`}>{item.changePercent}</span>
-              </td>
+
+      <div className="ticker-grid">
+        {/* 全球指数 */}
+        <div className="ticker-section">
+          <h3 className="ticker-section-title">全球指数</h3>
+          <div className="ticker-cards">
+            {marketData.indices.map((item, i) => (
+              <div key={i} className="ticker-card">
+                <div className="ticker-card-name">{item.name}</div>
+                <div className="ticker-card-value">{item.value}</div>
+                <div className={`ticker-card-change ${getChangeColor(item.change)}`}>
+                  {item.changePercent}
+                </div>
+              </div>
             ))}
-          </tr>
-          <tr>
-            {marketData.indices.slice(3).map((item, i) => (
-              <td key={i} className="ticker-cell">
-                <span className="ticker-name">{item.name}</span>
-                <span className="ticker-val">{item.value}</span>
-                <span className={`ticker-chg ${getChangeColor(item.change)}`}>{item.changePercent}</span>
-              </td>
-            ))}
-            {/* 补足空位 */}
-            <td className="ticker-cell empty"></td>
-          </tr>
-          
-          {/* 美债收益率 */}
-          <tr>
-            <td className="ticker-cat">美债</td>
+          </div>
+        </div>
+
+        {/* 美债收益率 */}
+        <div className="ticker-section">
+          <h3 className="ticker-section-title">美债收益率</h3>
+          <div className="ticker-cards">
             {marketData.bonds.map((item, i) => (
-              <td key={i} className="ticker-cell">
-                <span className="ticker-name">{item.name}</span>
-                <span className="ticker-val">{item.yield}</span>
-                <span className={`ticker-chg ${getChangeColor(item.change)}`}>{item.change}</span>
-              </td>
+              <div key={i} className="ticker-card">
+                <div className="ticker-card-name">{item.name}</div>
+                <div className="ticker-card-value">{item.yield}</div>
+                <div className={`ticker-card-change ${getChangeColor(item.change)}`}>
+                  {item.change}
+                </div>
+              </div>
             ))}
-          </tr>
-          
-          {/* 大宗商品 */}
-          <tr>
-            <td className="ticker-cat">商品</td>
+          </div>
+        </div>
+
+        {/* 大宗商品 */}
+        <div className="ticker-section">
+          <h3 className="ticker-section-title">大宗商品</h3>
+          <div className="ticker-cards">
             {marketData.commodities.map((item, i) => (
-              <td key={i} className="ticker-cell">
-                <span className="ticker-name">{item.name}</span>
-                <span className="ticker-val">${item.price}</span>
-                <span className={`ticker-chg ${getChangeColor(item.change)}`}>{item.changePercent || item.change}</span>
-              </td>
+              <div key={i} className="ticker-card">
+                <div className="ticker-card-name">{item.name}</div>
+                <div className="ticker-card-value">${item.price}</div>
+                <div className={`ticker-card-change ${getChangeColor(item.change)}`}>
+                  {item.changePercent || item.change}
+                </div>
+              </div>
             ))}
-            <td className="ticker-cell empty"></td>
-          </tr>
-          
-          {/* 数字货币 + 美元 */}
-          <tr>
-            <td className="ticker-cat">数字</td>
+          </div>
+        </div>
+
+        {/* 数字货币 */}
+        <div className="ticker-section">
+          <h3 className="ticker-section-title">数字货币</h3>
+          <div className="ticker-cards">
             {marketData.crypto.map((item, i) => (
-              <td key={i} className="ticker-cell">
-                <span className="ticker-name">{item.name}</span>
-                <span className="ticker-val">${item.price}</span>
-                <span className={`ticker-chg ${getChangeColor(item.change)}`}>{item.changePercent}</span>
-              </td>
+              <div key={i} className="ticker-card">
+                <div className="ticker-card-name">{item.name}</div>
+                <div className="ticker-card-value">${item.price}</div>
+                <div className={`ticker-card-change ${getChangeColor(item.change)}`}>
+                  {item.changePercent}
+                </div>
+              </div>
             ))}
-            <td className="ticker-cell">
-              <span className="ticker-name">美元指数</span>
-              <span className="ticker-val">104.23</span>
-              <span className="ticker-chg ticker-up">+0.12%</span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+          </div>
+        </div>
+
+        {/* 汇率 */}
+        <div className="ticker-section">
+          <h3 className="ticker-section-title">汇率</h3>
+          <div className="ticker-cards">
+            {marketData.forex.map((item, i) => (
+              <div key={i} className="ticker-card">
+                <div className="ticker-card-name">{item.name}</div>
+                <div className="ticker-card-value">{item.price}</div>
+                <div className={`ticker-card-change ${getChangeColor(item.change)}`}>
+                  {item.changePercent || item.change}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
