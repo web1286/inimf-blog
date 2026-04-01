@@ -10,12 +10,8 @@ const config = {
   author: 'inimf',
   // 每页显示文章数
   postsPerPage: 10,
-  // 导航菜单
-  nav: [
-    { label: '首页', href: '/' },
-    { label: '目录', href: '/archive' },
-    { label: '数据', href: '/analytics' },
-  ],
+  // 导航菜单 - 取消显示（空数组）
+  nav: [],
   // 页脚文字
   footer: `© ${new Date().getFullYear()} inimf`,
 }
