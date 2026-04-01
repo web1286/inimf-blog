@@ -613,6 +613,8 @@ a {
   padding: 2.5rem 2.5rem 3rem;
   flex: 1;
   min-width: 0;
+  max-width: 660px;
+  margin: 0 auto;
 }
 
 .article-header {
