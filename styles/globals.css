@@ -2295,92 +2295,113 @@ a {
 
 /* ==================== LongPort 风格重构 ==================== */
 
-/* 市场数据 ticker 条 */
-.market-ticker {
-  background: #1a1a2e;
-  color: #fff;
-  padding: 0.5rem 0;
-  position: relative;
-  overflow: hidden;
-  border-bottom: 1px solid #2a2a3e;
+/* ==================== 市场数据 ticker（紧凑版，四行） ==================== */
+.market-ticker-compact {
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.ticker-scroll {
+.ticker-row {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  overflow-x: auto;
-  padding: 0 1.5rem;
-  scrollbar-width: none;
+  gap: 0.6rem;
+  padding: 0.3rem 0;
+  flex-wrap: wrap;
 }
 
-.ticker-scroll::-webkit-scrollbar {
-  display: none;
+.ticker-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #94a3b8;
+  padding: 0.2rem 0.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
 .ticker-item {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  flex-shrink: 0;
-  white-space: nowrap;
+  gap: 0.35rem;
+  padding: 0.25rem 0.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 4px;
+  transition: background 0.15s;
+}
+
+.ticker-item:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .ticker-name {
   font-size: 0.7rem;
-  color: #a0a0b0;
+  color: #cbd5e1;
   font-weight: 500;
+  min-width: 45px;
 }
 
 .ticker-value,
 .ticker-price,
 .ticker-yield {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  color: #fff;
+  color: #f1f5f9;
   font-variant-numeric: tabular-nums;
 }
 
 .ticker-change {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
 
-.ticker-change-percent {
-  font-size: 0.65rem;
-  opacity: 0.8;
-  margin-left: 2px;
-}
-
-.text-green-600 {
+.ticker-change-up {
   color: #22c55e;
 }
 
-.text-red-600 {
+.ticker-change-down {
   color: #ef4444;
 }
 
-.text-gray-600 {
-  color: #9ca3af;
+.ticker-change-flat {
+  color: #94a3b8;
 }
 
-.ticker-divider {
-  color: #3a3a4e;
-  font-size: 0.8rem;
-  flex-shrink: 0;
+.ticker-change-percent {
+  font-size: 0.65rem;
+  opacity: 0.85;
+  margin-left: 2px;
 }
 
 .ticker-updated {
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
+  text-align: center;
   font-size: 0.65rem;
-  color: #6a6a7a;
-  background: #1a1a2e;
-  padding-left: 1rem;
-  pointer-events: none;
+  color: #64748b;
+  margin-top: 0.5rem;
+  padding-top: 0.4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ==================== Logo ==================== */
+.site-logo {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 0.5rem;
+}
+
+.site-logo svg {
+  display: block;
+}
+
+.site-title {
+  display: flex;
+  align-items: center;
 }
 
 /* 左侧导航（SidebarNav） */
