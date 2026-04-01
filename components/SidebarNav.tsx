@@ -14,6 +14,7 @@ export default function SidebarNav() {
   return (
     <nav className="sidebar-nav">
       <div className="sidebar-nav-header">
+        <span className="sidebar-nav-icon">📚</span>
         <span className="sidebar-nav-title">目录</span>
       </div>
       <div className="sidebar-nav-items">
