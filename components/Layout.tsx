@@ -5,6 +5,9 @@ import { formatDistanceToNow, parseISO } from 'date-fns'
 import { zhCN } from 'date-fns/locale'
 import { EVENTS } from '../data/events'
 import { getAllMastersSorted } from '../data/masters'
+import MarketTicker from './MarketTicker'
+import SidebarNav from './SidebarNav'
+import SearchBox from './SearchBox'
 const config = require('../blog.config')
 
 interface Post {
@@ -64,14 +67,33 @@ export default function Layout({ children, title, description, posts = [], hideS
         </div>
       </header>
 
+      {/* 市场数据 ticker */}
+      <MarketTicker />
+
       {/* 三栏布局 */}
       <div className={`site-body${hideSidebar ? ' no-sidebar' : ''}`}>
 
         {/* ===== 左侧边栏 ===== */}
         {!hideSidebar && (
           <aside className="site-sidebar">
+            {/* 搜索框 */}
+            <SearchBox />
 
-            {/* 关键事件（左侧，Bloomberg live blog 风格）*/}
+            {/* 左侧导航 */}
+            <SidebarNav />
+          </aside>
+        )}
+
+        {/* ===== 中间主内容区 ===== */}
+        <main className="site-main">
+          {children}
+        </main>
+
+        {/* ===== 右侧（关键事件 + 高手身影）===== */}
+        {!hideSidebar && (
+          <aside className="site-right-rail">
+
+            {/* 关键事件（不限制条数） */}
             <div className="sidebar-card">
               <div className="sidebar-card-header">
                 <span className="sidebar-card-icon" style={{fontSize: '0.8rem'}}>⚡</span>
@@ -102,45 +124,7 @@ export default function Layout({ children, title, description, posts = [], hideS
               </ul>
             </div>
 
-          </aside>
-        )}
-
-        {/* ===== 中间主内容区 ===== */}
-        <main className="site-main">
-          {children}
-
-          {/* ===== 移动端追加区块（≤860px 显示，PC 隐藏） ===== */}
-          {!hideSidebar && (
-            <div className="mobile-extra">
-
-              {/* 关键事件 — feed-section 风格 */}
-              <div className="feed-section">
-                <div className="feed-header">
-                  <span className="feed-title">⚡ 关键事件</span>
-                </div>
-                <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                  {displayEvents.map((ev, i) => (
-                    <li key={i} className="mobile-ev-feed-item">
-                      {ev.status && (
-                        <span className={`ev-status-tag ev-status-${ev.status === '突发重大' ? 'alert' : ev.status === '持续发酵' ? 'ongoing' : 'pending'}`}>
-                          {ev.status}
-                        </span>
-                      )}
-                      <span className="mobile-ev-feed-title">{ev.title}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-            </div>
-          )}
-        </main>
-
-        {/* ===== 右侧（高手身影）===== */}
-        {!hideSidebar && (
-          <aside className="site-right-rail">
-
-            {/* 高手身影卡片 */}
+            {/* 高手身影（限制5条） */}
             <div className="sidebar-card">
               <div className="sidebar-card-header">
                 <span className="sidebar-card-icon" style={{ fontSize: '0.8rem' }}>✦</span>
@@ -150,7 +134,7 @@ export default function Layout({ children, title, description, posts = [], hideS
                 </span>
               </div>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                {latestMasters.map((item, i) => (
+                {latestMasters.slice(0, 5).map((item, i) => (
                   <li key={i} className="masters-item">
                     <div className="masters-item-row">
                       <span className="masters-author-tag">{item.author}</span>
