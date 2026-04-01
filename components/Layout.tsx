@@ -47,9 +47,6 @@ export default function Layout({ children, title, description, posts = [], hideS
   const [mounted, setMounted] = useState(false)
   useEffect(() => { setMounted(true) }, [])
 
-  // 只在首页显示市场动态
-  const isHomePage = router.pathname === '/'
-
   return (
     <>
       <Head>
