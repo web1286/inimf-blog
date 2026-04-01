@@ -31,6 +31,9 @@ export default function Layout({ children, title, description, posts = [], hideS
   const pageDesc = description || config.description
   const router = useRouter()
 
+  // 移动端侧边栏折叠状态
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+
   // 重要事件：按时间线正序（过去→现在→未来）
   const displayEvents = [...EVENTS].sort((a, b) => a.datetime.localeCompare(b.datetime))
 
@@ -96,12 +99,28 @@ export default function Layout({ children, title, description, posts = [], hideS
         </div>
       </header>
 
+      {/* 移动端侧边栏覆盖层 */}
+      {!hideSidebar && (
+        <div className={`sidebar-overlay ${sidebarOpen ? 'active' : ''}`} onClick={() => setSidebarOpen(false)} />
+      )}
+
+      {/* 移动端侧边栏切换按钮 */}
+      {!hideSidebar && (
+        <button
+          className="mobile-sidebar-toggle"
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          aria-label="切换侧边栏"
+        >
+          ☰
+        </button>
+      )}
+
       {/* 三栏布局 */}
       <div className={`site-body${hideSidebar ? ' no-sidebar' : ''}`}>
 
         {/* ===== 左侧边栏 ===== */}
         {!hideSidebar && (
-          <aside className="site-sidebar">
+          <aside className={`site-sidebar ${sidebarOpen ? 'active' : ''}`}>
             {/* 左侧导航 */}
             <SidebarNav />
           </aside>
@@ -121,7 +140,7 @@ export default function Layout({ children, title, description, posts = [], hideS
             {/* 重要事件（首页限制3条，支持折叠展开） */}
             <div className="sidebar-card">
               <div className="sidebar-card-header">
-                <span className="sidebar-card-icon" style={{fontSize: '0.8rem'}}>⚡</span>
+                <span className="sidebar-card-icon sidebar-card-header-icon">⚡</span>
                 <span className="sidebar-card-title">重要事件</span>
                 <span className="rail-count-num" style={{marginLeft: 'auto', fontSize: '0.7rem', color: 'var(--color-text-muted)'}}>{EVENTS.length} 条</span>
                 <span className="rail-live-dot" style={{marginLeft: '4px'}} />
@@ -161,7 +180,7 @@ export default function Layout({ children, title, description, posts = [], hideS
             {/* 高手身影（限制5条） */}
             <div className="sidebar-card">
               <div className="sidebar-card-header">
-                <span className="sidebar-card-icon" style={{ fontSize: '0.8rem' }}>✦</span>
+                <span className="sidebar-card-icon sidebar-card-header-icon">✦</span>
                 <span className="sidebar-card-title">高手身影</span>
                 <span className="rail-count-num" style={{ marginLeft: 'auto', fontSize: '0.7rem', color: 'var(--color-text-muted)' }}>
                   {latestMasters.length} 条
