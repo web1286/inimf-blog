@@ -221,7 +221,7 @@ a {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.1rem 0 0.75rem;
+  padding: 0.5rem 0 0.75rem;
   border-bottom: 2px solid var(--color-border);
   margin-bottom: 0;
 }
@@ -2304,9 +2304,9 @@ a {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.35rem 0;
+  padding: 0.5rem 0 0.75rem;
   border-bottom: 2px solid var(--color-border);
-  margin-bottom: 0.6rem;
+  margin-bottom: 0;
 }
 
 .ticker-icon {
@@ -2403,9 +2403,9 @@ a {
 }
 
 .sidebar-nav-header {
-  padding: 0.5rem 0;
-  margin-bottom: 0.5rem;
-  border-bottom: 1px solid var(--color-border);
+  padding: 0.5rem 0 0.75rem;
+  margin-bottom: 0;
+  border-bottom: 2px solid var(--color-border);
 }
 
 .sidebar-nav-title {
@@ -2462,16 +2462,13 @@ a {
   align-items: center;
   gap: 0.5rem;
   background: var(--color-surface-gray);
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  padding: 0.5rem 0.75rem;
-  margin-bottom: 1.5rem;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  padding: 0.5rem 0;
+  margin-bottom: 0;
+  transition: background 0.15s;
 }
 
 .search-box:focus-within {
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  background: var(--color-surface-hover);
 }
 
 .search-input {
