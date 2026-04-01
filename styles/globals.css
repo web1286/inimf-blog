@@ -32,9 +32,9 @@
   --color-header-bg: #2B2E33;    /* 深灰色顶栏，xiaohu.ai 风格 */
   --color-link: #2563eb;
 
-  --max-width-site: 1100px;
+  --max-width-site: 1200px;
   --max-width-article: 680px;
-  --sidebar-width: 260px;
+  --sidebar-width: 220px;
   --spacing-page: 1.25rem;
 }
 
@@ -148,7 +148,7 @@ a {
 /* ==================== 三栏布局系统 ==================== */
 
 :root {
-  --right-rail-width: 260px;
+  --right-rail-width: 240px;
 }
 
 .site-body {
