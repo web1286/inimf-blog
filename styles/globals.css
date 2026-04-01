@@ -2293,56 +2293,199 @@ a {
 
 /* ==================== 右侧动态紧凑列表 ==================== */
 
-.rail-updates-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-}
+/* ==================== LongPort 风格重构 ==================== */
 
-.rail-update-item {
+/* 市场数据 ticker 条 */
+.market-ticker {
+  background: #1a1a2e;
+  color: #fff;
   padding: 0.5rem 0;
-  border-bottom: 1px solid var(--color-border-light);
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid #2a2a3e;
 }
 
-.rail-update-item:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
-.rail-update-meta {
+.ticker-scroll {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding: 0 1.5rem;
+  scrollbar-width: none;
 }
 
-.rail-update-tag {
-  display: inline-block;
-  font-size: 0.58rem;
-  font-weight: 700;
-  padding: 1px 5px;
-  border-radius: 20px;
-  background: #eff6ff;
-  color: #2563eb;
-  letter-spacing: 0.02em;
+.ticker-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.ticker-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
   white-space: nowrap;
 }
 
-.rail-update-time {
-  font-size: 0.62rem;
-  color: var(--color-text-muted);
-  font-variant-numeric: tabular-nums;
-  margin-left: auto;
+.ticker-name {
+  font-size: 0.7rem;
+  color: #a0a0b0;
+  font-weight: 500;
 }
 
-.rail-update-text {
+.ticker-value,
+.ticker-price,
+.ticker-yield {
   font-size: 0.75rem;
+  font-weight: 600;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+.ticker-change {
+  font-size: 0.72rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.ticker-change-percent {
+  font-size: 0.65rem;
+  opacity: 0.8;
+  margin-left: 2px;
+}
+
+.text-green-600 {
+  color: #22c55e;
+}
+
+.text-red-600 {
+  color: #ef4444;
+}
+
+.text-gray-600 {
+  color: #9ca3af;
+}
+
+.ticker-divider {
+  color: #3a3a4e;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.ticker-updated {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.65rem;
+  color: #6a6a7a;
+  background: #1a1a2e;
+  padding-left: 1rem;
+  pointer-events: none;
+}
+
+/* 左侧导航（SidebarNav） */
+.sidebar-nav {
+  padding: 1.5rem 0;
+}
+
+.sidebar-nav-header {
+  padding: 0.5rem 0;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.sidebar-nav-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+}
+
+.sidebar-nav-items {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0;
+  text-decoration: none;
   color: var(--color-text-secondary);
-  line-height: 1.55;
-  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 500;
+  transition: all 0.15s;
+  border-radius: 6px;
+  margin-bottom: 0.15rem;
+}
+
+.sidebar-nav-item:hover {
+  background: var(--color-surface-gray);
+  color: var(--color-text);
+}
+
+.sidebar-nav-item.active {
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.sidebar-nav-icon {
+  font-size: 1rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.sidebar-nav-label {
+  flex: 1;
+}
+
+/* 搜索框（SearchBox） */
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--color-surface-gray);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 1.5rem;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.search-box:focus-within {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  background: none;
+  font-size: 0.82rem;
+  color: var(--color-text);
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.search-button {
+  border: none;
+  background: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  transition: color 0.15s;
+}
+
+.search-button:hover {
+  color: var(--color-accent);
 }
 
