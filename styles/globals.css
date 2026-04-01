@@ -1483,7 +1483,7 @@ a {
     grid-template-columns: var(--sidebar-width) 1fr;
   }
   .site-right-rail {
-    display: none;
+    /* 保留右侧栏显示 */
   }
 }
 
@@ -1560,44 +1560,9 @@ a {
       max-width: calc(100% - 120px);
     }
     
-    /* 右侧栏滑动动画 */
+    /* 移动端隐藏右侧栏 */
     .site-right-rail {
-      position: fixed;
-      top: 60px;
-      right: -260px;
-      height: calc(100vh - 60px);
-      width: 260px;
-      background: #ffffff;
-      border-left: 1px solid var(--color-border);
-      z-index: 999;
-      overflow-y: auto;
-      transition: right 0.3s ease;
-      padding: 1rem;
-    }
-    
-    .site-right-rail.active {
-      right: 0;
-    }
-    
-    /* 右侧栏展开时的覆盖层 */
-    .right-rail-overlay {
       display: none;
-      position: fixed;
-      top: 60px;
-      left: 0;
-      width: 100%;
-      height: calc(100vh - 60px);
-      background: rgba(0, 0, 0, 0.3);
-      z-index: 998;
-    }
-    
-    .right-rail-overlay.active {
-      display: block;
-    }
-
-    /* 移动端默认隐藏右侧栏 */
-    .site-right-rail {
-      display: block; /* 确保显示，用right: -260px隐藏 */
     }
   }
 
