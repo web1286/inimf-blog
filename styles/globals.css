@@ -1534,7 +1534,7 @@ a {
   .mobile-right-toggle {
     display: none;
   }
-  
+
   /* 移动端时显示右侧切换按钮 */
   @media screen and (max-width: 860px) {
     .mobile-right-toggle {
@@ -1553,6 +1553,11 @@ a {
       cursor: pointer;
       font-size: 1.1rem;
       z-index: 100;
+    }
+
+    /* 移动端搜索框缩小，为右侧按钮留空间 */
+    .header-search {
+      max-width: calc(100% - 120px);
     }
     
     /* 右侧栏滑动动画 */
@@ -1589,11 +1594,13 @@ a {
     .right-rail-overlay.active {
       display: block;
     }
+
+    /* 移动端默认隐藏右侧栏 */
+    .site-right-rail {
+      display: block; /* 确保显示，用right: -260px隐藏 */
+    }
   }
 
-  .site-right-rail {
-    display: none;
-  }
   .site-body {
     grid-template-columns: 1fr;
     padding: 1rem var(--spacing-page) 2rem;
