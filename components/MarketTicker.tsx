@@ -23,7 +23,7 @@ export default function MarketTicker() {
     })),
     ...marketData.commodities.map((item: any) => ({
       name: item.name,
-      value: `$${item.price}`,
+      value: item.price,
       change: item.changePercent
     })),
     ...marketData.bonds.map((item: any) => ({

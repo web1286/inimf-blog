@@ -2478,6 +2478,7 @@ a {
 
 /* ==================== 市场数据 ticker（紧凑网格布局） ==================== */
 .market-ticker {
+  margin-top: 0;
   margin-bottom: 1.25rem;
 }
 
