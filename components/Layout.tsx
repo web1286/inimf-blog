@@ -28,6 +28,7 @@ interface LayoutProps {
 export default function Layout({ children, title, description, posts = [], hideSidebar }: LayoutProps) {
   const pageTitle = title ? `${title} - ${config.title}` : config.title
   const pageDesc = description || config.description
+  const router = useRouter()
 
   // 关键事件：按时间线正序（过去→现在→未来）
   const displayEvents = [...EVENTS].sort((a, b) => a.datetime.localeCompare(b.datetime))
@@ -37,6 +38,9 @@ export default function Layout({ children, title, description, posts = [], hideS
 
   const [mounted, setMounted] = useState(false)
   useEffect(() => { setMounted(true) }, [])
+
+  // 只在首页显示市场动态
+  const isHomePage = router.pathname === '/'
 
   return (
     <>
@@ -96,8 +100,8 @@ export default function Layout({ children, title, description, posts = [], hideS
 
         {/* ===== 中间主内容区 ===== */}
         <main className="site-main">
-          {/* 市场数据 ticker - 放到中间 */}
-          <MarketTicker />
+          {/* 市场数据 ticker - 只在首页显示 */}
+          {isHomePage && <MarketTicker />}
           {children}
         </main>
 
