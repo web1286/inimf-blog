@@ -156,7 +156,7 @@ a {
   margin: 0 auto;
   padding: 1.5rem var(--spacing-page) 3rem;
   display: grid;
-  grid-template-columns: var(--sidebar-width) 1fr var(--right-rail-width);
+  grid-template-columns: var(--sidebar-width) 580px var(--right-rail-width);
   gap: 1.25rem;
   align-items: flex-start;
 }
