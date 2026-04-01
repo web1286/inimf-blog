@@ -58,10 +58,10 @@ export default function Layout({ children, title, description, posts = [], hideS
       {/* 顶部导航 */}
       <header className="site-header">
         <div className="header-inner">
+          {/* 左侧：Logo */}
           <Link href="/" className="site-title">
-            {/* 科技感 Logo - CSS 绘制 */}
             <span className="site-logo">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
                 <defs>
                   <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#1890ff"/>
@@ -73,11 +73,18 @@ export default function Layout({ children, title, description, posts = [], hideS
                 <circle cx="24" cy="24" r="3" fill="white" fillOpacity="0.9"/>
               </svg>
             </span>
-            {config.title}
+            <span className="site-title-text">{config.title}</span>
           </Link>
+
+          {/* 中间：搜索框 */}
+          <div className="header-search">
+            <SearchBox />
+          </div>
+
+          {/* 右侧：导航链接 */}
           <nav className="site-nav">
             {config.nav.map((item: { label: string; href: string }) => (
-              <Link key={item.href} href={item.href}>
+              <Link key={item.href} href={item.href} className="nav-link">
                 {item.label}
               </Link>
             ))}
@@ -93,9 +100,6 @@ export default function Layout({ children, title, description, posts = [], hideS
           <aside className="site-sidebar">
             {/* 左侧导航 */}
             <SidebarNav />
-
-            {/* 搜索框 - 移到底部 */}
-            <SearchBox />
           </aside>
         )}
 
