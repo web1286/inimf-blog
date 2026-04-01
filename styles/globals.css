@@ -122,6 +122,7 @@ a {
   display: flex;
   gap: 0.5rem;
   align-items: center;
+  margin-left: auto;
 }
 
 .site-nav .nav-link {
@@ -213,6 +214,7 @@ a {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-top: 0;
 }
 
 /* 左侧导航顶部对齐修正 */
@@ -223,6 +225,7 @@ a {
 /* 中间主内容区 */
 .site-main {
   min-width: 0;
+  margin-top: 0;
 }
 
 /* 确保中间第一个子元素顶部对齐 */
@@ -239,6 +242,7 @@ a {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-top: 0;
 }
 
 /* 右侧栏顶部对齐修正 */
@@ -263,6 +267,7 @@ a {
   gap: 0.5rem;
   padding: 0.5rem 0 0.75rem;
   border-bottom: 2px solid var(--color-border);
+  margin-top: 0;
   margin-bottom: 0;
 }
 
@@ -2488,6 +2493,7 @@ a {
   gap: 0.5rem;
   padding: 0.5rem 0 0.75rem;
   border-bottom: 2px solid var(--color-border);
+  margin-top: 0;
   margin-bottom: 0;
 }
 
@@ -2586,6 +2592,7 @@ a {
 
 .sidebar-nav-header {
   padding: 0.5rem 0 0.75rem;
+  margin-top: 0;
   margin-bottom: 0;
   border-bottom: 2px solid var(--color-border);
 }
