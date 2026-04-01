@@ -2295,30 +2295,32 @@ a {
 
 /* ==================== LongPort 风格重构 ==================== */
 
-/* ==================== 市场数据 ticker（紧凑版，四行） ==================== */
+/* ==================== 市场数据 ticker（浅色沉浸式风格） ==================== */
 .market-ticker-compact {
-  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-  border-radius: 8px;
-  padding: 0.75rem;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
   margin-bottom: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .ticker-row {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.3rem 0;
-  flex-wrap: wrap;
+  gap: 0.8rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.ticker-row:last-child {
+  border-bottom: none;
 }
 
 .ticker-label {
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: #94a3b8;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-accent);
   padding: 0.2rem 0.5rem;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--color-accent-light);
   border-radius: 4px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -2328,64 +2330,66 @@ a {
 .ticker-item {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.25rem 0.5rem;
-  background: rgba(255, 255, 255, 0.03);
+  gap: 0.4rem;
+  padding: 0.2rem 0.5rem;
   border-radius: 4px;
-  transition: background 0.15s;
+  transition: all 0.12s;
+  background: transparent;
+  border: 1px solid transparent;
 }
 
 .ticker-item:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--color-surface-gray);
+  border-color: var(--color-border);
 }
 
 .ticker-name {
-  font-size: 0.7rem;
-  color: #cbd5e1;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
   font-weight: 500;
-  min-width: 45px;
+  min-width: 48px;
 }
 
 .ticker-value,
 .ticker-price,
 .ticker-yield {
-  font-size: 0.72rem;
+  font-size: 0.76rem;
   font-weight: 600;
-  color: #f1f5f9;
+  color: var(--color-text);
   font-variant-numeric: tabular-nums;
 }
 
 .ticker-change {
-  font-size: 0.7rem;
+  font-size: 0.74rem;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
 
 .ticker-change-up {
-  color: #22c55e;
-}
-
-.ticker-change-down {
   color: #ef4444;
 }
 
+.ticker-change-down {
+  color: #22c55e;
+}
+
 .ticker-change-flat {
-  color: #94a3b8;
+  color: var(--color-text-muted);
 }
 
 .ticker-change-percent {
-  font-size: 0.65rem;
-  opacity: 0.85;
+  font-size: 0.68rem;
+  opacity: 0.8;
   margin-left: 2px;
 }
 
 .ticker-updated {
-  text-align: center;
-  font-size: 0.65rem;
-  color: #64748b;
-  margin-top: 0.5rem;
-  padding-top: 0.4rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: right;
+  font-size: 0.68rem;
+  color: var(--color-text-muted);
+  margin-top: 0.4rem;
+  padding-top: 0.3rem;
+  border-top: 1px solid var(--color-border-light);
 }
 
 /* ==================== Logo ==================== */
