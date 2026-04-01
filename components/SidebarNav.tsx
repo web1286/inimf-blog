@@ -6,7 +6,7 @@ export default function SidebarNav() {
 
   const navItems = [
     { id: 'articles', label: '浮生八记', icon: '📝', href: '/posts' },
-    { id: 'events', label: '关键事件', icon: '📌', href: '/archive' },
+    { id: 'events', label: '重要事件', icon: '📌', href: '/events' },
     { id: 'masters', label: '高手身影', icon: '👤', href: '/masters' },
     { id: 'analytics', label: '数据面板', icon: '📊', href: '/analytics' },
   ];

@@ -31,8 +31,15 @@ export default function Layout({ children, title, description, posts = [], hideS
   const pageDesc = description || config.description
   const router = useRouter()
 
-  // 关键事件：按时间线正序（过去→现在→未来）
+  // 重要事件：按时间线正序（过去→现在→未来）
   const displayEvents = [...EVENTS].sort((a, b) => a.datetime.localeCompare(b.datetime))
+
+  // 首页只显示3条重要事件
+  const isHomePage = router.pathname === '/'
+  const homeEventLimit = 3
+
+  // 重要事件折叠状态
+  const [eventsExpanded, setEventsExpanded] = useState(false)
 
   // 高手身影：最新 6 条（全局倒序）
   const latestMasters = getAllMastersSorted().slice(0, 6)
@@ -114,16 +121,16 @@ export default function Layout({ children, title, description, posts = [], hideS
         {!hideSidebar && (
           <aside className="site-right-rail">
 
-            {/* 关键事件（不限制条数） */}
+            {/* 重要事件（首页限制3条，支持折叠展开） */}
             <div className="sidebar-card">
               <div className="sidebar-card-header">
                 <span className="sidebar-card-icon" style={{fontSize: '0.8rem'}}>⚡</span>
-                <span className="sidebar-card-title">关键事件</span>
+                <span className="sidebar-card-title">重要事件</span>
                 <span className="rail-count-num" style={{marginLeft: 'auto', fontSize: '0.7rem', color: 'var(--color-text-muted)'}}>{EVENTS.length} 条</span>
                 <span className="rail-live-dot" style={{marginLeft: '4px'}} />
               </div>
               <ul className="ev-list">
-                {displayEvents.map((ev, i) => {
+                {displayEvents.slice(0, eventsExpanded ? displayEvents.length : homeEventLimit).map((ev, i) => {
                   const relTime = mounted
                     ? formatDistanceToNow(parseISO(ev.datetime), { addSuffix: true, locale: zhCN })
                     : ''
@@ -143,6 +150,15 @@ export default function Layout({ children, title, description, posts = [], hideS
                   )
                 })}
               </ul>
+              {/* 首页且条数超过3条时显示折叠按钮 */}
+              {isHomePage && EVENTS.length > homeEventLimit && (
+                <button
+                  className={`ev-expand-btn ${eventsExpanded ? 'expanded' : ''}`}
+                  onClick={() => setEventsExpanded(!eventsExpanded)}
+                >
+                  {eventsExpanded ? '收起' : `展开全部 ${EVENTS.length} 条`}
+                </button>
+              )}
             </div>
 
             {/* 高手身影（限制5条） */}

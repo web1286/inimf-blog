@@ -59,11 +59,11 @@ export default function Archive({ posts }: ArchiveProps) {
           )}
         </div>
 
-        {/* ========== 模块二：关键事件 ========== */}
+        {/* ========== 模块二：重要事件 ========== */}
         <div className="toc-module">
           <div className="toc-module-header">
             <span className="toc-module-icon">⚡</span>
-            <h2 className="toc-module-title">关键事件</h2>
+            <h2 className="toc-module-title">重要事件</h2>
             <span className="toc-module-count">{EVENTS.length} 条</span>
           </div>
           <ul className="toc-list">

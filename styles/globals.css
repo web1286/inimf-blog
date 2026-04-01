@@ -32,10 +32,10 @@
   --color-header-bg: #2B2E33;    /* 深灰色顶栏，xiaohu.ai 风格 */
   --color-link: #2563eb;
 
-  --max-width-site: 1040px;
+  --max-width-site: 1280px;
   --max-width-article: 680px;
-  --sidebar-width: 200px;
-  --spacing-page: 1.25rem;
+  --sidebar-width: 240px;
+  --spacing-page: 1.5rem;
 }
 
 html {
@@ -75,7 +75,6 @@ a {
   height: 60px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 1.5rem;
 }
 
@@ -100,8 +99,10 @@ a {
 
 .header-search {
   flex: 1;
-  max-width: 400px;
-  margin: 0 auto;
+  max-width: 420px;
+  margin: 0;
+  display: flex;
+  justify-content: center;
 }
 
 .header-search .search-box {
@@ -172,16 +173,16 @@ a {
 /* ==================== 三栏布局系统 ==================== */
 
 :root {
-  --right-rail-width: 260px;
+  --right-rail-width: 280px;
 }
 
 .site-body {
-  max-width: 1240px;
+  max-width: var(--max-width-site);
   margin: 0 auto;
   padding: 1rem var(--spacing-page) 3rem;
   display: grid;
-  grid-template-columns: var(--sidebar-width) 580px var(--right-rail-width);
-  gap: 1.25rem;
+  grid-template-columns: var(--sidebar-width) 1fr var(--right-rail-width);
+  gap: 1.5rem;
   align-items: flex-start;
 }
 
@@ -208,7 +209,7 @@ a {
   width: var(--sidebar-width);
   flex-shrink: 0;
   position: sticky;
-  top: calc(60px + 1rem);
+  top: calc(60px + var(--spacing-page));
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -224,12 +225,17 @@ a {
   min-width: 0;
 }
 
+/* 确保中间第一个子元素顶部对齐 */
+.site-main > *:first-child {
+  margin-top: 0;
+}
+
 /* 右侧三模块栏 */
 .site-right-rail {
   width: var(--right-rail-width);
   flex-shrink: 0;
   position: sticky;
-  top: calc(60px + 1rem);
+  top: calc(60px + var(--spacing-page));
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -1765,6 +1771,38 @@ a {
   border-bottom: none;
 }
 
+/* 重要事件折叠按钮 */
+.ev-expand-btn {
+  width: 100%;
+  padding: 0.5rem 0;
+  background: transparent;
+  border: none;
+  border-top: 1px dashed var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+.ev-expand-btn:hover {
+  color: var(--color-accent);
+  background: var(--color-surface-gray);
+}
+
+.ev-expand-btn::before {
+  content: '▼';
+  font-size: 0.6rem;
+  transition: transform 0.2s;
+}
+
+.ev-expand-btn.expanded::before {
+  transform: rotate(180deg);
+}
+
 /* 左侧橙色竖条 */
 .ev-item::before {
   content: '';
@@ -2030,6 +2068,115 @@ a {
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* ==================== 重要事件页 ==================== */
+.events-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 0 4rem;
+}
+
+.events-page-header {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.events-page-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.events-page-desc {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.events-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.events-timeline-item {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.events-item-icon {
+  width: 24px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0.5rem;
+}
+
+.events-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #f59e0b;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 3px #f59e0b20;
+  flex-shrink: 0;
+}
+
+.events-item-content {
+  flex: 1;
+  min-width: 0;
+  padding: 1rem 1.25rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-light);
+  border-left: 3px solid #f59e0b;
+  border-radius: 6px;
+  transition: all 0.15s;
+}
+
+.events-item-content:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.events-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.events-datetime {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  letter-spacing: 0.02em;
+}
+
+.events-reltime {
+  font-size: 0.68rem;
+  color: #f59e0b;
+  font-weight: 600;
+}
+
+.events-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.4;
+  margin: 0 0 0.5rem 0;
+}
+
+.events-content {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+  margin: 0;
 }
 
 /* ==================== 总目录页 ==================== */
