@@ -54,8 +54,21 @@ export default function Layout({ children, title, description, posts = [], hideS
       <header className="site-header">
         <div className="header-inner">
           <Link href="/" className="site-title">
+            {/* 科技感 Logo - CSS 绘制 */}
+            <span className="site-logo">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <defs>
+                  <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#1890ff"/>
+                    <stop offset="100%" stopColor="#096dd9"/>
+                  </linearGradient>
+                </defs>
+                <rect x="4" y="4" width="24" height="24" rx="4" fill="url(#logo-gradient)"/>
+                <path d="M8 16 L14 10 L18 14 L24 8" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <circle cx="24" cy="24" r="3" fill="white" fillOpacity="0.9"/>
+              </svg>
+            </span>
             {config.title}
-            <span className="site-title-dot" />
           </Link>
           <nav className="site-nav">
             {config.nav.map((item: { label: string; href: string }) => (
@@ -67,25 +80,24 @@ export default function Layout({ children, title, description, posts = [], hideS
         </div>
       </header>
 
-      {/* 市场数据 ticker */}
-      <MarketTicker />
-
       {/* 三栏布局 */}
       <div className={`site-body${hideSidebar ? ' no-sidebar' : ''}`}>
 
         {/* ===== 左侧边栏 ===== */}
         {!hideSidebar && (
           <aside className="site-sidebar">
-            {/* 搜索框 */}
-            <SearchBox />
-
             {/* 左侧导航 */}
             <SidebarNav />
+
+            {/* 搜索框 - 移到底部 */}
+            <SearchBox />
           </aside>
         )}
 
         {/* ===== 中间主内容区 ===== */}
         <main className="site-main">
+          {/* 市场数据 ticker - 放到中间 */}
+          <MarketTicker />
           {children}
         </main>
 
