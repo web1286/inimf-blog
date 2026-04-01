@@ -103,7 +103,7 @@ export default function Layout({ children, title, description, posts = [], hideS
             onClick={() => setSidebarOpen(!sidebarOpen)}
             aria-label="切换目录"
           >
-            ☰
+            📚
           </button>
         </div>
       </header>
