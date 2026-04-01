@@ -110,7 +110,7 @@ export default function Layout({ children, title, description, posts = [], hideS
             }}
             aria-label="切换右侧目录"
           >
-            📁
+            ☰
           </button>
         </div>
       </header>
