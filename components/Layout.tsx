@@ -33,9 +33,6 @@ export default function Layout({ children, title, description, posts = [], hideS
 
   // 移动端左侧侧边栏折叠状态
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  
-  // 移动端右侧目录折叠状态
-  const [rightRailOpen, setRightRailOpen] = useState(false)
 
   // 重要事件：按时间线正序（过去→现在→未来）
   const displayEvents = [...EVENTS].sort((a, b) => a.datetime.localeCompare(b.datetime))
@@ -100,15 +97,11 @@ export default function Layout({ children, title, description, posts = [], hideS
             ))}
           </nav>
           
-          {/* 移动端右侧目录切换按钮 */}
+          {/* 移动端目录切换按钮（右侧固定，展开左侧目录） */}
           <button
             className="mobile-right-toggle"
-            onClick={() => {
-              setRightRailOpen(!rightRailOpen);
-              // 如果左侧栏打开，关闭它
-              if (sidebarOpen) setSidebarOpen(false);
-            }}
-            aria-label="切换右侧目录"
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            aria-label="切换目录"
           >
             ☰
           </button>
@@ -118,26 +111,6 @@ export default function Layout({ children, title, description, posts = [], hideS
       {/* 移动端左侧栏覆盖层 */}
       {!hideSidebar && (
         <div className={`sidebar-overlay ${sidebarOpen ? 'active' : ''}`} onClick={() => setSidebarOpen(false)} />
-      )}
-      
-      {/* 移动端右侧栏覆盖层 */}
-      {!hideSidebar && (
-        <div className={`right-rail-overlay ${rightRailOpen ? 'active' : ''}`} onClick={() => setRightRailOpen(false)} />
-      )}
-
-      {/* 移动端侧边栏切换按钮 */}
-      {!hideSidebar && (
-        <button
-          className="mobile-sidebar-toggle"
-          onClick={() => {
-            setSidebarOpen(!sidebarOpen);
-            // 如果右侧栏打开，关闭它
-            if (rightRailOpen) setRightRailOpen(false);
-          }}
-          aria-label="切换侧边栏"
-        >
-          ☰
-        </button>
       )}
 
       {/* 三栏布局 */}
@@ -160,7 +133,7 @@ export default function Layout({ children, title, description, posts = [], hideS
 
         {/* ===== 右侧（关键事件 + 高手身影）===== */}
         {!hideSidebar && (
-          <aside className={`site-right-rail ${rightRailOpen ? 'active' : ''}`}>
+          <aside className="site-right-rail">
 
             {/* 重要事件（首页限制3条，支持折叠展开） */}
             <div className="sidebar-card">
