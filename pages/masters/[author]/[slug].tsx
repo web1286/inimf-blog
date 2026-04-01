@@ -22,7 +22,7 @@ export default function MasterArticlePage({ author, title, datetime, summary, co
       description={summary || title}
       hideSidebar={true}
     >
-      <article className="post-article" style={{ maxWidth: '720px', margin: '0 auto' }}>
+      <article className="post-article" style={{ maxWidth: '660px', margin: '0 auto' }}>
 
         {/* 面包屑 */}
         <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', marginBottom: '1.5rem' }}>
