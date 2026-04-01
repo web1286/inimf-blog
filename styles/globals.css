@@ -600,8 +600,8 @@ a {
 /* ==================== 正文 Markdown 样式（公众号研报风格，保留主人偏好） ==================== */
 
 .article-content {
-  font-size: 1.05rem;
-  line-height: 2.0;
+  font-size: 1.0625rem; /* 17px */
+  line-height: 1.9;
   color: #333333;
   text-align: justify;
   word-break: break-word;
@@ -653,7 +653,7 @@ a {
 }
 
 .article-content p {
-  margin-bottom: 1.6rem;
+  margin-bottom: 1.8em;
 }
 
 .article-content a {
@@ -726,7 +726,7 @@ a {
 .article-content ul,
 .article-content ol {
   padding-left: 1.75rem;
-  margin-bottom: 1.6rem;
+  margin-bottom: 1.8em;
 }
 
 .article-content li {
@@ -1188,13 +1188,13 @@ a {
 
 /* ===== 高手身影文章详情页正文 ===== */
 .masters-article-content {
+  font-size: 1.0625rem; /* 17px */
+  line-height: 1.9;
+  color: #333333;
   text-align: justify;
 }
 .masters-article-content p {
-  margin-bottom: 1.75em;
-  line-height: 1.9;
-  font-size: 1rem;
-  color: var(--color-text);
+  margin-bottom: 1.8em;
   text-align: justify;
 }
 .masters-article-content p:last-child {
@@ -1475,7 +1475,7 @@ a {
 
   .article-page { padding: 1.25rem 1rem 2rem; border-radius: 8px; }
   .article-title { font-size: 1.4rem; }
-  .article-content { font-size: 1rem; line-height: 1.95; text-align: justify; }
+  .article-content { font-size: 1.0625rem; line-height: 1.9; text-align: justify; }
   .article-content h2 { font-size: 1rem; padding: 0.48rem 0.8rem; }
   .post-navigation { flex-direction: column; }
   .nav-next { text-align: left; }
