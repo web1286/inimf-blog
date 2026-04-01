@@ -2615,14 +2615,14 @@ a {
 
 /* 左侧导航（SidebarNav） */
 .sidebar-nav {
-  padding: 1.5rem 0;
+  padding: 0.5rem 0 0.75rem;
 }
 
 .sidebar-nav-header {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 0 0.75rem;
+  padding: 0;
   margin-top: 0;
   margin-bottom: 0;
   border-bottom: 2px solid var(--color-border);
@@ -2637,6 +2637,7 @@ a {
 .sidebar-nav-items {
   display: flex;
   flex-direction: column;
+  padding-top: 0.75rem;
 }
 
 .sidebar-nav-item {
