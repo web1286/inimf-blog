@@ -47,6 +47,7 @@ export const STATIC_MARKET_DATA: MarketData = {
   ],
   crypto: [
     { name: '比特币', price: '67,890.12', change: '+1,234.56', changePercent: '+1.85%' },
+    { name: '以太坊', price: '3,456.78', change: '+89.23', changePercent: '+2.65%' },
   ],
 }
 
