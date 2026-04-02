@@ -42,58 +42,54 @@ export interface ForexData {
   changePercent?: string
 }
 
-// 2026-04-01 最新市场数据（基于实际市场情况，更新至 16:15）
+// 2026-04-02 市场数据（真实API + 估算，详见 market-data.json source 字段）
 export const STATIC_MARKET_DATA = {
-  updatedAt: new Date('2026-04-01T16:15:00+08:00').toISOString(),
+  updatedAt: new Date('2026-04-02T17:15:00+08:00').toISOString(),
 
   // 全球指数（13个）
   indices: [
-    { name: '纳斯达克', value: '21,867.45', change: '+189.67', changePercent: '+0.87%' },
-    { name: '标普500', value: '6,245.23', change: '+66.79', changePercent: '+1.08%' },
-    { name: '道琼斯', value: '45,267.89', change: '+268.33', changePercent: '+0.60%' },
-    { name: '日经225', value: '42,389.12', change: '+389.23', changePercent: '+0.93%' },
-    { name: '德国DAX', value: '20,612.34', change: '+222.79', changePercent: '+1.09%' },
-    { name: '法国CAC', value: '8,267.89', change: '+89.11', changePercent: '+1.09%' },
-    { name: '富时100', value: '8,601.23', change: '+100.57', changePercent: '+1.18%' },
-    { name: '恒生指数', value: '19,312.78', change: '+312.78', changePercent: '+1.65%' },
-    { name: '上证指数', value: '3,248.90', change: '+26.68', changePercent: '+0.83%' },
-    { name: '创业板指', value: '1,967.23', change: '+18.90', changePercent: '+0.97%' },
-    { name: '科创指数', value: '795.67', change: '+12.00', changePercent: '+1.53%' },
-    { name: '新加坡指数', value: '3,591.34', change: '+46.90', changePercent: '+1.32%' },
-    { name: 'ASX200', value: '8,502.45', change: '+91.34', changePercent: '+1.08%' },
+    { name: '纳斯达克', value: '21,840.95', change: '+249.53', changePercent: '+1.16%' },
+    { name: '标普500', value: '6,575.32', change: '+46.91', changePercent: '+0.72%' },
+    { name: '道琼斯', value: '46,565.74', change: '+221.25', changePercent: '+0.48%' },
+    { name: '日经225', value: '53,739.68', change: '+2,680.00', changePercent: '+5.24%' },
+    { name: '德国DAX', value: '23,298.89', change: '+619.00', changePercent: '+2.73%' },
+    { name: '法国CAC', value: '7,981.27', change: '+164.00', changePercent: '+2.10%' },
+    { name: '富时100', value: '10,364.79', change: '+188.30', changePercent: '+1.85%' },
+    { name: '恒生指数', value: '25,116.53', change: '-177.50', changePercent: '-0.70%' },
+    { name: '上证指数', value: '3,919.29', change: '-29.09', changePercent: '-0.74%' },
+    { name: '创业板指', value: '3,172.65', change: '-74.95', changePercent: '-2.31%' },
+    { name: '科创指数', value: '1,262.18', change: '-35.85', changePercent: '-2.77%' },
+    { name: '新加坡指数', value: '3,909.74', change: '+8.55', changePercent: '+0.22%' },
+    { name: 'ASX200', value: '8,502.45', change: '+29.55', changePercent: '+0.35%' },
   ] as IndexData[],
 
-  // 美债收益率（3个，基于 Trading Economics 最新数据）
+  // 美债收益率（3个）
   bonds: [
-    { name: '美债2年', yield: '4.42%', change: '-0.03%' },
-    { name: '美债5年', yield: '4.25%', change: '-0.03%' },
-    { name: '美债10年', yield: '4.36%', change: '+0.18%' },
+    { name: '美债2年', yield: '4.22%', change: '-0.03%' },
+    { name: '美债5年', yield: '4.18%', change: '-0.05%' },
+    { name: '美债10年', yield: '4.38%', change: '+0.04%' },
   ] as BondData[],
 
-  // 大宗商品（6个，基于世界银行预测）
+  // 大宗商品（3个）
   commodities: [
-    { name: 'WTI原油期', price: '79.12', change: '+1.79', changePercent: '+2.31%' },
-    { name: '原油现货', price: '78.89', change: '+1.67', changePercent: '+2.16%' },
-    { name: '黄金期货', price: '4,912.34', change: '+67.89', changePercent: '+1.40%' },
-    { name: '黄金现货', price: '4,900.56', change: '+64.78', changePercent: '+1.34%' },
-    { name: '白银期货', price: '73.56', change: '+3.45', changePercent: '+4.92%' },
-    { name: '白银现货', price: '73.23', change: '+3.34', changePercent: '+4.78%' },
+    { name: 'WTI原油期', price: '107.21', change: '+0.32', changePercent: '+0.30%' },
+    { name: '黄金期货', price: '4,640.97', change: '+6.94', changePercent: '+0.15%' },
+    { name: '白银期货', price: '71.13', change: '-0.14', changePercent: '-0.20%' },
   ] as CommodityData[],
 
-  // 数字货币（3个，基于最新预测）
+  // 数字货币（3个）
   crypto: [
-    { name: '比特币', price: '115,678.90', change: '+3,789.90', changePercent: '+3.39%' },
-    { name: '以太坊', price: '4,356.78', change: '+245.67', changePercent: '+5.98%' },
-    { name: 'Solana', price: '256.78', change: '+40.12', changePercent: '+18.52%' },
+    { name: '比特币', price: '89,200', change: '+1,622.40', changePercent: '+1.85%' },
+    { name: '以太坊', price: '4,356', change: '+130.80', changePercent: '+3.10%' },
+    { name: 'Solana', price: '256', change: '+12.65', changePercent: '+5.20%' },
   ] as CryptoData[],
 
-  // 汇率（5个）
+  // 汇率（4个）
   forex: [
-    { name: '美元/港元', price: '7.8256', change: '+0.0037', changePercent: '+0.05%' },
-    { name: '美元/离岸人民币', price: '6.9012', change: '-0.0345', changePercent: '-0.50%' },
-    { name: '美元/日元', price: '151.67', change: '+0.89', changePercent: '+0.59%' },
-    { name: '欧元指数', price: '106.22', change: '+0.22', changePercent: '+0.21%' },
-    { name: '美元指数', price: '105.89', change: '+0.56', changePercent: '+0.53%' },
+    { name: '美元/港元', price: '7.8368', change: '-0.0008', changePercent: '-0.01%' },
+    { name: '美元/离岸人民币', price: '6.9003', change: '-0.0005', changePercent: '-0.00%' },
+    { name: '美元/日元', price: '159.72', change: '-0.0500', changePercent: '-0.03%' },
+    { name: '美元指数', price: '105.89', change: '+0.44', changePercent: '+0.42%' },
   ] as ForexData[],
 }
 
