@@ -1,0 +1,41 @@
+{
+  "indices": [
+    {"name": "纳斯达克", "value": "21,840.95", "changePercent": "+1.16%", "source": "tencent_rt"},
+    {"name": "标普500", "value": "6,575.32", "changePercent": "+0.72%", "source": "mx_api"},
+    {"name": "道琼斯", "value": "46,565.74", "changePercent": "+0.48%", "source": "tencent_rt"},
+    {"name": "日经225", "value": "53,739.68", "changePercent": "+5.24%", "source": "mx_api"},
+    {"name": "德国DAX", "value": "23,298.89", "changePercent": "+2.73%", "source": "mx_api"},
+    {"name": "法国CAC", "value": "7,981.27", "changePercent": "+2.10%", "source": "mx_api"},
+    {"name": "富时100", "value": "10,364.79", "changePercent": "+1.85%", "source": "mx_api"},
+    {"name": "恒生指数", "value": "25,116.53", "changePercent": "-0.70%", "source": "tencent_rt"},
+    {"name": "上证指数", "value": "3,919.29", "changePercent": "-0.74%", "source": "tencent_rt"},
+    {"name": "创业板指", "value": "3,172.65", "changePercent": "-2.31%", "source": "tencent_rt"},
+    {"name": "科创指数", "value": "1,262.18", "changePercent": "-2.77%", "source": "tencent_rt"},
+    {"name": "新加坡指数", "value": "3,909.74", "changePercent": "+0.22%", "source": "est_20260402"},
+    {"name": "ASX200", "value": "8,502.45", "changePercent": "+0.35%", "source": "est_20260402"}
+  ],
+  "commodities": [
+    {"name": "WTI原油期", "value": "107.21", "changePercent": "+0.30%", "source": "sina_futures"},
+    {"name": "黄金期货", "value": "4,640.97", "changePercent": "+0.15%", "source": "sina_futures"},
+    {"name": "白银期货", "value": "71.13", "changePercent": "-0.20%", "source": "sina_futures"}
+  ],
+  "crypto": [
+    {"name": "比特币", "value": "89,200", "changePercent": "+1.85%", "source": "est_20260402"},
+    {"name": "以太坊", "value": "4,356", "changePercent": "+3.10%", "source": "est_20260402"},
+    {"name": "Solana", "value": "256", "changePercent": "+5.20%", "source": "est_20260402"}
+  ],
+  "forex": [
+    {"name": "美元/港元", "value": "7.8368", "changePercent": "-0.01%", "source": "sina_fx"},
+    {"name": "美元/离岸人民币", "value": "6.9003", "changePercent": "-0.00%", "source": "sina_fx"},
+    {"name": "美元/日元", "value": "159.72", "changePercent": "-0.01%", "source": "sina_fx"},
+    {"name": "美元指数", "value": "105.89", "changePercent": "+0.42%", "source": "est_20260402"}
+  ],
+  "bonds": [
+    {"name": "美债2年", "yield": "4.22%", "change": "-0.03%", "source": "est_20260402"},
+    {"name": "美债5年", "yield": "4.18%", "change": "-0.05%", "source": "est_20260402"},
+    {"name": "美债10年", "yield": "4.38%", "change": "+0.04%", "source": "est_20260402"}
+  ],
+  "updatedAt": "2026-04-02T17:15:00+08:00",
+  "source": "mixed",
+  "note": "tencent_rt=腾讯实时, mx_api=东方财富妙想, sina_futures=新浪期货, sina_fx=新浪汇率, est=基于近期市场趋势估算"
+}
