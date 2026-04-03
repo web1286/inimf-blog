@@ -17,20 +17,59 @@ export default function MarketTicker() {
   const [expanded, setExpanded] = useState(false)
 
   useEffect(() => {
-    // 从 API 获取实时数据
+    // 直接从 JSON 文件获取数据（GitHub Pages 静态托管）
     async function fetchMarketData() {
       setLoading(true)
       setError(false)
 
       try {
-        const response = await fetch('/api/market-data')
+        const response = await fetch('/data/market-data.json')
         if (!response.ok) {
           throw new Error('获取数据失败')
         }
-        const data = await response.json()
+        const rawData = await response.json()
 
-        if (data && data.indices) {
-          setMarketData(data)
+        // 字段名映射：change_percent -> changePercent, timestamp -> updatedAt
+        if (rawData && rawData.indices) {
+          const transformedData = {
+            updatedAt: rawData.timestamp || rawData.updatedAt || new Date().toISOString(),
+            indices: (rawData.indices || []).map((item: any) => ({
+              name: item.name,
+              value: item.value,
+              change: item.change || '0',
+              changePercent: item.change_percent || item.changePercent || '0%'
+            })),
+            treasury_bonds: (rawData.treasury_bonds || []).map((item: any) => ({
+              name: item.name,
+              yield: item.yield || item.value,
+              change: item.change_percent || item.change || '0%'
+            })),
+            commodities: (rawData.commodities || []).map((item: any) => ({
+              name: item.name,
+              price: item.price || item.value,
+              change: item.change || '0',
+              changePercent: item.change_percent || item.changePercent || '0%'
+            })),
+            crypto: (rawData.crypto || []).map((item: any) => ({
+              name: item.name,
+              price: item.price || item.value,
+              change: item.change || '0',
+              changePercent: item.change_percent || item.changePercent || '0%'
+            })),
+            forex: (rawData.forex || []).map((item: any) => ({
+              name: item.name,
+              price: item.price || item.value,
+              change: item.change || '0',
+              changePercent: item.change_percent || item.changePercent || '0%'
+            })),
+            bonds: (rawData.bonds || rawData.treasury_bonds || []).map((item: any) => ({
+              name: item.name,
+              yield: item.yield || item.value,
+              change: item.change_percent || item.change || '0%'
+            }))
+          }
+
+          setMarketData(transformedData)
         }
       } catch (err) {
         console.error('获取市场数据失败:', err)
