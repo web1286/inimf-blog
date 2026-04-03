@@ -13,6 +13,164 @@ async function sha256(str: string): Promise<string> {
     .join('')
 }
 
+// 市场数据面板组件
+function MarketDataPanel() {
+  const [marketData, setMarketData] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetch('/data/market-data.json')
+      .then(res => res.json())
+      .then(data => {
+        setMarketData(data)
+        setLoading(false)
+      })
+      .catch(err => {
+        console.error('加载市场数据失败:', err)
+        setLoading(false)
+      })
+  }, [])
+
+  const renderSection = (title: string, items: any[]) => {
+    if (!items || items.length === 0) return null
+
+    return (
+      <div>
+        <h3 style={{
+          fontSize: '13px',
+          fontWeight: 600,
+          color: '#64748b',
+          marginBottom: '12px',
+          textTransform: 'uppercase',
+          letterSpacing: '0.5px',
+        }}>{title}</h3>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+          gap: '12px',
+        }}>
+          {items.map((item, idx) => {
+            const isUp = item.change_percent?.startsWith('+') || item.changePercent?.startsWith('+')
+            const value = item.value || item.change_percent ? item.value : item.change_percent
+            const change = item.change_percent || item.changePercent || '0.00%'
+
+            return (
+              <div key={idx} style={{
+                background: '#f8fafc',
+                padding: '12px',
+                borderRadius: '8px',
+                border: '1px solid #e2e8f0',
+              }}>
+                <div style={{
+                  fontSize: '12px',
+                  color: '#64748b',
+                  marginBottom: '4px',
+                }}>{item.name}</div>
+                <div style={{
+                  fontSize: '16px',
+                  fontWeight: 700,
+                  color: '#1e293b',
+                  marginBottom: '4px',
+                }}>{value || 'N/A'}</div>
+                <div style={{
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  color: isUp ? '#ef4444' : '#22c55e',
+                }}>{change}</div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  if (loading) {
+    return (
+      <div style={{
+        background: '#fff',
+        borderRadius: '12px',
+        border: '1px solid #e2e8f0',
+        padding: '24px',
+        textAlign: 'center',
+        color: '#64748b',
+      }}>
+        加载市场数据中...
+      </div>
+    )
+  }
+
+  if (!marketData) {
+    return (
+      <div style={{
+        background: '#fff',
+        borderRadius: '12px',
+        border: '1px solid #e2e8f0',
+        padding: '24px',
+        textAlign: 'center',
+        color: '#ef4444',
+      }}>
+        无法加载市场数据
+      </div>
+    )
+  }
+
+  return (
+    <div style={{
+      background: '#fff',
+      borderRadius: '12px',
+      border: '1px solid #e2e8f0',
+      padding: '20px',
+      boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
+    }}>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: '20px',
+        paddingBottom: '16px',
+        borderBottom: '1px solid #e2e8f0',
+      }}>
+        <div>
+          <h2 style={{
+            fontSize: '18px',
+            fontWeight: 700,
+            color: '#1e293b',
+            marginBottom: '4px',
+          }}>全球市场数据</h2>
+          <p style={{
+            fontSize: '13px',
+            color: '#64748b',
+            margin: 0,
+          }}>
+            更新时间: {marketData.updatedAt || marketData.timestamp || '未知'}
+          </p>
+        </div>
+        <span style={{
+          fontSize: '12px',
+          color: '#22c55e',
+          background: '#f0fdf4',
+          padding: '4px 12px',
+          borderRadius: '20px',
+          fontWeight: 500,
+        }}>实时</span>
+      </div>
+
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+        gap: '24px',
+      }}>
+        {renderSection('全球股指', marketData.indices)}
+        {renderSection('国债收益率', marketData.treasury_bonds)}
+        {renderSection('大宗商品', marketData.commodities)}
+        {renderSection('加密货币', marketData.crypto)}
+        {renderSection('汇率', marketData.forex)}
+      </div>
+    </div>
+  )
+}
+
 export default function Analytics() {
   const [authed, setAuthed] = useState(false)
   const [input, setInput] = useState('')
@@ -217,7 +375,10 @@ export default function Analytics() {
           </header>
 
           {/* 主内容 */}
-          <main style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+          <main style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+
+            {/* 市场数据卡片 */}
+            <MarketDataPanel />
 
             {/* Umami Dashboard iframe 嵌入 */}
             <div style={{
@@ -231,8 +392,8 @@ export default function Analytics() {
                 src="https://cloud.umami.is/share/xAfV1LGeC6I9HobB"
                 style={{
                   width: '100%',
-                  height: 'calc(100vh - 120px)',
-                  minHeight: '700px',
+                  height: 'calc(100vh - 420px)',
+                  minHeight: '500px',
                   border: 'none',
                   display: 'block',
                 }}
